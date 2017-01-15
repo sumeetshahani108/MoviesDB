@@ -2,6 +2,7 @@ package com.example.user.moviesdb.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +23,15 @@ public class MovieGenreAdapter  extends RecyclerView.Adapter<MovieGenreAdapter.D
     private List<MovieGenreDataList> listData ;
 
     public MovieGenreAdapter(List<MovieGenreDataList> listData, Context c) {
-        this.inflater = LayoutInflater.from(c);
+        inflater = LayoutInflater.from(c);
         this.listData = listData;
     }
 
     @Override
     public DataHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.home_movies_cards,parent,false);
-        return new DataHolder(view);
+        DataHolder dataHolder = new DataHolder(view);
+        return dataHolder;
     }
 
     @Override
@@ -50,7 +52,7 @@ public class MovieGenreAdapter  extends RecyclerView.Adapter<MovieGenreAdapter.D
         public DataHolder(View itemView){
             super(itemView);
             genre = (TextView) itemView.findViewById(R.id.lbl_item_genre);
-            container = (View) itemView.findViewById(R.id.genre_item_container);
+            container = itemView.findViewById(R.id.genre_item_container);
         }
 
         @Override

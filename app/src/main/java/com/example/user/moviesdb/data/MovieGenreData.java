@@ -25,10 +25,11 @@ public class MovieGenreData {
 
     public static List<MovieGenreDataList> getMovieGenreListData(){
         List<MovieGenreDataList> data = new ArrayList<>();
-        for (int i=0 ; i < genres.length ; i++){
-            MovieGenreDataList item = new MovieGenreDataList();
-            item.setGenre(genres[i]);
-        }
+            for (int i=0 ; i < genres.length ; i++){
+                MovieGenreDataList item = new MovieGenreDataList();
+                item.setGenre(genres[i]);
+                data.add(item);
+            }
         return data;
     }
 }

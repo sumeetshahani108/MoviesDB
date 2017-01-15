@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_white_24dp"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_movies"
+        android:icon="@drawable/ic_local_movies_white_24dp"
+        android:title="Movies" />
+
+    <item
+        android:id="@+id/nav_tv"
+        android:icon="@drawable/ic_tv_white_24dp"
+        android:title="TV" />
+
+    <item
+        android:id="@+id/nav_celebrities"
+        android:icon="@drawable/ic_people_white_24dp"
+        android:title="Celebs" />
+
+    <item
+        android:id="@+id/nav_news"
+        android:icon="@drawable/ic_public_white_24dp"
+        android:title="News" />
+
+    <item android:title="Your MoviesDB">
+        <menu>
+            <item
+                android:id="@+id/nav_personal_account"
+                android:title="Your Account"/>
+
+            <item
+                android:id="@+id/nav_personal_wishlist"
+                android:title="Your Wishlist"/>
+
+            <item
+                android:id="@+id/nav_personal_favourites"
+                android:title="Favourites"  />
+
+            <item
+                android:id="@+id/nav_personal_rated_movies"
+                android:title="Rated Movies" />
+
+            <item
+                android:id="@+id/nav_personal_notifications"
+                android:title="Notifications" />
+
+            <item
+                android:id="@+id/nav_logout"
+                android:title="Logout"/>
+        </menu>
+    </item>
+
+</menu>

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.example.user.moviesdb.adapters.MovieGenreAdapter;
 import com.example.user.moviesdb.data.MovieGenreData;
 
 import java.util.ArrayList;
@@ -21,20 +22,20 @@ public class HomeScreenMoviesPage extends Fragment {
     GridView myGridView;
     private ArrayList listData ;
     private RecyclerView recView;
+    private MovieGenreAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        listData = (ArrayList) MovieGenreData.getMovieGenreListData();
+        adapter = new MovieGenreAdapter(listData, getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_home_movies_page, container, false);
-
-        listData = (ArrayList) MovieGenreData.getMovieGenreListData();
-        recView = (RecyclerView) v.findViewById(R.id.recycleView);
+        recView = (RecyclerView) v.findViewById(R.id.rec_list);
 
         if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             recView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -42,7 +43,7 @@ public class HomeScreenMoviesPage extends Fragment {
         else{
             recView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         }
-
+        recView.setAdapter(adapter);
         return v;
     }
 }

@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     TextView statusTextView;
     SignInButton signInButton;
-    Button signoutButton;
     GoogleApiClient googleApiClient;
 
     private static final String TAG = "Activity";
@@ -48,10 +47,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         statusTextView = (TextView) findViewById(R.id.status_textview);
         signInButton = (SignInButton) findViewById(R.id.signin_button);
-        signoutButton = (Button) findViewById(R.id.signout_button);
 
         signInButton.setOnClickListener(this);
-        signoutButton.setOnClickListener(this);
 
     }
 
@@ -62,9 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.signin_button:
                 signin();
-                break;
-            case R.id.signout_button:
-                signout();
                 break;
         }
     }
@@ -80,12 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if(requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            /*Log.d(TAG, "data:" + data);
-            Log.d(TAG, "handleSignInResult:" + result.isSuccess());
-            if (result.isSuccess()) {
-                GoogleSignInAccount acc = result.getSignInAccount();
-                statusTextView.setText("heloo" + acc.getDisplayName());*/
-                 handleSignInResult(result);
+            handleSignInResult(result);
         }
     }
 
@@ -106,14 +95,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Log.d(TAG, "onConnectionFailed: "+ connectionResult);
     }
 
-    private void signout() {
+   /* private void signout() {
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
                 statusTextView.setText("Signed out");
             }
         });
-    }
+    }*/
 
 
 }

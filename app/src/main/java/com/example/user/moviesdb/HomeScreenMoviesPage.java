@@ -1,6 +1,7 @@
 package com.example.user.moviesdb;
 
 import android.app.LoaderManager;
+
 import android.content.Loader;
 import android.content.res.Configuration;
 import android.os.Parcelable;
@@ -22,7 +23,7 @@ import com.example.user.moviesdb.data.MovieGenreDataList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeScreenMoviesPage extends Fragment implements LoaderManager.LoaderCallbacks<List<MovieGenreDataList>> {
+public class HomeScreenMoviesPage extends Fragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<List<MovieGenreDataList>> {
 
     GridView myGridView;
     private ArrayList listData ;
@@ -54,25 +55,24 @@ public class HomeScreenMoviesPage extends Fragment implements LoaderManager.Load
         }
 
         recView.setAdapter(adapter);
-        
+        getLoaderManager().initLoader(MOVIE_GENRE_LIST_ID, null, this);
         return v;
     }
 
     @Override
-    public Loader<List<MovieGenreDataList>> onCreateLoader(int id, Bundle args) {
+    public android.support.v4.content.Loader<List<MovieGenreDataList>> onCreateLoader(int id, Bundle args) {
         return new MovieGenreListLoader(getActivity(), Movie_Genre_List_Url);
     }
 
     @Override
-    public void onLoadFinished(Loader<List<MovieGenreDataList>> loader, List<MovieGenreDataList> data) {
+    public void onLoadFinished(android.support.v4.content.Loader<List<MovieGenreDataList>> loader, List<MovieGenreDataList> data) {
         if(data != null && !data.isEmpty()){
-          adapter.swap(data);
+            adapter.swap(data);
         }
     }
 
     @Override
-    public void onLoaderReset(Loader<List<MovieGenreDataList>> loader) {
+    public void onLoaderReset(android.support.v4.content.Loader<List<MovieGenreDataList>> loader) {
         adapter.clear();
     }
-
 }

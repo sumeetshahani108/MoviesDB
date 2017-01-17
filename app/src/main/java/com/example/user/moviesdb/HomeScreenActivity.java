@@ -1,6 +1,7 @@
 
 package com.example.user.moviesdb;
 
+import android.app.LoaderManager;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -20,7 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class HomeScreenActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,HomeViewPagerItemFragment.FragmentPagerItemCallback, NavigationView.OnNavigationItemSelectedListener {
+public class HomeScreenActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,HomeViewPagerItemFragment.FragmentPagerItemCallback, NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout mDrawerLayout ;
     private ActionBarDrawerToggle mToggle;

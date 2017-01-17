@@ -1,6 +1,7 @@
 package com.example.user.moviesdb;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
         name = (EditText) findViewById(R.id.register_name);
         password = (EditText) findViewById(R.id.register_password);
@@ -58,17 +59,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void startRegister() {
-        String rName = name.getText().toString().trim();
-        String rPassword = password.getText().toString().trim();
+        //Log.d(TAG, " inside startregister ");
+        final String rName = name.getText().toString().trim();
+        final String rPassword = password.getText().toString().trim();
         String rConfirmPassword = confirmPassword.getText().toString().trim();
-        String rEmail = email.getText().toString().trim();
+        final String rEmail = email.getText().toString().trim();
 
         if (!TextUtils.isEmpty(rName) &&
                 !TextUtils.isEmpty(rPassword) &&
                 !TextUtils.isEmpty(rConfirmPassword) &&
-                !TextUtils.isEmpty(rEmail)) {
-            if (rPassword == rConfirmPassword) {
-
+                !TextUtils.isEmpty(rEmail))  {
+            Log.d(TAG, " not empty ");
                 progessDialog.setMessage("Signing Up...");
                 progessDialog.show();
 
@@ -76,12 +77,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, " insiddecreateUserWithEmailAndPassword ");
+                            Log.d(TAG, " insidecreateUserWithEmailAndPassword ");
+                            String user_id = mAuth.getCurrentUser().getUid();
+                            DatabaseReference current_user_id = mDatabase.child(user_id);
+                            current_user_id.child("name").setValue(rName);
+                            current_user_id.child("password").setValue(rPassword);
+                            current_user_id.child("email").setValue(rEmail);
+                            progessDialog.dismiss();
+
+                            Intent registeredIntent = new Intent(RegisterActivity.this,ProfileDetailsActivity.class);
+                            registeredIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(registeredIntent);
                         }
 
                     }
                 });
-            }
+
 
         }
 

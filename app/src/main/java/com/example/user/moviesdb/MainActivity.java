@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         loginButton = (Button) findViewById(R.id.login_button);
-        signinButton = (Button) findViewById(R.id.signin_button);
+        signinButton = (Button) findViewById(R.id.signup_button);
 
         loginButton.setOnClickListener(this);
         signinButton.setOnClickListener(this);
@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login_button:
-                /*Intent loginintent = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(loginintent);*/
+                Intent loginintent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(loginintent);
                 break;
-            case R.id.signin_button:
+            case R.id.signup_button:
                 Intent registerintent = new Intent(MainActivity.this,RegisterActivity.class);
                 startActivity(registerintent);
                 break;

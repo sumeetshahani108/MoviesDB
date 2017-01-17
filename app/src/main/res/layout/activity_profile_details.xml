@@ -10,13 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.user.moviesdb.ProfileDetailsActivity">
 
-    <TextView
-        android:text="TextView"
+    <Button
+        android:text="signout"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="77dp"
-        android:layout_marginTop="94dp"
-        android:id="@+id/textView2" />
+        android:layout_marginTop="28dp"
+        android:id="@+id/signout_button" />
 </RelativeLayout>

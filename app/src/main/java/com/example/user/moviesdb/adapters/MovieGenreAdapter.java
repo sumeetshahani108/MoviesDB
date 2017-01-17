@@ -40,6 +40,16 @@ public class MovieGenreAdapter  extends RecyclerView.Adapter<MovieGenreAdapter.D
         holder.genre.setText(item.getGenre());
     }
 
+    public void swap(List<MovieGenreDataList> data){
+        listData.clear();
+        listData.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public void clear(){
+        listData.clear();
+    }
+
     @Override
     public int getItemCount() {
         return listData.size();

@@ -3,9 +3,6 @@ package com.example.user.moviesdb.data;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by user on 15-01-2017.
- */
 
 public class MovieGenreData {
     private static final String[] genres = {
@@ -23,12 +20,18 @@ public class MovieGenreData {
             "Comedy"
     };
 
+    private static final int[] id = {
+            1,2,3,4,1,2,3,4,1,2,3,4
+    };
+
     public static List<MovieGenreDataList> getMovieGenreListData(){
         List<MovieGenreDataList> data = new ArrayList<>();
-        for (int i=0 ; i < genres.length ; i++){
-            MovieGenreDataList item = new MovieGenreDataList();
-            item.setGenre(genres[i]);
-        }
+            for (int i=0 ; i < genres.length ; i++){
+                MovieGenreDataList item = new MovieGenreDataList();
+                item.setGenre(genres[i]);
+                item.setId(id[i]);
+                data.add(item);
+            }
         return data;
     }
 }

@@ -6,7 +6,24 @@ package com.example.user.moviesdb.data;
 
 public class MovieGenreDataList {
     private String genre;
-    private String image;
+    private int id;
+
+    public MovieGenreDataList(){
+
+    }
+
+    public MovieGenreDataList(String genre, int id) {
+        this.genre = genre;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getGenre() {
         return genre;
@@ -16,11 +33,4 @@ public class MovieGenreDataList {
         this.genre = genre;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }

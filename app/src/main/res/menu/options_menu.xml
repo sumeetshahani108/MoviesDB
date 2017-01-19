@@ -13,9 +13,4 @@
         android:title="Profile"
         android:icon="@drawable/ic_perm_identity_white_24dp"
         />
-    <item
-        android:id="@+id/signout_button"
-        android:title="SignOut"
-        android:icon="@drawable/ic_perm_identity_white_24dp"
-        />
 </menu>

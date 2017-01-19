@@ -52,6 +52,7 @@ public class HomeScreenMoviesPage extends Fragment implements android.support.v4
         else{
             recView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         }
+
         recView.setAdapter(adapter);
 
         getLoaderManager().initLoader(MOVIE_GENRE_LIST_ID, null, this);

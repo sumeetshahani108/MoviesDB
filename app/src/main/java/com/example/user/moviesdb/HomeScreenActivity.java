@@ -68,6 +68,22 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.view_profile:
+                viewProfile();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void viewProfile() {
+        Intent intent = new Intent(HomeScreenActivity.this, ProfileDetailsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(MenuItem item){
         int id = item.getItemId();
         if(id == R.id.nav_home){
@@ -163,11 +179,4 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

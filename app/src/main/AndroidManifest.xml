@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MovieScreenActivity" />
+        <activity android:name=".GenreDetailActivity"></activity>
     </application>
 
 </manifest>

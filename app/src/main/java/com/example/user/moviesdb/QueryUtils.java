@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.user.moviesdb.data.MovieGenreDataList;
+import com.example.user.moviesdb.data.MovieGenreItemsDataList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +44,19 @@ public class QueryUtils {
 
         List<MovieGenreDataList> movieGenreList = extractFeatureFromJSONMovieGenreList(jsonResponse);
         return movieGenreList;
+    }
+
+    public static List<MovieGenreItemsDataList> fetchMovieGenreItemListData(String requestUrl){
+        URL url = createUrl(requestUrl);
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpGetRequest(url);
+        }catch (IOException e){
+            Log.e(Log_Tag, "Problem Making the HTTP Request",e);
+        }
+
+        List<MovieGenreItemsDataList> movieGenreItemsDataLists = extractFeatureFromJSONMovieGenreItemList(jsonResponse);
+        return movieGenreItemsDataLists;
     }
 
     private static URL createUrl(String stringUrl) {
@@ -130,5 +144,33 @@ public class QueryUtils {
         }
 
         return movieGenreList;
+    }
+
+    private static List<MovieGenreItemsDataList> extractFeatureFromJSONMovieGenreItemList(String movieGenreListItemJSON){
+        if (TextUtils.isEmpty(movieGenreListItemJSON)){
+            return null;
+        }
+        List<MovieGenreItemsDataList> movieGenreItemsDataList = new ArrayList<>();
+
+        try{
+            JSONObject baseJSONResponse = new JSONObject(movieGenreListItemJSON);
+            JSONArray results = baseJSONResponse.getJSONArray("results");
+
+            for(int i = 0 ; i < results.length() ; i++){
+                JSONObject currentResult = results.getJSONObject(i);
+
+                String title = currentResult.getString("");
+                String release_date = currentResult.getString("");
+                String description = currentResult.getString("");
+
+                MovieGenreItemsDataList movieGenreItemsDataLists = new MovieGenreItemsDataList(title, release_date,description);
+                movieGenreItemsDataList.add(movieGenreItemsDataLists);
+
+            }
+
+        }catch (JSONException e){
+            Log.e("QueryUtils","Problem parsing the MovieGenreList JSON results",e);
+        }
+        return movieGenreItemsDataList;
     }
 }

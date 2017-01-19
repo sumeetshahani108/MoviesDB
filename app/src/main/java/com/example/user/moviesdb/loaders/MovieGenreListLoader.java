@@ -1,8 +1,9 @@
-package com.example.user.moviesdb;
+package com.example.user.moviesdb.loaders;
 
 import 	android.support.v4.content.AsyncTaskLoader ;
 import android.content.Context;
 
+import com.example.user.moviesdb.QueryUtils;
 import com.example.user.moviesdb.data.MovieGenreDataList;
 
 

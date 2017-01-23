@@ -2,6 +2,7 @@ package com.example.user.moviesdb.loaders;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.util.Log;
 
 import com.example.user.moviesdb.QueryUtils;
 import com.example.user.moviesdb.data.MovieGenreItemsDataList;

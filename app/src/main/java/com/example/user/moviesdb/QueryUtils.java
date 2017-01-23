@@ -134,7 +134,6 @@ public class QueryUtils {
 
                 int id = currentGenre.getInt("id");
                 String name = currentGenre.getString("name");
-
                 MovieGenreDataList movieGenreDataList = new MovieGenreDataList(name, id);
                 movieGenreList.add(movieGenreDataList);
             }
@@ -159,9 +158,9 @@ public class QueryUtils {
             for(int i = 0 ; i < results.length() ; i++){
                 JSONObject currentResult = results.getJSONObject(i);
 
-                String title = currentResult.getString("");
-                String release_date = currentResult.getString("");
-                String description = currentResult.getString("");
+                String title = currentResult.getString("title");
+                String release_date = currentResult.getString("release_date");
+                String description = currentResult.getString("overview");
 
                 MovieGenreItemsDataList movieGenreItemsDataLists = new MovieGenreItemsDataList(title, release_date,description);
                 movieGenreItemsDataList.add(movieGenreItemsDataLists);

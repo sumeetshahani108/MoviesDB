@@ -2,6 +2,8 @@ package com.example.user.moviesdb.loaders;
 
 import 	android.support.v4.content.AsyncTaskLoader ;
 import android.content.Context;
+import android.support.v4.content.Loader;
+import android.util.Log;
 
 import com.example.user.moviesdb.QueryUtils;
 import com.example.user.moviesdb.data.MovieGenreDataList;
@@ -29,7 +31,7 @@ public class MovieGenreListLoader extends AsyncTaskLoader<List<MovieGenreDataLis
         if(this.mUrl == null){
             return null;
         }
-
+        Log.d(LOG_TAG, this.mUrl);
         List<MovieGenreDataList> genre_list = QueryUtils.fetchMovieGenreListData(this.mUrl);
         return genre_list;
     }

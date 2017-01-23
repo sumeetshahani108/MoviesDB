@@ -52,6 +52,10 @@ public class MovieGenreItemAdapter extends RecyclerView.Adapter<MovieGenreItemAd
         listData.clear();
     }
 
+    public List<MovieGenreItemsDataList> getListData(){
+        return listData;
+    }
+
     @Override
     public int getItemCount() {
         return listData.size();

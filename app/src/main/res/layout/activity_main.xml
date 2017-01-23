@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,19 +21,30 @@
         android:id="@+id/textView" />
 
     <Button
-        android:text="Login "
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:id="@+id/login_button"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Register"
+        android:text="Register with moviesDB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/signup_button"
+        android:layout_marginTop="29dp"
         android:layout_below="@+id/login_button"
         android:layout_alignParentStart="true" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="133dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true">
+    </com.google.android.gms.common.SignInButton>
+
+    <Button
+        android:text="Login with email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:id="@+id/login_button"
+        android:layout_below="@+id/google_button"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

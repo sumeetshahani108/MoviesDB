@@ -3,6 +3,7 @@ package com.example.user.moviesdb;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -168,16 +169,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
     private void getImage() {
-        Intent imageIntent = new Intent();
+       /* Intent imageIntent = new Intent();
         imageIntent.setAction(Intent.ACTION_GET_CONTENT);
         imageIntent.setType("image/*");
-        startActivityForResult(imageIntent, GALLERY_REQUEST);
+        startActivityForResult(imageIntent, GALLERY_REQUEST);*/
+
+        Intent imageIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        imageIntent.putExtra("crop","true");
+        imageIntent.putExtra("aspectX", 1);
+        imageIntent.putExtra("aspectY", 1);
+        imageIntent.putExtra("outputX", 200);
+        imageIntent.putExtra("outputY", 200);
+        imageIntent.putExtra("returen_data", true);
+        startActivityForResult(imageIntent, 2);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       // super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, " 1.requestCode " + requestCode);
+        super.onActivityResult(requestCode, resultCode, data);
+       /* Log.d(TAG, " 1.requestCode " + requestCode);
         Log.d(TAG, " 1.resultCode " + resultCode);
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             Log.d(TAG, " if ");
@@ -201,7 +211,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Log.d(TAG, " 2.requestCode " + resultCode);
                 Exception error = result.getError();
             }
+        }*/
+
+
+        if(requestCode == 2 && resultCode == RESULT_OK && data !=null){
+            Bundle extras = data.getExtras();
+            Bitmap image = extras.getParcelable("data");
+            profileImage.setImageBitmap(image);
         }
+
     }
 
     private void startCreateAccount() {

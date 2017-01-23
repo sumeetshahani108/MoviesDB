@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 public class HomeScreenActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,HomeViewPagerItemFragment.FragmentPagerItemCallback, NavigationView.OnNavigationItemSelectedListener{
 
+    private static final String TAG = "HOMESCREENACTIVITY";
     private DrawerLayout mDrawerLayout ;
     private ActionBarDrawerToggle mToggle;
 
@@ -71,6 +73,7 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.view_profile:
+                Log.d(TAG, "inside switch");
                 viewProfile();
                 return true;
 
@@ -79,6 +82,7 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
     }
 
     private void viewProfile() {
+        Log.d(TAG, "inside view profile");
         Intent intent = new Intent(HomeScreenActivity.this, ProfileDetailsActivity.class);
         startActivity(intent);
     }

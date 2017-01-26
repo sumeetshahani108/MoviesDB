@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.user.moviesdb.data.MovieGenreDataList;
+import com.example.user.moviesdb.data.MovieGenreItemsDataList;
+import com.example.user.moviesdb.data.MovieItemList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +45,32 @@ public class QueryUtils {
 
         List<MovieGenreDataList> movieGenreList = extractFeatureFromJSONMovieGenreList(jsonResponse);
         return movieGenreList;
+    }
+
+    public static List<MovieGenreItemsDataList> fetchMovieGenreItemListData(String requestUrl){
+        URL url = createUrl(requestUrl);
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpGetRequest(url);
+        }catch (IOException e){
+            Log.e(Log_Tag, "Problem Making the HTTP Request",e);
+        }
+
+        List<MovieGenreItemsDataList> movieGenreItemsDataLists = extractFeatureFromJSONMovieGenreItemList(jsonResponse);
+        return movieGenreItemsDataLists;
+    }
+
+    public static List<MovieItemList> fetchMovieListData(String requestUrl){
+        URL url = createUrl(requestUrl);
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpGetRequest(url);
+        }catch (IOException e){
+            Log.e(Log_Tag, "Problem Making the HTTP Request",e);
+        }
+
+        List<MovieItemList> movieItemData = extractFeatureFromJSONMovieList(jsonResponse);
+        return movieItemData;
     }
 
     private static URL createUrl(String stringUrl) {
@@ -120,7 +148,6 @@ public class QueryUtils {
 
                 int id = currentGenre.getInt("id");
                 String name = currentGenre.getString("name");
-
                 MovieGenreDataList movieGenreDataList = new MovieGenreDataList(name, id);
                 movieGenreList.add(movieGenreDataList);
             }
@@ -130,5 +157,55 @@ public class QueryUtils {
         }
 
         return movieGenreList;
+    }
+
+    private static List<MovieGenreItemsDataList> extractFeatureFromJSONMovieGenreItemList(String movieGenreListItemJSON){
+        if (TextUtils.isEmpty(movieGenreListItemJSON)){
+            return null;
+        }
+        List<MovieGenreItemsDataList> movieGenreItemsDataList = new ArrayList<>();
+
+        try{
+            JSONObject baseJSONResponse = new JSONObject(movieGenreListItemJSON);
+            JSONArray results = baseJSONResponse.getJSONArray("results");
+
+            for(int i = 0 ; i < results.length() ; i++){
+                JSONObject currentResult = results.getJSONObject(i);
+
+                String title = currentResult.getString("title");
+                String release_date = currentResult.getString("release_date");
+                String description = currentResult.getString("overview");
+
+                MovieGenreItemsDataList movieGenreItemsDataLists = new MovieGenreItemsDataList(title, release_date,description);
+                movieGenreItemsDataList.add(movieGenreItemsDataLists);
+
+            }
+
+        }catch (JSONException e){
+            Log.e("QueryUtils","Problem parsing the MovieGenreList JSON results",e);
+        }
+        return movieGenreItemsDataList;
+    }
+
+    private static List<MovieItemList> extractFeatureFromJSONMovieList(String movieItemJSON){
+        if(TextUtils.isEmpty(movieItemJSON)){
+            return null;
+        }
+        List<MovieItemList> movieItemList = new ArrayList<>();
+        try{
+            JSONObject baseJSONResponse = new JSONObject(movieItemJSON);
+            JSONArray results = baseJSONResponse.getJSONArray("results");
+
+            for (int i = 0 ; i < results.length() ; i++){
+                JSONObject currentResult = results.getJSONObject(i);
+                String title = currentResult.getString("title");
+                int id = currentResult.getInt("id");
+                MovieItemList movieItemListData = new MovieItemList(title, id);
+                movieItemList.add(movieItemListData);
+            }
+        }catch (JSONException e){
+            Log.e("QueryUtils","Problem parsing the MovieGenreList JSON results",e);
+        }
+        return  movieItemList;
     }
 }

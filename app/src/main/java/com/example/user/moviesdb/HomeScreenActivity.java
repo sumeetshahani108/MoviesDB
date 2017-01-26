@@ -72,12 +72,15 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.view_profile:
                 Log.d(TAG, "inside switch");
                 viewProfile();
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -93,6 +96,7 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
     @Override
     public boolean onNavigationItemSelected(MenuItem item){
         int id = item.getItemId();
+        Log.d(TAG, "here");
         if(id == R.id.nav_home){
             Intent homeIntent = new Intent(HomeScreenActivity.this, HomeScreenActivity.class);
             startActivity(homeIntent);

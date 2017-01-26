@@ -21,8 +21,19 @@ public class MovieGenreAdapter  extends RecyclerView.Adapter<MovieGenreAdapter.D
 
     private LayoutInflater inflater ;
     private List<MovieGenreDataList> listData ;
+    private itemClickCallback itemClickCallback ;
+    private static final String TAG = "MovieGenreAdapter";
 
-    public MovieGenreAdapter(List<MovieGenreDataList> listData, Context c) {
+    public interface itemClickCallback{
+        void onItemClick(int p);
+    }
+
+    public void setItemClickCallback(final itemClickCallback itemClickCallback) {
+        this.itemClickCallback = itemClickCallback ;
+    }
+
+    public
+    MovieGenreAdapter(List<MovieGenreDataList> listData, Context c) {
         inflater = LayoutInflater.from(c);
         this.listData = listData;
     }
@@ -63,11 +74,15 @@ public class MovieGenreAdapter  extends RecyclerView.Adapter<MovieGenreAdapter.D
             super(itemView);
             genre = (TextView) itemView.findViewById(R.id.lbl_item_genre);
             container = itemView.findViewById(R.id.genre_item_container);
+            container.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v){
-
+            if(v.getId() == R.id.genre_item_container){
+                MovieGenreDataList item = listData.get(getAdapterPosition());
+                itemClickCallback.onItemClick(item.getId());
+            }
         }
     }
 }

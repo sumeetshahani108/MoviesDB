@@ -90,22 +90,25 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(parent.getContext(), "Selected Item is "+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+       // Toast.makeText(parent.getContext(), "Selected Item is "+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
         //String selected = parent.getItemAtPosition(position).toString();
-        if(parent.getItemAtPosition(position).toString() == "Now Playing"){
+        if(parent.getItemAtPosition(position).toString().equals("Now Playing")){
             Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
             movie_url = "https://api.themoviedb.org/3/movie/now_playing?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
             getLoaderManager().initLoader(MOVIE_LIST_ID, null, this);
 
-        } else if (parent.getItemAtPosition(position).toString() == "Popular"){
+        } else if (parent.getItemAtPosition(position).toString().equals("Popular") ){
+            Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
             movie_url = "https://api.themoviedb.org/3/movie/popular?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
             getLoaderManager().initLoader(MOVIE_LIST_ID, null, this);
 
-        }else if(parent.getItemAtPosition(position).toString() == "Top Rated"){
+        }else if(parent.getItemAtPosition(position).toString().equals("Top Rated")){
+            Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
             movie_url = "https://api.themoviedb.org/3/movie/top_rated?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
             getLoaderManager().initLoader(MOVIE_LIST_ID, null, this);
 
-        }else if(parent.getItemAtPosition(position).toString() == "Upcoming"){
+        }else if(parent.getItemAtPosition(position).toString().equals("Upcoming")){
+            Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
             movie_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
             getLoaderManager().initLoader(MOVIE_LIST_ID, null, this);
         }

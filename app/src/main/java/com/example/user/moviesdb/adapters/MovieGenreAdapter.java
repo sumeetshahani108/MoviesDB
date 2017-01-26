@@ -55,7 +55,6 @@ public class MovieGenreAdapter  extends RecyclerView.Adapter<MovieGenreAdapter.D
         listData.clear();
         listData.addAll(data);
         notifyDataSetChanged();
-
     }
 
     public void clear(){

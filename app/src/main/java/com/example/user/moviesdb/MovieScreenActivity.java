@@ -1,13 +1,18 @@
 package com.example.user.moviesdb;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,14 +27,27 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MovieScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
+import com.example.user.moviesdb.adapters.MovieItemAdapter;
+import com.example.user.moviesdb.data.MovieGenreDataList;
+import com.example.user.moviesdb.data.MovieItemData;
+import com.example.user.moviesdb.data.MovieItemList;
+import com.example.user.moviesdb.loaders.MovieItemLoader;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MovieScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener, android.app.LoaderManager.LoaderCallbacks<List<MovieItemList>> {
 
     private DrawerLayout mDrawerLayout ;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
-    private EditText editText ;
-    private String movie_url ;
+    private EditText editText;
+    private String movie_url;
     private static final String TAG = "MovieScreenActivity";
+    private MovieItemAdapter adapter;
+    private RecyclerView recyclerView;
+    private static final int MOVIE_LIST_ID = 1;
+    private ArrayList listData ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,47 +74,41 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         spinner.setAdapter(myAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        /*
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        listData = (ArrayList) MovieItemData.getMovieItemData();
+        adapter = new MovieItemAdapter(listData,this);
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_list);
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        */
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        }
+        else{
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        }
+        recyclerView.setAdapter(adapter);
     }
 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-        if(parent.getItemAtPosition(position).toString() == "Latest"){
-            movie_url = "https://api.themoviedb.org/3/movie/latest?api_key=b767446da35c14841562288874f02281&language=en-US";
-
-        }else if(parent.getItemAtPosition(position).toString() == "Now Playing"){
+        Toast.makeText(parent.getContext(), "Selected Item is "+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        //String selected = parent.getItemAtPosition(position).toString();
+        if(parent.getItemAtPosition(position).toString() == "Now Playing"){
+            Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
             movie_url = "https://api.themoviedb.org/3/movie/now_playing?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+            getLoaderManager().initLoader(MOVIE_LIST_ID, null, this);
 
         } else if (parent.getItemAtPosition(position).toString() == "Popular"){
             movie_url = "https://api.themoviedb.org/3/movie/popular?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+            getLoaderManager().initLoader(MOVIE_LIST_ID, null, this);
 
         }else if(parent.getItemAtPosition(position).toString() == "Top Rated"){
             movie_url = "https://api.themoviedb.org/3/movie/top_rated?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+            getLoaderManager().initLoader(MOVIE_LIST_ID, null, this);
 
         }else if(parent.getItemAtPosition(position).toString() == "Upcoming"){
             movie_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
-
+            getLoaderManager().initLoader(MOVIE_LIST_ID, null, this);
         }
-
     }
 
     @Override
@@ -169,4 +181,21 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
 
     }
 
+    @Override
+    public android.content.Loader<List<MovieItemList>> onCreateLoader(int id, Bundle args) {
+        return new MovieItemLoader(this, movie_url);
+    }
+
+    @Override
+    public void onLoadFinished(android.content.Loader<List<MovieItemList>> loader, List<MovieItemList> data) {
+        if(data != null && !data.isEmpty()){
+            Log.d(TAG, "here");
+            adapter.swap(data);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(android.content.Loader<List<MovieItemList>> loader) {
+        adapter.clear();
+    }
 }

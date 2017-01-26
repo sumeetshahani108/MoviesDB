@@ -11,7 +11,6 @@
     <string name="fb_login_protocol_scheme">fb208655439597418</string>
 
     <string-array name="options">
-        <item>Latest</item>
         <item>Now Playing</item>
         <item>Popular</item>
         <item>Top Rated</item>

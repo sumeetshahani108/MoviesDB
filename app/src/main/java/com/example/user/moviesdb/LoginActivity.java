@@ -120,10 +120,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if(dataSnapshot.hasChild(user_id)){
-                    finish();
-                    /*Intent loggedinIntent = new Intent(LoginActivity.this,ProfileDetailsActivity.class);
+
+                    Intent loggedinIntent = new Intent(LoginActivity.this,ProfileDetailsActivity.class);
                     loggedinIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(loggedinIntent);*/
+                    startActivity(loggedinIntent);
+                    finish();
                 }else{
                     Intent setupIntent = new Intent(LoginActivity.this,RegisterActivity.class);
                     setupIntent.putExtra("calling_activity",ActivityConstants.ACTIVITY_2);

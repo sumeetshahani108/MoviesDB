@@ -36,6 +36,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -81,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     CallbackManager mCallbackManager;
 
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
     private static final int RC_SIGN_IN = 9001;
     private static final int FACEBOOK_REQUEST_CODE = 64206;
 
@@ -102,6 +105,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }*/
 
         mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if(user != null ){
+                    Log.d(TAG, "if");
+                    finish();
+                }else {
+                    Log.d(TAG, "else");
+                }
+            }
+        };
+
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         facebookLoginButton = (LoginButton) findViewById(R.id.facebook_login_button);
        // mCallbackManager = CallbackManager.Factory.create();
@@ -207,11 +224,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.login_button:
                 Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(loginIntent);
+                finish();
                 break;
             case R.id.signup_button:
                 Intent registerIntent = new Intent(MainActivity.this,RegisterActivity.class);
                 registerIntent.putExtra("calling_activity",ActivityConstants.ACTIVITY_1);
                 startActivity(registerIntent);
+                finish();
                 break;
             case R.id.google_button:
                 signin();

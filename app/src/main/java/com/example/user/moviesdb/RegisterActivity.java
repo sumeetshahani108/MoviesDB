@@ -3,6 +3,7 @@ package com.example.user.moviesdb;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -45,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private static final String TAG = "RegisterActivity";
     private static final int GALLERY_REQUEST = 101;
     ImageButton profileImage;
+    Bitmap image;
     Uri imageUri = null;
     EditText name;
     EditText phoneNumber;
@@ -63,12 +65,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     String rPhoneNumber;
     String rSex;
 
+    Uri uri;
+
     ProgressDialog progessDialog;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private StorageReference mStorageImage;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private int PICK_IMAGE_REQUEST = 1;
+    private static final int GALLERY_INTENT = 2;
     //private ProgressBar textViewPasswordStrengthIndiactor;
 
     @Override
@@ -168,39 +173,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
     private void getImage() {
-        Intent imageIntent = new Intent();
-        imageIntent.setAction(Intent.ACTION_GET_CONTENT);
-        imageIntent.setType("image/*");
-        startActivityForResult(imageIntent, GALLERY_REQUEST);
+        Intent galleryItent = new Intent(Intent.ACTION_PICK);
+        galleryItent.putExtra("crop", "true");
+        galleryItent.setType("image/*");
+        startActivityForResult(galleryItent, GALLERY_INTENT);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       // super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, " 1.requestCode " + requestCode);
         Log.d(TAG, " 1.resultCode " + resultCode);
-        if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
             Log.d(TAG, " if ");
             Uri imageUri = data.getData();
-            CropImage.activity(imageUri)
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .start(this);
+            profileImage.setImageURI(imageUri);
 
         } else {
             Log.d(TAG, " else ");
 
-        }
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            Log.d(TAG, " 2.requestCode " + requestCode);
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                imageUri = result.getUri();
-                profileImage.setImageURI(imageUri);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Log.d(TAG, " 2.requestCode " + resultCode);
-                Exception error = result.getError();
-            }
         }
     }
 
@@ -277,7 +268,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void insertIntoDatabase() {
         Log.d(TAG, " inside insert into db ");
         final String user_id = mAuth.getCurrentUser().getUid();
-
+        Log.d(TAG, "user_id" + user_id);
         StorageReference filepath = mStorageImage.child(imageUri.getLastPathSegment());
         Log.d(TAG, " Filepath " + filepath);
         filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

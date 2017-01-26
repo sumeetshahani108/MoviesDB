@@ -1,6 +1,7 @@
 
 package com.example.user.moviesdb;
 
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -87,7 +88,9 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
     private void viewProfile() {
         Log.d(TAG, "inside view profile");
         Intent intent = new Intent(HomeScreenActivity.this, ProfileDetailsActivity.class);
+        intent.putExtra("calling_activity", ActivityConstants.ACTIVITY_3);
         startActivity(intent);
+        finish();
     }
 
     @Override

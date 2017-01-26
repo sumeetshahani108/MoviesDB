@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_profile"
     android:layout_width="match_parent"
@@ -10,12 +11,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.user.moviesdb.ProfileDetailsActivity">
 
-    <Button
-        android:text="signout"
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:id="@+id/profile_holder"
+        android:layout_height="50dp">
+
+        <TextView
+            android:text="Profile"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView2"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="normal|bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_below="@+id/profile_holder"
+        android:layout_alignParentStart="true"
+        android:layout_height="150dp"
+        android:id="@+id/linearLayout2">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/cast_expanded_controller_seekbar_thumb"
+            android:id="@+id/imageView" />
+    </LinearLayout>
+
+    <Button
+        android:text="Sign out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="28dp"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="31dp"
         android:id="@+id/signout_button" />
 </RelativeLayout>

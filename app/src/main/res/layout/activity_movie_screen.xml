@@ -15,14 +15,28 @@
             layout="@layout/navigation_action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/textSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search"/>
 
         <Spinner
             android:layout_width="298dp"
             android:layout_height="wrap_content"
             android:id="@+id/spinner"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="65dp"
             android:layout_alignParentRight="true"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_list"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#e8eaf6"
             />
     </LinearLayout>
 

@@ -9,19 +9,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-public class MovieScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MovieScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
 
-    private static final String TAG = "MOVIESCREENACTIVITY";
     private DrawerLayout mDrawerLayout ;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
+    private EditText editText ;
+    private String movie_url ;
+    private static final String TAG = "MovieScreenActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +54,53 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(MovieScreenActivity.this,android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.options));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(myAdapter);
+        spinner.setOnItemSelectedListener(this);
 
+        /*
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        */
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        if(parent.getItemAtPosition(position).toString() == "Latest"){
+            movie_url = "https://api.themoviedb.org/3/movie/latest?api_key=b767446da35c14841562288874f02281&language=en-US";
+
+        }else if(parent.getItemAtPosition(position).toString() == "Now Playing"){
+            movie_url = "https://api.themoviedb.org/3/movie/now_playing?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+
+        } else if (parent.getItemAtPosition(position).toString() == "Popular"){
+            movie_url = "https://api.themoviedb.org/3/movie/popular?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+
+        }else if(parent.getItemAtPosition(position).toString() == "Top Rated"){
+            movie_url = "https://api.themoviedb.org/3/movie/top_rated?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+
+        }else if(parent.getItemAtPosition(position).toString() == "Upcoming"){
+            movie_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
@@ -114,4 +168,5 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         return true;
 
     }
+
 }

@@ -32,7 +32,8 @@ public class MovieGenreAdapter  extends RecyclerView.Adapter<MovieGenreAdapter.D
         this.itemClickCallback = itemClickCallback ;
     }
 
-    public MovieGenreAdapter(List<MovieGenreDataList> listData, Context c) {
+    public
+    MovieGenreAdapter(List<MovieGenreDataList> listData, Context c) {
         inflater = LayoutInflater.from(c);
         this.listData = listData;
     }

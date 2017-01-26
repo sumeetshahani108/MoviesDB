@@ -68,6 +68,9 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent homescreenIntent = new Intent(ProfileDetailsActivity.this, HomeScreenActivity.class);
+        homescreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homescreenIntent);
         finish();
     }
 

@@ -24,10 +24,9 @@
             android:layout_height="match_parent"
             android:id="@+id/textView2"
             android:layout_weight="1"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:textSize="18sp"
-            android:textStyle="normal|bold" />
+            android:gravity="center_horizontal"
+            android:textAllCaps="false"
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -41,19 +40,55 @@
         android:id="@+id/linearLayout2">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/cast_expanded_controller_seekbar_thumb"
-            android:id="@+id/imageView" />
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center"
+            android:background="@drawable/circle" />
+
     </LinearLayout>
 
-    <Button
-        android:text="Sign out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="250dp"
         android:layout_below="@+id/linearLayout2"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="31dp"
-        android:id="@+id/signout_button" />
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <TextView
+                android:text="Name"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/textView4"
+                android:alpha="1"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:id="@+id/textView5"
+                android:alpha="1"
+                android:paddingLeft="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>

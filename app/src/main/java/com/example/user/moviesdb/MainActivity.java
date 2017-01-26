@@ -1,5 +1,6 @@
 package com.example.user.moviesdb;
 
+import android.app.Activity;
 import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -17,6 +19,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -42,6 +45,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SignInButton googleButton; /* login button for google*/
     Button loginButton; /* login with email and password*/
     Button signinButton; /* Register new account*/
+
+    TextView notForNow;
 
     ProgressDialog progressDialog;
 
@@ -75,30 +82,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CallbackManager mCallbackManager;
 
     private static final int RC_SIGN_IN = 9001;
+    private static final int FACEBOOK_REQUEST_CODE = 64206;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //facebook signin
-       // FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.sdkInitialize(getApplicationContext());
         /*
         gets the analytics
          */
         //AppEventsLogger.activateApp(getApplication());
-        //mCallbackManager = CallbackManager.Factory.create();
+        mCallbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_main);
         Log.d(TAG, "AAGAAYA");
 
+       /* if(getIntent().hasExtra("logout")){
+            LoginManager.getInstance().logOut();
+        }*/
+
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-        //facebookLoginButton = (LoginButton) findViewById(R.id.facebook_login_button);
+        facebookLoginButton = (LoginButton) findViewById(R.id.facebook_login_button);
        // mCallbackManager = CallbackManager.Factory.create();
-       // facebookLoginButton.setReadPermissions("email", " public_profile");
-        /*facebookLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        facebookLoginButton.setReadPermissions("email", " public_profile");
+        facebookLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 Log.d(TAG, "loginresult" +  loginResult);
+
             }
 
             @Override
@@ -110,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onError(FacebookException error) {
                 Log.d(TAG, "onerror");
             }
-        });*/
+        });
 
 
         googleButton = (SignInButton) findViewById(R.id.google_button);
@@ -148,27 +161,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        notForNow = (TextView) findViewById(R.id.not_for_now);
+        notForNow.setOnClickListener(this);
+
     }
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
         Log.d(TAG, "handleFacebookAccessToken");
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        Log.d(TAG, "access token" + credential);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential" + task.isSuccessful());
+                       // finish();
                         if(!task.isSuccessful()){
                             Log.d(TAG, "not success");
                             Log.d(TAG, "signInWithCredential" + task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                         }else{
                             Log.d(TAG, "success");
+                            //finish();
                             Intent facebookIntent = new Intent(MainActivity.this, ProfileDetailsActivity.class);
+                            facebookIntent.putExtra("facebookLogin", true);
                             startActivity(facebookIntent);
+                            finish();
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent backPressedIntent = new Intent(MainActivity.this, HomeScreenActivity.class);
+        backPressedIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_4);
+        startActivity(backPressedIntent);
+        finish();
     }
 
     @Override
@@ -185,6 +215,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.google_button:
                 signin();
+                break;
+            case R.id.not_for_now:
+                Intent homescreenIntent = new Intent(MainActivity.this, HomeScreenActivity.class);
+                homescreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homescreenIntent);
+                finish();
                 break;
         }
     }
@@ -219,10 +255,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "else");
 
             }
-        }else if(requestCode == 1){
+        }else if(requestCode == FACEBOOK_REQUEST_CODE){
+            mCallbackManager.onActivityResult(requestCode,resultCode, data);
 
         }
-      //  mCallbackManager.onActivityResult(requestCode,resultCode, data);
+
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -32,19 +33,42 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
        // Log.d(TAG, "user email" + mAuth.getCurrentUser().getEmail());
         mAuthListener = new FirebaseAuth.AuthStateListener(){
 
+            public String callingActivity;
+
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if(firebaseAuth.getCurrentUser() == null){
                     Log.d(TAG, "not signed in ");
-                    Intent loginIntent = new Intent(ProfileDetailsActivity.this, MainActivity.class);
-                    startActivity(loginIntent);
+                    Bundle bundle = getIntent().getExtras();
+                    callingActivity = bundle.getString("calling_activity");
+                    Log.d(TAG, "" + callingActivity);
+                    switch (callingActivity){
+
+                    case ActivityConstants.ACTIVITY_3:
+                        Log.d(TAG, "inside if ");
+                        Intent loginIntent = new Intent(ProfileDetailsActivity.this, MainActivity.class);
+                        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(loginIntent);
+                        finish();
+                        break;
+                    case ActivityConstants.ACTIVITY_4:
+                        Log.d(TAG, "inside else ");
+                        finish();
+                        break;// if the user presses back button then it should go bak to home screen instead of looping
+                    }
                 }else{
                     Log.d(TAG, "signed in");
                 }
             }
         };
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     @Override
@@ -57,8 +81,14 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         mAuth.signOut();
-        Intent mainactivityIntent = new Intent(ProfileDetailsActivity.this, MainActivity.class);
+        Log.d(TAG, "inside logout" );
+        if(getIntent().hasExtra("facebookLogin")){
+            LoginManager.getInstance().logOut();
+        }
+        /*Intent mainactivityIntent = new Intent(ProfileDetailsActivity.this, MainActivity.class);
         mainactivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(mainactivityIntent);
+        mainactivityIntent.putExtra("logout", true);
+        startActivity(mainactivityIntent);*/
+        finish();
     }
 }

@@ -7,6 +7,7 @@ android {
         applicationId "com.example.user.moviesdb"
         minSdkVersion 19
         targetSdkVersion 24
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -32,8 +33,14 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.google.firebase:firebase-database:10.0.1'
     compile 'com.google.firebase:firebase-storage:10.0.1'
+    compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.google.android.gms:play-services-auth:10.0.1'
+
+    //image crop
+    compile 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
     compile 'com.android.support:support-v4:24.2.1'
+
+    compile 'com.android.support:multidex:1.0.0'
     testCompile 'junit:junit:4.12'
 }
 

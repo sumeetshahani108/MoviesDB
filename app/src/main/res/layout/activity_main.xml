@@ -19,15 +19,6 @@
         android:layout_marginTop="57dp"
         android:id="@+id/textView" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/google_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="133dp"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true">
-    </com.google.android.gms.common.SignInButton>
-
     <Button
         android:text="Login "
         android:layout_width="match_parent"

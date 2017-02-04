@@ -53,10 +53,7 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
         shareButton.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
-        final String user_id = mAuth.getCurrentUser().getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(user_id);
-        Log.d(TAG, "user id" +user_id);
-        Log.d(TAG, "user email" + mAuth.getCurrentUser().getEmail());
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener(){
 
@@ -87,25 +84,30 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
                     }
                 }else{
                     Log.d(TAG, "signed in");
+                    final String user_id = mAuth.getCurrentUser().getUid();
+                    mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(user_id);
+                    Log.d(TAG, "user id" +user_id);
+                    Log.d(TAG, "user email" + mAuth.getCurrentUser().getEmail());
+                    mDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.d(TAG, "inside");
+                            Log.d(TAG, "name" + dataSnapshot.child("name").getValue());
+                            getName.setText(dataSnapshot.child("name").getValue().toString());
+                            Log.d(TAG, "phone number" + dataSnapshot.child("phone_number").getValue());
+                            getPhone.setText(dataSnapshot.child("phone_number").getValue().toString());
+                            Log.d(TAG, "email" + mAuth.getCurrentUser().getEmail());
+                            getEmail.setText(mAuth.getCurrentUser().getEmail());
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         };
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "inside");
-                Log.d(TAG, "name" + dataSnapshot.child("name").getValue());
-                getName.setText(dataSnapshot.child("name").getValue().toString());
-                getPhone.setText(dataSnapshot.child("phone_number").getValue().toString());
-                getEmail.setText(mAuth.getCurrentUser().getEmail());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
@@ -153,6 +155,9 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
         if(getIntent().hasExtra("facebookLogin")){
             LoginManager.getInstance().logOut();
         }
+        Intent afterSignoutIntent = new Intent(ProfileDetailsActivity.this, HomeScreenActivity.class);
+        afterSignoutIntent.putExtra("calling_activity",ActivityConstants.ACTIVITY_4);
+        startActivity(afterSignoutIntent);
         finish();
     }
 }

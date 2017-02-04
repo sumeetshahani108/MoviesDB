@@ -47,7 +47,7 @@ public class HomeScreenMoviesPage extends Fragment implements android.support.v4
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_home_movies_page, container, false);
-        recView = (RecyclerView) v.findViewById(R.id.rec_list);
+        recView = (RecyclerView) v.findViewById(R.id.movies_rec_list);
 
         if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             recView.setLayoutManager(new GridLayoutManager(getActivity(), 2));

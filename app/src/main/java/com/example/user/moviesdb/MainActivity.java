@@ -109,10 +109,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = mAuth.getCurrentUser();
-                if(user != null ){
+                if (user != null) {
                     Log.d(TAG, "if");
                     finish();
-                }else {
+                } else {
                     Log.d(TAG, "else");
                 }
             }
@@ -120,14 +120,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+
         facebookLoginButton = (LoginButton) findViewById(R.id.facebook_login_button);
-       // mCallbackManager = CallbackManager.Factory.create();
         facebookLoginButton.setReadPermissions("email", " public_profile");
         facebookLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                Log.d(TAG, "loginresult" +  loginResult);
+                Log.d(TAG, "loginresult" + loginResult);
 
             }
 
@@ -184,6 +184,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
+        progressDialog.setMessage("Signin in....");
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
         Log.d(TAG, "handleFacebookAccessToken");
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
         Log.d(TAG, "access token" + credential);
@@ -192,18 +195,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential" + task.isSuccessful());
-                       // finish();
-                        if(!task.isSuccessful()){
+                        // finish();
+                        if (!task.isSuccessful()) {
                             Log.d(TAG, "not success");
                             Log.d(TAG, "signInWithCredential" + task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Log.d(TAG, "success");
                             //finish();
-                            Intent facebookIntent = new Intent(MainActivity.this, ProfileDetailsActivity.class);
+                           /* Intent facebookIntent = new Intent(MainActivity.this, ProfileDetailsActivity.class);
                             facebookIntent.putExtra("facebookLogin", true);
                             startActivity(facebookIntent);
-                            finish();
+                            finish();*/
+                            checkUserExist();
                         }
                     }
                 });
@@ -220,15 +224,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.login_button:
-                Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
+                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
                 finish();
                 break;
             case R.id.signup_button:
-                Intent registerIntent = new Intent(MainActivity.this,RegisterActivity.class);
-                registerIntent.putExtra("calling_activity",ActivityConstants.ACTIVITY_1);
+                Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
+                registerIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_1);
                 startActivity(registerIntent);
                 finish();
                 break;
@@ -244,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void signin(){
+    private void signin() {
         /*
         gets the signin Itnet that lets the user insert email and password
          */
@@ -258,24 +262,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
 
         Log.d(TAG, "onActivity result" + requestCode);
-        if(requestCode == RC_SIGN_IN){
-            Log.d(TAG, "requestcode" +  requestCode);
+        if (requestCode == RC_SIGN_IN) {
+            Log.d(TAG, "requestcode" + requestCode);
             progressDialog.setMessage("Signin in with google....");
+            progressDialog.setIndeterminate(true);
             progressDialog.show();
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if(result.isSuccess()){
+            if (result.isSuccess()) {
                 Log.d(TAG, "if");
                 /*
                 access account details of user using getSignInAccount which gets the details of the user who currently signed in
                  */
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-            }else{
+            } else {
                 Log.d(TAG, "else");
 
             }
-        }else if(requestCode == FACEBOOK_REQUEST_CODE){
-            mCallbackManager.onActivityResult(requestCode,resultCode, data);
+        } else if (requestCode == FACEBOOK_REQUEST_CODE) {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
 
         }
 
@@ -301,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             progressDialog.dismiss();
                             //Intent googleIntent = new Intent(MainActivity.this,ProfileDetailsActivity.class);
                             //googleIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -316,19 +321,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void checkUserExist() {
         Log.d(TAG, "checkuserexist");
-        if(mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             Log.d(TAG, "checkuserexist - if");
             final String user_id = mAuth.getCurrentUser().getUid();
             Log.d(TAG, "user_id" + user_id + " " + mAuth.getCurrentUser().getEmail());
             mDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.hasChild(user_id)){
+                    if (dataSnapshot.hasChild(user_id)) {
                         Log.d(TAG, "checkuserexist-if-if");
-                        Intent profileIntent = new Intent(MainActivity.this, ProfileDetailsActivity.class);
+                       finish();
+                       Intent profileIntent = new Intent(MainActivity.this, ProfileDetailsActivity.class);
                         profileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(profileIntent);
-                    }else{
+
+                    } else {
                         Log.d(TAG, "checkuserexist-if-else");
                         finish();
                         Intent setupAccountIntent = new Intent(MainActivity.this,RegisterActivity.class);

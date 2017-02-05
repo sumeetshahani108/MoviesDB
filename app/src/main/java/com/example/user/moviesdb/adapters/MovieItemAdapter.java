@@ -22,11 +22,20 @@ public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.Dat
 
     private LayoutInflater inflater ;
     private List<MovieItemList> listData ;
+    private itemMovieClickCallback itemClickCallback ;
     private static final String TAG = "MovieItemAdapter";
 
     public MovieItemAdapter(List<MovieItemList> listData,Context c) {
         inflater = LayoutInflater.from(c);
         this.listData = listData;
+    }
+
+    public interface itemMovieClickCallback{
+        void onItemClick(int p);
+    }
+
+    public void setItemClickCallback(final itemMovieClickCallback itemClickCallback) {
+        this.itemClickCallback = itemClickCallback ;
     }
 
     @Override
@@ -66,11 +75,14 @@ public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.Dat
             super(viewItem);
             item = (TextView) viewItem.findViewById(R.id.movie_lbl_item);
             container = viewItem.findViewById(R.id.movie_item_container);
-
+            container.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
-
+            if(v.getId() == R.id.movie_item_container){
+                MovieItemList item = listData.get(getAdapterPosition());
+                itemClickCallback.onItemClick(item.getMovie_id());
+            }
         }
     }
 }

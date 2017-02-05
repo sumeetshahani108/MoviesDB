@@ -4,6 +4,7 @@ import android.content.Loader;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.user.moviesdb.data.MovieDetailList;
 import com.example.user.moviesdb.data.MovieGenreDataList;
 import com.example.user.moviesdb.data.MovieGenreItemsDataList;
 import com.example.user.moviesdb.data.MovieItemList;
@@ -30,43 +31,55 @@ import java.util.List;
 public class QueryUtils {
     private static final String Log_Tag = QueryUtils.class.getSimpleName();
 
-    private QueryUtils(){
+    private QueryUtils() {
 
     }
 
-    public static List<MovieGenreDataList> fetchMovieGenreListData(String requestUrl){
+    public static List<MovieGenreDataList> fetchMovieGenreListData(String requestUrl) {
         URL url = createUrl(requestUrl);
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpGetRequest(url);
-        }catch (IOException e){
-            Log.e(Log_Tag, "Problem Making the HTTP Request.",e);
+        } catch (IOException e) {
+            Log.e(Log_Tag, "Problem Making the HTTP Request.", e);
         }
 
         List<MovieGenreDataList> movieGenreList = extractFeatureFromJSONMovieGenreList(jsonResponse);
         return movieGenreList;
     }
 
-    public static List<MovieGenreItemsDataList> fetchMovieGenreItemListData(String requestUrl){
+    public static List<MovieDetailList> fetchMovieDetailData(String requestUrl) {
         URL url = createUrl(requestUrl);
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpGetRequest(url);
-        }catch (IOException e){
-            Log.e(Log_Tag, "Problem Making the HTTP Request",e);
+        } catch (IOException e) {
+            Log.e(Log_Tag, "Problem Making the HTTP Request.", e);
+        }
+        List<MovieDetailList> movieDetailList = extractFeatureFromJSONMovieDetailList(jsonResponse);
+        return movieDetailList;
+    }
+
+    public static List<MovieGenreItemsDataList> fetchMovieGenreItemListData(String requestUrl) {
+        URL url = createUrl(requestUrl);
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpGetRequest(url);
+        } catch (IOException e) {
+            Log.e(Log_Tag, "Problem Making the HTTP Request", e);
         }
 
         List<MovieGenreItemsDataList> movieGenreItemsDataLists = extractFeatureFromJSONMovieGenreItemList(jsonResponse);
         return movieGenreItemsDataLists;
     }
 
-    public static List<MovieItemList> fetchMovieListData(String requestUrl){
+    public static List<MovieItemList> fetchMovieListData(String requestUrl) {
         URL url = createUrl(requestUrl);
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpGetRequest(url);
-        }catch (IOException e){
-            Log.e(Log_Tag, "Problem Making the HTTP Request",e);
+        } catch (IOException e) {
+            Log.e(Log_Tag, "Problem Making the HTTP Request", e);
         }
 
         List<MovieItemList> movieItemData = extractFeatureFromJSONMovieList(jsonResponse);
@@ -133,17 +146,17 @@ public class QueryUtils {
         return output.toString();
     }
 
-    private static List<MovieGenreDataList> extractFeatureFromJSONMovieGenreList(String movieGenreListJSON){
-        if(TextUtils.isEmpty(movieGenreListJSON)){
+    private static List<MovieGenreDataList> extractFeatureFromJSONMovieGenreList(String movieGenreListJSON) {
+        if (TextUtils.isEmpty(movieGenreListJSON)) {
             return null;
         }
 
         List<MovieGenreDataList> movieGenreList = new ArrayList<>();
-        try{
+        try {
             JSONObject baseJSONResponse = new JSONObject(movieGenreListJSON);
             JSONArray genres = baseJSONResponse.getJSONArray("genres");
 
-            for (int i = 0 ; i < genres.length() ; i++){
+            for (int i = 0; i < genres.length(); i++) {
                 JSONObject currentGenre = genres.getJSONObject(i);
 
                 int id = currentGenre.getInt("id");
@@ -152,60 +165,83 @@ public class QueryUtils {
                 movieGenreList.add(movieGenreDataList);
             }
 
-        }catch (JSONException e){
-            Log.e("QueryUtils","Problem parsing the MovieGenreList JSON results",e);
+        } catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the MovieGenreList JSON results", e);
         }
 
         return movieGenreList;
     }
 
-    private static List<MovieGenreItemsDataList> extractFeatureFromJSONMovieGenreItemList(String movieGenreListItemJSON){
-        if (TextUtils.isEmpty(movieGenreListItemJSON)){
+    private static List<MovieGenreItemsDataList> extractFeatureFromJSONMovieGenreItemList(String movieGenreListItemJSON) {
+        if (TextUtils.isEmpty(movieGenreListItemJSON)) {
             return null;
         }
         List<MovieGenreItemsDataList> movieGenreItemsDataList = new ArrayList<>();
 
-        try{
+        try {
             JSONObject baseJSONResponse = new JSONObject(movieGenreListItemJSON);
             JSONArray results = baseJSONResponse.getJSONArray("results");
 
-            for(int i = 0 ; i < results.length() ; i++){
+            for (int i = 0; i < results.length(); i++) {
                 JSONObject currentResult = results.getJSONObject(i);
 
                 String title = currentResult.getString("title");
                 String release_date = currentResult.getString("release_date");
                 String description = currentResult.getString("overview");
 
-                MovieGenreItemsDataList movieGenreItemsDataLists = new MovieGenreItemsDataList(title, release_date,description);
+                MovieGenreItemsDataList movieGenreItemsDataLists = new MovieGenreItemsDataList(title, release_date, description);
                 movieGenreItemsDataList.add(movieGenreItemsDataLists);
 
             }
 
-        }catch (JSONException e){
-            Log.e("QueryUtils","Problem parsing the MovieGenreList JSON results",e);
+        } catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the MovieGenreList JSON results", e);
         }
         return movieGenreItemsDataList;
     }
 
-    private static List<MovieItemList> extractFeatureFromJSONMovieList(String movieItemJSON){
-        if(TextUtils.isEmpty(movieItemJSON)){
+    private static List<MovieItemList> extractFeatureFromJSONMovieList(String movieItemJSON) {
+        if (TextUtils.isEmpty(movieItemJSON)) {
             return null;
         }
         List<MovieItemList> movieItemList = new ArrayList<>();
-        try{
+        try {
             JSONObject baseJSONResponse = new JSONObject(movieItemJSON);
             JSONArray results = baseJSONResponse.getJSONArray("results");
 
-            for (int i = 0 ; i < results.length() ; i++){
+            for (int i = 0; i < results.length(); i++) {
                 JSONObject currentResult = results.getJSONObject(i);
                 String title = currentResult.getString("title");
                 int id = currentResult.getInt("id");
                 MovieItemList movieItemListData = new MovieItemList(title, id);
                 movieItemList.add(movieItemListData);
             }
-        }catch (JSONException e){
-            Log.e("QueryUtils","Problem parsing the MovieGenreList JSON results",e);
+        } catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the MovieGenreList JSON results", e);
         }
-        return  movieItemList;
+        return movieItemList;
+    }
+
+    private static List<MovieDetailList> extractFeatureFromJSONMovieDetailList(String movieDetailItemJSON) {
+        if (TextUtils.isEmpty(movieDetailItemJSON)) {
+            return null;
+        }
+        List<MovieDetailList> movieDetail= new ArrayList<>();
+        try{
+            JSONObject baseJSONResponse = new JSONObject(movieDetailItemJSON);
+            Log.d(Log_Tag, baseJSONResponse+"");
+            String movie_title = baseJSONResponse.getString("title");
+            String movie_description = baseJSONResponse.getString("overview");
+            String movie_release_date = baseJSONResponse.getString("release_date");
+            int movie_vote_average = baseJSONResponse.getInt("vote_average");
+            MovieDetailList movieDetailList = new MovieDetailList(movie_title, movie_description, movie_release_date, movie_vote_average);
+            Log.d(Log_Tag,movieDetailList.getMovie_description()+"");
+            Log.d(Log_Tag,movieDetailList.getMovie_title()+"");
+            movieDetail.add(movieDetailList);
+        }catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the MovieGenreList JSON results", e);
+        }
+        Log.d(Log_Tag, movieDetail+"");
+        return movieDetail;
     }
 }

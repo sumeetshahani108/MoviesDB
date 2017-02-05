@@ -187,6 +187,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
             Log.d(TAG, " if ");
             Uri imageUri = data.getData();
+            Log.d(TAG, "imageURi" + imageUri);
             profileImage.setImageURI(imageUri);
 
         } else {

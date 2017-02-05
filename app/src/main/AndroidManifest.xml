@@ -38,6 +38,7 @@
             android:label="@string/app_name" />
         <activity android:name=".MovieDetailScreenActivity" />
         <activity android:name=".MovieYoutubeActivity"></activity>
+        <activity android:name=".TvGenreDetailActivity"></activity>
     </application>
 
 </manifest>

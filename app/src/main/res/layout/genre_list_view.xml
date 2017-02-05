@@ -5,38 +5,57 @@
     android:clickable="true"
     android:id="@+id/genre_list_view_item">
 
-    <ImageView
-        android:id="@+id/genre_list_image"
-        android:layout_width="130dp"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_movie_black_24dp"
-        />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:paddingLeft="30dp"
-        android:id="@+id/genre_list_movie_title"
-        android:layout_marginTop="48dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/genre_list_image" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_width="300dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:paddingLeft="125dp"
-        android:id="@+id/genre_list_movie_release_date"
-        android:layout_marginTop="48dp"
-        android:layout_toEndOf="@+id/genre_list_image" />
+            <ImageView
+                android:id="@+id/genre_list_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_movie_black_24dp"
+                android:layout_weight="1"
+                android:alpha="1" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:paddingLeft="30dp"
-        android:layout_marginTop="85dp"
-        android:maxLines="2"
-        android:id="@+id/genre_list_movie_description"
-        android:layout_toEndOf="@+id/genre_list_image"
-        />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingLeft="30dp"
+                android:id="@+id/genre_list_movie_title"
+                android:layout_marginTop="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/genre_list_image" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingLeft="125dp"
+                android:id="@+id/genre_list_movie_release_date"
+                android:layout_toEndOf="@+id/genre_list_image" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:paddingLeft="30dp"
+                android:maxLines="2"
+                android:id="@+id/genre_list_movie_description"
+                android:layout_toEndOf="@+id/genre_list_image"
+                android:layout_height="60dp" />
+        </LinearLayout>
+    </LinearLayout>
+
 </RelativeLayout>

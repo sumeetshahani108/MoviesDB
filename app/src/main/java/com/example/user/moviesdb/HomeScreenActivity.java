@@ -42,6 +42,8 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+        Log.d(TAG, "inside homsecsreenactivity");
+
         mToolbar = (Toolbar)findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 

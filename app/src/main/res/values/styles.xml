@@ -7,4 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="EditText.Register" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <item name="colorAccent">@color/user_icon_3</item>
+        <item name="colorControlNormal">@color/user_icon_3</item>
+        <item name="colorControlActivated">@color/user_icon_3</item>
+    </style>
 </resources>

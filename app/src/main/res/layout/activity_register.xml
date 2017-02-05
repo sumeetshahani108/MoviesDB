@@ -47,12 +47,13 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_weight="0.91"
-            android:layout_height="159dp">
+            android:layout_height="159dp"
+            android:layout_marginTop="13dp">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp">
+                style="@style/EditText.Register"
+                android:layout_height="60dp">
                 <EditText
                     android:layout_width="match_parent"
                     android:inputType="textEmailAddress"
@@ -62,22 +63,23 @@
                     android:background="@color/colorPrimary"
                     android:elegantTextHeight="true"
                     android:alpha="0.6"
+                    android:focusable="true"
                     android:paddingLeft="10dp"
-                    android:layout_height="50dp"
-                    android:focusable="true" />
+                    android:paddingBottom="8dp"
+                    android:layout_height="60dp" />
 
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_height="50dp">
+                android:layout_height="60dp">
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:passwordToggleEnabled="true"
-                    android:paddingBottom="2dp">
+                    android:paddingBottom="2dp"
+                    style="@style/EditText.Register">
                 <EditText
                     android:layout_width="143dp"
                     android:inputType="textPassword"
@@ -88,13 +90,15 @@
                     android:elegantTextHeight="true"
                     android:alpha="0.6"
                     android:paddingLeft="8dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:paddingBottom="8dp" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="5dp">
+                    android:paddingBottom="5dp"
+                    style="@style/EditText.Register">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -108,12 +112,14 @@
                     android:paddingLeft="10dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:paddingBottom="8dp" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                style="@style/EditText.Register"
+                android:layout_height="60dp">
             <EditText
                 android:layout_width="match_parent"
                 android:inputType="textPersonName"
@@ -124,12 +130,14 @@
                 android:elegantTextHeight="true"
                 android:alpha="0.6"
                 android:paddingLeft="10dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="13dp" />
+                android:layout_height="60dp"
+                android:layout_marginTop="13dp"
+                android:paddingBottom="8dp" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                style="@style/EditText.Register"
+                android:layout_height="60dp">
             <EditText
                 android:layout_width="match_parent"
                 android:inputType="phone"
@@ -140,8 +148,9 @@
                 android:elegantTextHeight="true"
                 android:alpha="0.6"
                 android:paddingLeft="10dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="13dp" />
+                android:layout_marginTop="13dp"
+                android:paddingBottom="8dp"
+                android:layout_height="60dp" />
 </android.support.design.widget.TextInputLayout>
             <LinearLayout
                 android:orientation="vertical"

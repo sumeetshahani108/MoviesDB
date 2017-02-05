@@ -28,7 +28,7 @@
 
             <ImageButton
                 android:layout_width="match_parent"
-                app:srcCompat="@android:drawable/ic_menu_upload"
+                app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
                 android:id="@+id/register_image"
                 android:layout_marginLeft="120dp"
                 android:layout_marginRight="120dp"

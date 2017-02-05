@@ -45,7 +45,7 @@ public class GenreDetailActivity extends AppCompatActivity implements LoaderMana
 
         Intent myIntent = getIntent();
         int intValue = myIntent.getIntExtra("genre_id",28);
-        Log.d(TAG, intValue+"");
+        //Log.d(TAG, intValue+"");
         Movie_Genre_Item_List_Url = "https://api.themoviedb.org/3/genre/" + intValue + "/movies?api_key=b767446da35c14841562288874f02281&language=en-US&include_adult=false&sort_by=created_at.asc";
 
         Log.d(TAG, Movie_Genre_Item_List_Url+"");

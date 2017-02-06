@@ -314,6 +314,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Intent afterRegisterIntent = new Intent(RegisterActivity.this, HomeScreenActivity.class);
                 afterRegisterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(afterRegisterIntent);
+                finish();
             }
         });
     }

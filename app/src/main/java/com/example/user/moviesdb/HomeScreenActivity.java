@@ -46,7 +46,6 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
 
         mToolbar = (Toolbar)findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.open, R.string.close);
 

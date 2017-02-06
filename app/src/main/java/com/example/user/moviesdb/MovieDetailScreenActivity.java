@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.user.moviesdb.adapters.MovieItemDetailAdapter;
@@ -21,7 +22,6 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +39,7 @@ public class MovieDetailScreenActivity extends AppCompatActivity implements Load
     private static final String TAG = "MovieDetailScreen";
     private MovieItemDetailAdapter adapter;
     private RecyclerView recyclerView ;
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,11 @@ public class MovieDetailScreenActivity extends AppCompatActivity implements Load
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
         getLoaderManager().initLoader(Movie_detail_screen_id, null, this);
+        addListenerOnRatingBar();
+    }
+
+    public void addListenerOnRatingBar(){
+        ratingBar = (RatingBar)findViewById(R.id.rating_bar);
     }
 
     @Override

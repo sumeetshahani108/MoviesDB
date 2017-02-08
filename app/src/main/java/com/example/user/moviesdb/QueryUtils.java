@@ -4,6 +4,8 @@ import android.content.Loader;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.user.moviesdb.data.CelebrityDetailList;
+import com.example.user.moviesdb.data.CelebrityItemList;
 import com.example.user.moviesdb.data.MovieDetailList;
 import com.example.user.moviesdb.data.MovieGenreDataList;
 import com.example.user.moviesdb.data.MovieGenreItemsDataList;
@@ -114,6 +116,30 @@ public class QueryUtils {
         return tvGenreItemsDataLists;
     }
 
+    public static List<CelebrityItemList> fetchCelebrityListData(String requestUrl) {
+        URL url = createUrl(requestUrl);
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpGetRequest(url);
+        } catch (IOException e) {
+            Log.e(Log_Tag, "Problem Making the HTTP Request", e);
+        }
+
+        List<CelebrityItemList> celebrityItemData = extractFeatureFromJSONCelebrityList(jsonResponse);
+        return celebrityItemData;
+    }
+
+    public static List<CelebrityDetailList> fetchCelebrityDetailData(String requestUrl) {
+        URL url = createUrl(requestUrl);
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpGetRequest(url);
+        } catch (IOException e) {
+            Log.e(Log_Tag, "Problem Making the HTTP Request.", e);
+        }
+        List<CelebrityDetailList> celebrityDetailList = extractFeatureFromJSONCelebrityDetailList(jsonResponse);
+        return celebrityDetailList;
+    }
 
     private static URL createUrl(String stringUrl) {
         URL url = null;
@@ -149,7 +175,7 @@ public class QueryUtils {
                 Log.e(Log_Tag, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(Log_Tag, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(Log_Tag, "Problem retrieving the JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -327,6 +353,51 @@ public class QueryUtils {
             Log.e("QueryUtils","Problem parsing the MovieGenreList JSON results",e);
         }
         return tvGenreItemsDataList;
+    }
+
+    private static List<CelebrityItemList> extractFeatureFromJSONCelebrityList(String celebrityItemJSON) {
+        if (TextUtils.isEmpty(celebrityItemJSON)) {
+            return null;
+        }
+        List<CelebrityItemList> celebrityItemList = new ArrayList<>();
+        try {
+            JSONObject baseJSONResponse = new JSONObject(celebrityItemJSON);
+            JSONArray results = baseJSONResponse.getJSONArray("results");
+
+            for (int i = 0; i < results.length(); i++) {
+                JSONObject currentResult = results.getJSONObject(i);
+                String name = currentResult.getString("name");
+                int id = currentResult.getInt("id");
+                CelebrityItemList celebrityItemListData = new CelebrityItemList(name, id);
+                celebrityItemList.add(celebrityItemListData);
+            }
+        } catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the CelebrityGenreList JSON results", e);
+        }
+        return celebrityItemList;
+    }
+
+    private static List<CelebrityDetailList> extractFeatureFromJSONCelebrityDetailList(String celebrityDetailItemJSON) {
+        if (TextUtils.isEmpty(celebrityDetailItemJSON)) {
+            return null;
+        }
+        List<CelebrityDetailList> celebrityDetail= new ArrayList<>();
+        try{
+            JSONObject baseJSONResponse = new JSONObject(celebrityDetailItemJSON);
+            Log.d(Log_Tag, baseJSONResponse+"");
+            String celebrity_name = baseJSONResponse.getString("name");
+            String celebrity_biography = baseJSONResponse.getString("biography");
+            String celebrity_birthday = baseJSONResponse.getString("birthday");
+            Double celebrity_popularity = baseJSONResponse.getDouble("popularity");
+            String celebrity_placeOfBirth = baseJSONResponse.getString("place_of_birth");
+            CelebrityDetailList celebrityDetailList = new CelebrityDetailList(celebrity_name, celebrity_biography, celebrity_birthday, celebrity_popularity, celebrity_placeOfBirth);
+            Log.d(Log_Tag,celebrityDetailList.getCelebrity_biography()+"");
+            celebrityDetail.add(celebrityDetailList);
+        }catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the CelebrityDetail JSON results", e);
+        }
+        Log.d(Log_Tag, celebrityDetail+"");
+        return celebrityDetail;
     }
 
 }

@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     Bundle bundle;
 
-    ProgressDialog progessDialog;
+    ProgressDialog progressDialog;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private StorageReference mStorageImage;
@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         login = (TextView) findViewById(R.id.already_registered);
         login.setOnClickListener(this);
         profileImage.setOnClickListener(this);
-        progessDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         register = (Button) findViewById(R.id.register_next_button);
         register.setOnClickListener(this);
 
@@ -250,8 +250,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         !TextUtils.isEmpty(rConfirmPassword) &&
                         !TextUtils.isEmpty(rEmail)) {
                     if (rPassword.equals(rConfirmPassword)) {
-                        progessDialog.setMessage("Signing Up...");
-                        progessDialog.show();
+                        progressDialog.setMessage("Signing Up...");
+                        progressDialog.show();
                         mAuth.createUserWithEmailAndPassword(rEmail, rPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -280,8 +280,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (!TextUtils.isEmpty(rName) &&
                         !TextUtils.isEmpty(rPhoneNumber) &&
                         !TextUtils.isEmpty(rSex)) {
-                    progessDialog.setMessage("Signing Up...");
-                    progessDialog.show();
+                    progressDialog.setMessage("Signing Up...");
+                    progressDialog.show();
+                    progressDialog.setCanceledOnTouchOutside(false);
                     insertIntoDatabase();
                 } else {
                     Log.d(TAG, "inside else");
@@ -310,7 +311,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 current_user_id.child("name").setValue(rName);
                 current_user_id.child("sex").setValue(rSex);
                 current_user_id.child("phone_number").setValue(rPhoneNumber);
-                progessDialog.dismiss();
+                progressDialog.dismiss();
                 Intent afterRegisterIntent = new Intent(RegisterActivity.this, HomeScreenActivity.class);
                 afterRegisterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(afterRegisterIntent);

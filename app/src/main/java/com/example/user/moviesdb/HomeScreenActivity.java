@@ -108,6 +108,8 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
             //Toast.makeText(this, "Television", Toast.LENGTH_SHORT).show();
 
         }else if(id == R.id.nav_celebrities){
+            Intent celebrityIntent = new Intent(HomeScreenActivity.this, CelebrityScreenActivity.class);
+            startActivity(celebrityIntent);
 
         }else if(id == R.id.nav_news){
 

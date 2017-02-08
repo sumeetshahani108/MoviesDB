@@ -29,6 +29,7 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
     TextView getName;
     TextView getEmail;
     TextView getPhone;
+    TextView getSex;
 
     Button signoutButton;
     Button shareButton;
@@ -48,6 +49,7 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
         getName = (TextView) findViewById(R.id.get_name);
         getEmail = (TextView) findViewById(R.id.get_email);
         getPhone = (TextView) findViewById(R.id.get_phone);
+        getSex = (TextView) findViewById(R.id.get_sex);
         signoutButton = (Button) findViewById(R.id.signout_button) ;
         shareButton = (Button) findViewById(R.id.share_button);
         signoutButton.setOnClickListener(this);
@@ -105,6 +107,8 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
                                 getPhone.setText(dataSnapshot.child(user_id).child("phone_number").getValue().toString());
                                 Log.d(TAG, "email" + mAuth.getCurrentUser().getEmail());
                                 getEmail.setText(mAuth.getCurrentUser().getEmail());
+                                Log.d(TAG, "sex" + dataSnapshot.child(user_id).child("sex").getValue());
+                                getSex.setText(dataSnapshot.child(user_id).child("sex").getValue().toString());
                             }
 
                         }

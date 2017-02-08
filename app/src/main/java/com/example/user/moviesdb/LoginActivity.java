@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             progressDialog.setMessage("Loging In");
             progressDialog.setIndeterminate(true);
             progressDialog.show();
+            progressDialog.setCanceledOnTouchOutside(false);
 
             mAuth.signInWithEmailAndPassword(rEmail,rPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -122,6 +123,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(dataSnapshot.hasChild(user_id)){
 
                     Intent loggedinIntent = new Intent(LoginActivity.this,ProfileDetailsActivity.class);
+                    loggedinIntent.putExtra("calling_activity",ActivityConstants.ACTIVITY_2);
                     loggedinIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loggedinIntent);
                     finish();

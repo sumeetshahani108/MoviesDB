@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -22,33 +21,22 @@ public class SplashScreenActivity extends AppCompatActivity {
         TextView textView4 = (TextView) findViewById(R.id.textView4);
         textView4.setTypeface(typeface1);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("prefs",0);
-        boolean firstRun = sharedPreferences.getBoolean("firstRun", false);
-        Log.d("SplashScreen", "firstRun" + firstRun);
-        if(!firstRun){
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("firstRun", true);
-            editor.commit();
-            int SPLASH_TIME_OUT = 3000;
-            new Handler().postDelayed(new Runnable() {
+        int SPLASH_TIME_OUT = 3000;
+        new Handler().postDelayed(new Runnable() {
 
-                @Override
-                public void run() {
-                    // This method will be executed once the timer is over
-                    // Start your app main activity
-                    Intent i = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
-                    startActivity(i);
 
-                    // close this activity
-                    finish();
-                }
-            }, SPLASH_TIME_OUT);
-        }else {
-            Intent i = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
-            startActivity(i);
+            @Override
+            public void run() {
+                // This method will be executed once the timer is over
+                // Start your app main activity
+                Intent i = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                startActivity(i);
 
-            // close this activity
-            finish();
-        }
+                // close this activity
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
     }
+
+
 }

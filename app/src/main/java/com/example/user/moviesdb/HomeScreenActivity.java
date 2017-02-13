@@ -132,8 +132,8 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
     }
 
     private void setUpPagerAndTabs(){
-        tabarnak.setTabTextColors(ContextCompat.getColor(this, android.R.color.white),
-                ContextCompat.getColor(this, R.color.colorAccent));
+        tabarnak.setTabTextColors(ContextCompat.getColor(this, android.R.color.black),
+                ContextCompat.getColor(this, R.color.like_facebook));
         tabarnak.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
         CustomAdapter adapter = new CustomAdapter(getSupportFragmentManager());

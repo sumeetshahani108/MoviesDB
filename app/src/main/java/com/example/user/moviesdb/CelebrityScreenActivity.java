@@ -1,7 +1,9 @@
 package com.example.user.moviesdb;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
@@ -20,7 +22,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -69,7 +73,7 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Spinner spinner = (Spinner) findViewById(R.id.celeb_spinner);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(CelebrityScreenActivity.this,android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.options));
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(CelebrityScreenActivity.this,android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.celebrity_options));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(myAdapter);
         spinner.setOnItemSelectedListener(this);
@@ -91,6 +95,24 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
 
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    Log.d("focus", "touchevent");
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // Toast.makeText(parent.getContext(), "Selected Item is "+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
         //String selected = parent.getItemAtPosition(position).toString();
@@ -101,7 +123,7 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
 
         } else if (parent.getItemAtPosition(position).toString().equals("Popular") ){
             //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            celebrity_url = "https://api.themoviedb.org/3/search/person?api_key=b767446da35c14841562288874f02281&language=en-US&query=popular";
+            celebrity_url = "https://api.themoviedb.org/3/search/person?api_key=c&language=en-US&query=popular";
             getLoaderManager().restartLoader(CELEBRITY_LIST_ID, null, this);
 
         }

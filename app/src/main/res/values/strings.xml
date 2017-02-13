@@ -17,7 +17,36 @@
         <item>Upcoming</item>
     </string-array>
 
+    <string-array name="celebrity_options">
+        <item>Latest</item>
+        <item>Popular</item>
+    </string-array>
+
     <string name="player_error">Error initializing YouTube player: %s</string>
     <string name="seek_to">Jump To</string>
     <string name="seek_to_hint">Seconds</string>
+
+    <!--Intro slider -->
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Hello WORLD!</string>
+    <string name="slide_1_desc">The easiest way to view details of movies, tv shows and celebrities!</string>
+
+    <string name="slide_2_title">Watch Videos</string>
+    <string name="slide_2_desc">Watch videos of your favourite movies and tv shows</string>
+
+    <string name="slide_3_title">Favourites</string>
+    <string name="slide_3_desc">Rate a movie or add it to watch later!</string>
+
+    <string name="slide_4_title">Get Notified</string>
+    <string name="slide_4_desc">Receive notifications for upcoming movies!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="title">Garam Masala!</string>
+    <string name="subTitle">Let the Entertainment begin :)</string>
+
 </resources>

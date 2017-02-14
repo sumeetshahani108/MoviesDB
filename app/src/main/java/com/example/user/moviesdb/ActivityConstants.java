@@ -6,4 +6,5 @@ public interface ActivityConstants {
     public static final String ACTIVITY_2 = "Activity2";
     public static final String ACTIVITY_3 = "Activity3";
     public static final String ACTIVITY_4 = "Activity4";
+    public static final String  ACTIVITY_5 = "Activity5";
 }

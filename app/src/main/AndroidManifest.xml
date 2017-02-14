@@ -16,13 +16,17 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".HomeScreenActivity">
+        <activity android:name=".SplashScreenActivity"
+            android:noHistory="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".HomeScreenActivity" />
         <activity android:name=".MovieScreenActivity" />
         <activity android:name=".GenreDetailActivity" />
         <activity android:name=".ProfileDetailsActivity" />
@@ -39,6 +43,8 @@
         <activity android:name=".MovieDetailScreenActivity" />
         <activity android:name=".MovieYoutubeActivity" />
         <activity android:name=".TvGenreDetailActivity" />
+        <activity android:name=".CelebrityScreenActivity" />
+        <activity android:name=".CelebrityDetailScreenActivity" />
     </application>
 
 </manifest>

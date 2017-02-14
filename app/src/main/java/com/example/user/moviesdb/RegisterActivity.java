@@ -1,10 +1,12 @@
 package com.example.user.moviesdb;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -15,7 +17,9 @@ import android.text.LoginFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.EditText;
@@ -33,6 +37,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -44,10 +49,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "RegisterActivity";
-    private static final int GALLERY_REQUEST = 101;
     ImageButton profileImage;
-    Bitmap image;
-    Uri imageUri = null;
+    private Uri imageUri;
     EditText name;
     EditText phoneNumber;
     RadioGroup choose_sex;
@@ -58,6 +61,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     Button register;
     TextView login;
 
+    String callingActivity;
+
     String rPassword;
     String rConfirmPassword;
     String rEmail;
@@ -67,7 +72,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     Uri uri;
 
-    ProgressDialog progessDialog;
+    Bundle bundle;
+
+    ProgressDialog progressDialog;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private StorageReference mStorageImage;
@@ -103,11 +110,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             }
         });
-       // textViewPasswordStrengthIndiactor = (ProgressBar) findViewById(R.id.passwordCheckerProgressBar);
-        login = (TextView) findViewById(R.id.already_registered) ;
+        // textViewPasswordStrengthIndiactor = (ProgressBar) findViewById(R.id.passwordCheckerProgressBar);
+        login = (TextView) findViewById(R.id.already_registered);
         login.setOnClickListener(this);
         profileImage.setOnClickListener(this);
-        progessDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         register = (Button) findViewById(R.id.register_next_button);
         register.setOnClickListener(this);
 
@@ -142,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });*/
 
         mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser()!= null){
+        if (mAuth.getCurrentUser() != null) {
             final String user_email = mAuth.getCurrentUser().getEmail();
             email.setText(user_email);
             email.setFocusable(false);
@@ -158,12 +165,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                    Log.d("focus", "touchevent");
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.register_image:
                 getImage();
                 break;
-            case  R.id.register_next_button:
+            case R.id.register_next_button:
                 Log.d(TAG, "inside switch");
                 startCreateAccount();
                 break;
@@ -172,11 +197,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(loginIntent);
         }
     }
+
     private void getImage() {
-        Intent galleryItent = new Intent(Intent.ACTION_PICK);
-        galleryItent.putExtra("crop", "true");
+        Intent galleryItent = new Intent();
+        galleryItent.setAction(Intent.ACTION_GET_CONTENT);
+        //galleryItent.putExtra("crop", "true");
         galleryItent.setType("image/*");
-        startActivityForResult(galleryItent, GALLERY_INTENT);
+        startActivityForResult(Intent.createChooser(galleryItent, "Select image"), GALLERY_INTENT);
     }
 
     @Override
@@ -186,7 +213,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Log.d(TAG, " 1.resultCode " + resultCode);
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
             Log.d(TAG, " if ");
-            Uri imageUri = data.getData();
+            imageUri = data.getData();
             Log.d(TAG, "imageURi" + imageUri);
             profileImage.setImageURI(imageUri);
 
@@ -199,7 +226,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void startCreateAccount() {
         Log.d(TAG, "inside startCreateAccount");
 
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         Log.d(TAG, "callingActiviity1" + bundle.getString("calling_activity"));
         rName = name.getText().toString().trim();
         rPhoneNumber = phoneNumber.getText().toString().trim();
@@ -207,60 +234,61 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         rEmail = email.getText().toString().trim();
         rPassword = password.getText().toString().trim();
         rConfirmPassword = confirmPassword.getText().toString().trim();
-            Log.d(TAG, "" + rSex);
-            Log.d(TAG, "" + rPassword);
-            Log.d(TAG, "" + rConfirmPassword);
-            Log.d(TAG, "" + rEmail);
-            Log.d(TAG, "" + rName);
-            Log.d(TAG, "" + rPhoneNumber);
-            switch (bundle.getString("calling_activity")){
-                case ActivityConstants.ACTIVITY_1:
-                    Log.d(TAG, "inside switch activity1");
-                    if (!TextUtils.isEmpty(rName) &&
-                            !TextUtils.isEmpty(rPhoneNumber) &&
-                            !TextUtils.isEmpty(rSex) &&
-                            !TextUtils.isEmpty(rPassword) &&
-                            !TextUtils.isEmpty(rConfirmPassword) &&
-                            !TextUtils.isEmpty(rEmail)) {
-                        if(rPassword.equals(rConfirmPassword)) {
-                            progessDialog.setMessage("Signing Up...");
-                            progessDialog.show();
-                            mAuth.createUserWithEmailAndPassword(rEmail, rPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.d(TAG, " insidecreateUserWithEmailAndPassword ");
-                                        insertIntoDatabase();
+        Log.d(TAG, "" + rSex);
+        Log.d(TAG, "" + rPassword);
+        Log.d(TAG, "" + rConfirmPassword);
+        Log.d(TAG, "" + rEmail);
+        Log.d(TAG, "" + rName);
+        Log.d(TAG, "" + rPhoneNumber);
+        switch (bundle.getString("calling_activity")) {
+            case ActivityConstants.ACTIVITY_1:
+                Log.d(TAG, "inside switch activity1");
+                if (!TextUtils.isEmpty(rName) &&
+                        !TextUtils.isEmpty(rPhoneNumber) &&
+                        !TextUtils.isEmpty(rSex) &&
+                        !TextUtils.isEmpty(rPassword) &&
+                        !TextUtils.isEmpty(rConfirmPassword) &&
+                        !TextUtils.isEmpty(rEmail)) {
+                    if (rPassword.equals(rConfirmPassword)) {
+                        progressDialog.setMessage("Signing Up...");
+                        progressDialog.show();
+                        mAuth.createUserWithEmailAndPassword(rEmail, rPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, " insidecreateUserWithEmailAndPassword ");
+                                    insertIntoDatabase();
 
-                                    }else {
-                                        Log.d(TAG, " NOT insidecreateUserWithEmailAndPassword ");
-                                    }
-
+                                } else {
+                                    Log.d(TAG, " NOT insidecreateUserWithEmailAndPassword ");
                                 }
-                            });
-                        }else {
-                            Toast.makeText(this,"Passwords do not match", Toast.LENGTH_LONG).show();
-                        }
 
-                    }else {
-                        Toast.makeText(this,"Fill the details correctly", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(this, "Passwords do not match", Toast.LENGTH_LONG).show();
                     }
 
+                } else {
+                    Toast.makeText(this, "Fill the details correctly", Toast.LENGTH_LONG).show();
+                }
 
-                    break;
-                case ActivityConstants.ACTIVITY_2:
-                    Log.d(TAG, "inside switch activity1");
-                    if (!TextUtils.isEmpty(rName) &&
-                            !TextUtils.isEmpty(rPhoneNumber) &&
-                            !TextUtils.isEmpty(rSex) ) {
-                        progessDialog.setMessage("Signing Up...");
-                        progessDialog.show();
-                        insertIntoDatabase();
-                    }else {
-                        Log.d(TAG, "inside else");
+
+                break;
+            case ActivityConstants.ACTIVITY_2:
+                Log.d(TAG, "inside switch activity1");
+                if (!TextUtils.isEmpty(rName) &&
+                        !TextUtils.isEmpty(rPhoneNumber) &&
+                        !TextUtils.isEmpty(rSex)) {
+                    progressDialog.setMessage("Signing Up...");
+                    progressDialog.show();
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    insertIntoDatabase();
+                } else {
+                    Log.d(TAG, "inside else");
                     break;
 
-            }
+                }
 
         }
 
@@ -272,21 +300,31 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Log.d(TAG, "user_id" + user_id);
         StorageReference filepath = mStorageImage.child(imageUri.getLastPathSegment());
         Log.d(TAG, " Filepath " + filepath);
+        callingActivity = bundle.getString("calling_activity");
         filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-          @Override
-        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-          Log.d(TAG, " Image Uploaded  ");
-        String downloadUri = taskSnapshot.getDownloadUrl().toString();
-        DatabaseReference current_user_id = mDatabase.child(user_id);
-        current_user_id.child("profileImage").setValue(downloadUri);
-        current_user_id.child("name").setValue(rName);
-        current_user_id.child("sex").setValue(rSex);
-        current_user_id.child("phone_number").setValue(rPhoneNumber);
-        progessDialog.dismiss();
-        Intent setupAccountIntent = new Intent(RegisterActivity.this, ProfileDetailsActivity.class);
-        setupAccountIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(setupAccountIntent);
-         }
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d(TAG, " Image Uploaded  ");
+                String downloadUri = taskSnapshot.getDownloadUrl().toString();
+                DatabaseReference current_user_id = mDatabase.child(user_id);
+                current_user_id.child("profileImage").setValue(downloadUri);
+                current_user_id.child("name").setValue(rName);
+                current_user_id.child("sex").setValue(rSex);
+                current_user_id.child("phone_number").setValue(rPhoneNumber);
+                progressDialog.dismiss();
+                Intent afterRegisterIntent = new Intent(RegisterActivity.this, HomeScreenActivity.class);
+                afterRegisterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(afterRegisterIntent);
+                finish();
+            }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent backPresssedIntent = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(backPresssedIntent);
+        finish();
     }
 }

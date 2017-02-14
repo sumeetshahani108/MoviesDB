@@ -29,6 +29,7 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
     TextView getName;
     TextView getEmail;
     TextView getPhone;
+    TextView getSex;
 
     Button signoutButton;
     Button shareButton;
@@ -38,6 +39,7 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
 
     private DatabaseReference mDatabase;
     private StorageReference mStorageImage;
+    private ValueEventListener mDatabaseListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
         getName = (TextView) findViewById(R.id.get_name);
         getEmail = (TextView) findViewById(R.id.get_email);
         getPhone = (TextView) findViewById(R.id.get_phone);
+        getSex = (TextView) findViewById(R.id.get_sex);
         signoutButton = (Button) findViewById(R.id.signout_button) ;
         shareButton = (Button) findViewById(R.id.share_button);
         signoutButton.setOnClickListener(this);
@@ -62,17 +65,17 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-
+                Bundle bundle = getIntent().getExtras();
+                callingActivity = bundle.getString("calling_activity");
                 if(firebaseAuth.getCurrentUser() == null){
                     Log.d(TAG, "not signed in ");
-                    Bundle bundle = getIntent().getExtras();
-                    callingActivity = bundle.getString("calling_activity");
                     Log.d(TAG, "" + callingActivity);
                     switch (callingActivity){
 
                     case ActivityConstants.ACTIVITY_3:
                         Log.d(TAG, "inside if ");
                         Intent loginIntent = new Intent(ProfileDetailsActivity.this, MainActivity.class);
+                        loginIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_5);
                         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(loginIntent);
                         finish();
@@ -85,19 +88,29 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
                 }else{
                     Log.d(TAG, "signed in");
                     final String user_id = mAuth.getCurrentUser().getUid();
-                    mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(user_id);
+                    mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
                     Log.d(TAG, "user id" +user_id);
                     Log.d(TAG, "user email" + mAuth.getCurrentUser().getEmail());
-                    mDatabase.addValueEventListener(new ValueEventListener() {
+                    mDatabaseListener = mDatabase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            Log.d(TAG, "inside");
-                            Log.d(TAG, "name" + dataSnapshot.child("name").getValue());
-                            getName.setText(dataSnapshot.child("name").getValue().toString());
-                            Log.d(TAG, "phone number" + dataSnapshot.child("phone_number").getValue());
-                            getPhone.setText(dataSnapshot.child("phone_number").getValue().toString());
-                            Log.d(TAG, "email" + mAuth.getCurrentUser().getEmail());
-                            getEmail.setText(mAuth.getCurrentUser().getEmail());
+                            Log.d(TAG, callingActivity);
+                            if(dataSnapshot.child(user_id).child("name").getValue() == null){
+                                Log.d(TAG, "inside removeeventlistener  " + callingActivity);
+                                mDatabase.removeEventListener(mDatabaseListener);
+                            }else{
+                                Log.d(TAG, callingActivity);
+                                Log.d(TAG, "inside");
+                                Log.d(TAG, "name" + dataSnapshot.child(user_id).child("name").getValue());
+                                getName.setText(dataSnapshot.child(user_id).child("name").getValue().toString());
+                                Log.d(TAG, "phone number" + dataSnapshot.child(user_id).child("phone_number").getValue());
+                                getPhone.setText(dataSnapshot.child(user_id).child("phone_number").getValue().toString());
+                                Log.d(TAG, "email" + mAuth.getCurrentUser().getEmail());
+                                getEmail.setText(mAuth.getCurrentUser().getEmail());
+                                Log.d(TAG, "sex" + dataSnapshot.child(user_id).child("sex").getValue());
+                                getSex.setText(dataSnapshot.child(user_id).child("sex").getValue().toString());
+                            }
+
                         }
 
                         @Override
@@ -105,9 +118,16 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
 
                         }
                     });
+
                 }
             }
         };
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+       // mDatabase.removeEventListener(mDatabaseListener);
     }
 
     @Override

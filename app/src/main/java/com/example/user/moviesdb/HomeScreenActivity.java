@@ -46,7 +46,6 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
 
         mToolbar = (Toolbar)findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
-
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.open, R.string.close);
 
@@ -109,6 +108,8 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
             //Toast.makeText(this, "Television", Toast.LENGTH_SHORT).show();
 
         }else if(id == R.id.nav_celebrities){
+            Intent celebrityIntent = new Intent(HomeScreenActivity.this, CelebrityScreenActivity.class);
+            startActivity(celebrityIntent);
 
         }else if(id == R.id.nav_news){
 
@@ -131,8 +132,8 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
     }
 
     private void setUpPagerAndTabs(){
-        tabarnak.setTabTextColors(ContextCompat.getColor(this, android.R.color.white),
-                ContextCompat.getColor(this, R.color.colorAccent));
+        tabarnak.setTabTextColors(ContextCompat.getColor(this, android.R.color.black),
+                ContextCompat.getColor(this, R.color.like_facebook));
         tabarnak.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
         CustomAdapter adapter = new CustomAdapter(getSupportFragmentManager());

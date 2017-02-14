@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressDialog.setMessage("Signin in....");
         progressDialog.setIndeterminate(true);
         progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
         Log.d(TAG, "handleFacebookAccessToken");
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
         Log.d(TAG, "access token" + credential);
@@ -262,9 +263,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
 
         Log.d(TAG, "onActivity result" + requestCode);
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == RC_SIGN_IN && data!=null) {
             Log.d(TAG, "requestcode" + requestCode);
             progressDialog.setMessage("Signin in with google....");
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setIndeterminate(true);
             progressDialog.show();
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);

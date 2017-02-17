@@ -9,9 +9,10 @@ public class MovieDetailList {
     private String movie_description ;
     private String release_date ;
     private int vote_average ;
+    private int id;
 
-
-    public MovieDetailList(String movie_title, String movie_description, String release_date, int vote_average) {
+    public MovieDetailList(int id, String movie_title, String movie_description, String release_date, int vote_average) {
+        this.id = id;
         this.movie_title = movie_title;
         this.movie_description = movie_description;
         this.release_date = release_date;
@@ -48,5 +49,13 @@ public class MovieDetailList {
 
     public void setVote_average(int vote_average) {
         this.vote_average = vote_average;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

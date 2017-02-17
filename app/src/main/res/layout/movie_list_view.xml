@@ -129,10 +129,10 @@
 
             <Button
                 android:background="@drawable/border"
-                android:text="Add to Wishlist"
+                android:text="Add to Favourites"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/movie_wishlist"
+                android:id="@+id/movie_favourites"
                 android:layout_marginTop="10dp"
                 android:layout_weight="0.42"/>
 

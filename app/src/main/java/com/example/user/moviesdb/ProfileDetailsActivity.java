@@ -72,18 +72,18 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
                     Log.d(TAG, "" + callingActivity);
                     switch (callingActivity){
 
-                    case ActivityConstants.ACTIVITY_3:
-                        Log.d(TAG, "inside if ");
-                        Intent loginIntent = new Intent(ProfileDetailsActivity.this, MainActivity.class);
-                        loginIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_5);
-                        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(loginIntent);
-                        finish();
-                        break;
-                    case ActivityConstants.ACTIVITY_4:
-                        Log.d(TAG, "inside else ");
-                        finish();
-                        break;// if the user presses back button then it should go bak to home screen instead of looping
+                        case ActivityConstants.ACTIVITY_3:
+                            Log.d(TAG, "inside if ");
+                            Intent loginIntent = new Intent(ProfileDetailsActivity.this, MainActivity.class);
+                            loginIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_5);
+                            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(loginIntent);
+                            finish();
+                            break;
+                        case ActivityConstants.ACTIVITY_4:
+                            Log.d(TAG, "inside else ");
+                            finish();
+                            break;// if the user presses back button then it should go bak to home screen instead of looping
                     }
                 }else{
                     Log.d(TAG, "signed in");
@@ -127,7 +127,7 @@ public class ProfileDetailsActivity extends AppCompatActivity implements View.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       // mDatabase.removeEventListener(mDatabaseListener);
+        // mDatabase.removeEventListener(mDatabaseListener);
     }
 
     @Override

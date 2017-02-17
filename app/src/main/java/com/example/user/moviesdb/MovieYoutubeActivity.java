@@ -10,10 +10,14 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MovieYoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener  {
 
     private static final int RECOVERY_REQUEST = 1;
     private YouTubePlayerView youTubeView;
+    private YouTubePlayerView youTubeView2;
     private static final String YOUTUBE_API_KEY = "AIzaSyBwsSWk_96aYuoz1tAGTEjnOc8kwMCX_gM";
 
     @Override
@@ -22,12 +26,18 @@ public class MovieYoutubeActivity extends YouTubeBaseActivity implements YouTube
         setContentView(R.layout.activity_movie_youtube);
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.initialize(YOUTUBE_API_KEY, this);
+
+        youTubeView2 = (YouTubePlayerView)findViewById(R.id.youtube_view_2);
+        youTubeView2.initialize(YOUTUBE_API_KEY, this);
     }
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
         if (!wasRestored) {
-            player.cueVideo("je0aAf2f8XQ"); // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
+            List<String> myList = new ArrayList<String>();
+            myList.add("FkAndUJpyX0");
+            myList.add("6MnwkusJyuE");
+            player.cueVideos(myList);
         }
     }
 

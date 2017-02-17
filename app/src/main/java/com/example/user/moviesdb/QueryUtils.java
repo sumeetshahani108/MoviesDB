@@ -285,11 +285,12 @@ public class QueryUtils {
         try{
             JSONObject baseJSONResponse = new JSONObject(movieDetailItemJSON);
             Log.d(Log_Tag, baseJSONResponse+"");
+            int id = baseJSONResponse.getInt("id");
             String movie_title = baseJSONResponse.getString("title");
             String movie_description = baseJSONResponse.getString("overview");
             String movie_release_date = baseJSONResponse.getString("release_date");
             int movie_vote_average = baseJSONResponse.getInt("vote_average");
-            MovieDetailList movieDetailList = new MovieDetailList(movie_title, movie_description, movie_release_date, movie_vote_average);
+            MovieDetailList movieDetailList = new MovieDetailList(id, movie_title, movie_description, movie_release_date, movie_vote_average);
             Log.d(Log_Tag,movieDetailList.getMovie_description()+"");
             Log.d(Log_Tag,movieDetailList.getMovie_title()+"");
             movieDetail.add(movieDetailList);

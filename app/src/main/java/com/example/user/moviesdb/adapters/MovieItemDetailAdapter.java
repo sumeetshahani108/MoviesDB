@@ -1,5 +1,6 @@
 package com.example.user.moviesdb.adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.IntegerRes;
@@ -9,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.user.moviesdb.R;
@@ -81,6 +84,8 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
         TextView movie_release_date ;
         TextView movie_vote_average ;
         ImageView movie_image;
+        private RatingBar ratingBar;
+        private Button submitRating;
 
         public MovieItemDataHolder(View itemView){
             super(itemView);
@@ -89,8 +94,20 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
             movie_release_date = (TextView)itemView.findViewById(R.id.movie_release_date);
             movie_vote_average = (TextView)itemView.findViewById(R.id.movie_vote_average);
             movie_image = (ImageView)itemView.findViewById(R.id.movie_poster_image);
+            ratingBar = (RatingBar)itemView.findViewById(R.id.rating_bar);
+            submitRating = (Button)itemView.findViewById(R.id.rating_button);
+            submitRating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    postRating();
+                }
+            });
         }
 
+        public void postRating(){
+            String rating_value = String.valueOf(ratingBar.getRating());
+            Log.d(TAG, rating_value);
+        }
         @Override
         public void onClick(View v) {
 

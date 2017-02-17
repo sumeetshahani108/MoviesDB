@@ -1,5 +1,6 @@
 package com.example.user.moviesdb;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -39,7 +42,7 @@ public class MovieDetailScreenActivity extends AppCompatActivity implements Load
     private static final String TAG = "MovieDetailScreen";
     private MovieItemDetailAdapter adapter;
     private RecyclerView recyclerView ;
-    private RatingBar ratingBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +63,10 @@ public class MovieDetailScreenActivity extends AppCompatActivity implements Load
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
         getLoaderManager().initLoader(Movie_detail_screen_id, null, this);
-        addListenerOnRatingBar();
+
     }
 
-    public void addListenerOnRatingBar(){
-        ratingBar = (RatingBar)findViewById(R.id.rating_bar);
-    }
+
 
     @Override
     public android.content.Loader<List<MovieDetailList>> onCreateLoader(int id, Bundle args) {

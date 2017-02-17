@@ -14,12 +14,12 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "GoodDog.otf");
+        //Typeface typeface = Typeface.createFromAsset(getAssets(), "GoodDog.otf");
         TextView textView1 = (TextView) findViewById(R.id.textView1);
-        textView1.setTypeface(typeface);
-        Typeface typeface1 = Typeface.createFromAsset(getAssets(), "Sofia-Regular.otf");
+        //textView1.setTypeface(typeface);
+        //Typeface typeface1 = Typeface.createFromAsset(getAssets(), "Sofia-Regular.otf");
         TextView textView4 = (TextView) findViewById(R.id.textView4);
-        textView4.setTypeface(typeface1);
+        //textView4.setTypeface(typeface1);
 
         int SPLASH_TIME_OUT = 3000;
         new Handler().postDelayed(new Runnable() {

@@ -37,13 +37,13 @@
     <string name="slide_1_desc">The easiest way to view details of movies, tv shows and celebrities!</string>
 
     <string name="slide_2_title">Watch Videos</string>
-    <string name="slide_2_desc">Watch videos of your favourite movies and tv shows</string>
+    <string name="slide_2_desc">Watch videos of your favourite movies and tv shows!</string>
 
-    <string name="slide_3_title">Favourites</string>
-    <string name="slide_3_desc">Rate a movie or add it to watch later!</string>
+    <string name="slide_3_title">Search Worldwide</string>
+    <string name="slide_3_desc">Search online for movies, tv shows and celebs! </string>
 
-    <string name="slide_4_title">Get Notified</string>
-    <string name="slide_4_desc">Receive notifications for upcoming movies!</string>
+    <string name="slide_4_title">Favourites</string>
+    <string name="slide_4_desc">Rate a movie or add it to watch later!</string>
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>

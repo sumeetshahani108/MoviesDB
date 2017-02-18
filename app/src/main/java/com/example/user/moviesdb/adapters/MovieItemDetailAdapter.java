@@ -90,18 +90,18 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
         public MovieItemDataHolder(View itemView){
             super(itemView);
             movie_title = (TextView)itemView.findViewById(R.id.movie_title);
-            movie_description = (TextView)itemView.findViewById(R.id.movie_description);
-            movie_release_date = (TextView)itemView.findViewById(R.id.movie_release_date);
-            movie_vote_average = (TextView)itemView.findViewById(R.id.movie_vote_average);
-            movie_image = (ImageView)itemView.findViewById(R.id.movie_poster_image);
-            ratingBar = (RatingBar)itemView.findViewById(R.id.rating_bar);
-            submitRating = (Button)itemView.findViewById(R.id.rating_button);
-            submitRating.setOnClickListener(new View.OnClickListener() {
+           // movie_description = (TextView)itemView.findViewById(R.id.movie_description);
+            //movie_release_date = (TextView)itemView.findViewById(R.id.movie_release_date);
+            //movie_vote_average = (TextView)itemView.findViewById(R.id.movie_vote_average);
+            //movie_image = (ImageView)itemView.findViewById(R.id.movie_poster_image);
+           // ratingBar = (RatingBar)itemView.findViewById(R.id.rating_bar);
+            //submitRating = (Button)itemView.findViewById(R.id.rating_button);
+            /*submitRating.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     postRating();
                 }
-            });
+            });*/
         }
 
         public void postRating(){

@@ -16,7 +16,7 @@
         <RelativeLayout
             android:id="@+id/movie_cont_card_content"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:background="#FFFFFF">
 
             <ImageView
@@ -32,10 +32,11 @@
             <TextView
                 android:id="@+id/movie_lbl_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/im_item_icon"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/movie_im_item_icon"
                 android:paddingTop="20dp"
-                android:paddingLeft="16dp" />
+                android:paddingLeft="16dp"
+                android:background="@color/wallet_hint_foreground_holo_dark" />
 
         </RelativeLayout>
 

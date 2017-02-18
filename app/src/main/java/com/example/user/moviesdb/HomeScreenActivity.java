@@ -96,21 +96,22 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item){
+        item.setChecked(true);
         int id = item.getItemId();
         Log.d(TAG, "here");
         if(id == R.id.nav_home){
-            Intent homeIntent = new Intent(HomeScreenActivity.this, HomeScreenActivity.class);
-            startActivity(homeIntent);
+            mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_movies){
             Intent moviesIntent = new Intent(HomeScreenActivity.this, MovieScreenActivity.class);
             startActivity(moviesIntent);
+            finish();
         }else if(id == R.id.nav_tv){
             //Toast.makeText(this, "Television", Toast.LENGTH_SHORT).show();
 
         }else if(id == R.id.nav_celebrities){
             Intent celebrityIntent = new Intent(HomeScreenActivity.this, CelebrityScreenActivity.class);
             startActivity(celebrityIntent);
-
+            finish();
         }else if(id == R.id.nav_news){
 
         }else if(id == R.id.nav_personal_account){
@@ -133,7 +134,7 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
 
     private void setUpPagerAndTabs(){
         tabarnak.setTabTextColors(ContextCompat.getColor(this, android.R.color.black),
-                ContextCompat.getColor(this, R.color.like_facebook));
+                ContextCompat.getColor(this, R.color.bg_screen1));
         tabarnak.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
         CustomAdapter adapter = new CustomAdapter(getSupportFragmentManager());

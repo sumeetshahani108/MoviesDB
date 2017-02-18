@@ -24,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -69,6 +70,9 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
 
         NavigationView navigationView = (NavigationView)findViewById(R.id.celeb_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -165,19 +169,21 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        item.setChecked(true);
         int id = item.getItemId();
         Log.d(TAG, "here");
         if(id == R.id.nav_home){
             Intent homeIntent = new Intent(CelebrityScreenActivity.this, HomeScreenActivity.class);
+            finish();
             startActivity(homeIntent);
         }else if(id == R.id.nav_movies){
             Intent moviesIntent = new Intent(CelebrityScreenActivity.this, MovieScreenActivity.class);
             startActivity(moviesIntent);
+            finish();
         }else if(id == R.id.nav_tv){
 
         }else if(id == R.id.nav_celebrities){
-            Intent celebrityIntent = new Intent(CelebrityScreenActivity.this, CelebrityScreenActivity.class);
-            startActivity(celebrityIntent);
+            mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_news){
 
         }else if(id == R.id.nav_personal_account){

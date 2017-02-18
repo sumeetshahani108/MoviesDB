@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -114,6 +115,9 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
             movie_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
             getLoaderManager().restartLoader(MOVIE_LIST_ID, null, this);
         }
+
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
@@ -152,19 +156,22 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        item.setChecked(true);
         int id = item.getItemId();
         Log.d(TAG, "here");
         if(id == R.id.nav_home){
             Intent homeIntent = new Intent(MovieScreenActivity.this, HomeScreenActivity.class);
             startActivity(homeIntent);
+            finish();
         }else if(id == R.id.nav_movies){
-            Intent moviesIntent = new Intent(MovieScreenActivity.this, MovieScreenActivity.class);
-            startActivity(moviesIntent);
+            mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_tv){
             //Toast.makeText(this, "Television", Toast.LENGTH_SHORT).show();
 
         }else if(id == R.id.nav_celebrities){
-
+            Intent homeIntent = new Intent(MovieScreenActivity.this, CelebrityScreenActivity.class);
+            startActivity(homeIntent);
+            finish();
         }else if(id == R.id.nav_news){
 
         }else if(id == R.id.nav_personal_account){

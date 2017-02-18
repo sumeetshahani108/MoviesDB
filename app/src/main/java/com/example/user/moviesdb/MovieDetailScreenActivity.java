@@ -194,7 +194,7 @@ public class MovieDetailScreenActivity extends AppCompatActivity implements Load
 
     @Override
     public void onClickToWatchVideos(int id) {
-        Intent i = new Intent(this, MovieYoutubeActivity.class);
+        Intent i = new Intent(this, MovieDetailYoutubeActivity.class);
         i.putExtra("movie_id",id);
         startActivity(i);
     }

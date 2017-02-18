@@ -6,6 +6,8 @@
     <color name="backgroundregister">#7fa87f</color>
     <color name="user_icon_3">#ff4285f4</color>
     <color name="like_facebook">#3B5998</color>
+    <color name="background_color">#323232</color>
+    <color name="foreground_color">#808080</color>
 
 
     <!-- Screens background color-->
@@ -39,5 +41,8 @@
         <item>@color/dot_dark_screen3</item>
         <item>@color/dot_dark_screen4</item>
     </array>
+    
+    <drawable name="text_color">#808080</drawable>
+    <drawable name="text_color2">#839933</drawable>_
 
 </resources>

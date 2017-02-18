@@ -22,7 +22,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.Map;
 
-public class ProfileDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class
+ProfileDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "ProfileDetailsActivity";
 

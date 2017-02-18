@@ -187,7 +187,7 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         }else if(id == R.id.nav_logout){
 
         }
-        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawerLayout);
+        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.movieDrawerLayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
 

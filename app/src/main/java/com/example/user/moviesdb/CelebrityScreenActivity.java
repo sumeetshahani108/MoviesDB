@@ -199,7 +199,7 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
         }else if(id == R.id.nav_logout){
 
         }
-        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawerLayout);
+        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.celebrityDrawerLayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
 

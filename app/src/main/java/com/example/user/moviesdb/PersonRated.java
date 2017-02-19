@@ -1,5 +1,6 @@
 package com.example.user.moviesdb;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import com.example.user.moviesdb.adapters.PersonFavouritesAdapter;
 import com.example.user.moviesdb.adapters.PersonRatedAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,38 +45,45 @@ public class PersonRated extends AppCompatActivity {
 
         adapter = new PersonRatedAdapter(this);
         mAuth = FirebaseAuth.getInstance();
-        final String user_id = mAuth.getCurrentUser().getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("ratings");
-        Query query = mDatabase.orderByChild("person_id").equalTo(user_id);
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                com.example.user.moviesdb.data.PersonRated personRated  = dataSnapshot.getValue(com.example.user.moviesdb.data.PersonRated.class);
-                if(personRated != null){
-                    adapter.getData(personRated);
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user == null){
+            Intent loginIntent = new Intent(PersonRated.this, LoginActivity.class);
+            startActivity(loginIntent);
+        }else{
+            final String user_id = mAuth.getCurrentUser().getUid();
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("ratings");
+            Query query = mDatabase.orderByChild("person_id").equalTo(user_id);
+            query.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    com.example.user.moviesdb.data.PersonRated personRated  = dataSnapshot.getValue(com.example.user.moviesdb.data.PersonRated.class);
+                    if(personRated != null){
+                        adapter.getData(personRated);
+                    }
+                    recyclerView.setAdapter(adapter);
                 }
-                recyclerView.setAdapter(adapter);
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            }
+                }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-            }
+                }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
     }
 }

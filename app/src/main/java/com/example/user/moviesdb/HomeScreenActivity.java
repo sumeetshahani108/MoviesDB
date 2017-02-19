@@ -128,6 +128,8 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
             startActivity(movie_favourites);
 
         }else if(id == R.id.nav_personal_rated_movies){
+            Intent movie_rated = new Intent(HomeScreenActivity.this, PersonRated.class);
+            startActivity(movie_rated);
 
         }else if(id == R.id.nav_personal_notifications){
 

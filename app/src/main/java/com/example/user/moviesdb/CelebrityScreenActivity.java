@@ -182,8 +182,6 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
 
         }else if(id == R.id.nav_personal_account){
 
-        }else if(id == R.id.nav_personal_wishlist){
-
         }else if(id == R.id.nav_personal_favourites){
 
         }else if(id == R.id.nav_personal_rated_movies){

@@ -109,12 +109,11 @@ public class MovieDetailScreenActivity extends AppCompatActivity implements Load
 
 
     @Override
-    public void onPostFavourites(int id) {
-        final int movie_id = id;
-        Log.d(TAG, "Here now");
+    public void onPostFavourites(String title, String movie_poster) {
+        final String movie_title = title;
+        final String movie_poster_path = movie_poster;
         FirebaseUser user = mAuth.getCurrentUser();
         if(user == null){
-            Log.d(TAG, "Reached Here");
             AlertDialog.Builder mBuilder = new AlertDialog.Builder(MovieDetailScreenActivity.this);
             View mView = getLayoutInflater().inflate(R.layout.login_alert, null);
             TextView text = (TextView)mView.findViewById(R.id.text_for_login);
@@ -144,15 +143,17 @@ public class MovieDetailScreenActivity extends AppCompatActivity implements Load
         }else{
             final String user_id = mAuth.getCurrentUser().getUid();
             DatabaseReference newPost = mDatabaseFavourites.push();
-            newPost.child("movie_id").setValue(movie_id);
+            newPost.child("movie_title").setValue(movie_title);
+            newPost.child("movie_poster").setValue(movie_poster_path);
             newPost.child("person_id").setValue(user_id);
         }
     }
 
     @Override
-    public void onSubmitRating(Float rating, int id) {
+    public void onSubmitRating(Float rating, String title, String movie_poster) {
         final Float my_rating = rating;
-        final int movie_id = id;
+        final String movie_title = title;
+        final String movie_poster_path = movie_poster;
         Log.d(TAG, "Here now");
         FirebaseUser user = mAuth.getCurrentUser();
         if(user == null){
@@ -187,7 +188,8 @@ public class MovieDetailScreenActivity extends AppCompatActivity implements Load
             final String user_id = mAuth.getCurrentUser().getUid();
             DatabaseReference newPost = mDatabaseRatings.push();
             newPost.child("rating").setValue(my_rating);
-            newPost.child("movie_id").setValue(movie_id);
+            newPost.child("movie_title").setValue(movie_title);
+            newPost.child("movie_poster").setValue(movie_poster_path);
             newPost.child("person_id").setValue(user_id);
         }
     }

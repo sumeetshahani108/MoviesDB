@@ -47,8 +47,8 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
     }
 
     public interface passRating{
-        void onSubmitRating(Float rating, int id);
-        void onPostFavourites(int id);
+        void onSubmitRating(Float rating, String movie_name, String movie_image);
+        void onPostFavourites(String movie_name, String movie_image);
         void onClickToWatchVideos(int id);
     }
 
@@ -137,14 +137,14 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
 
         public void postFavourites(){
             MovieDetailList item = listData.get(getAdapterPosition());
-            passRating.onPostFavourites(item.getId());
+            passRating.onPostFavourites(item.getMovie_title(), item.getMovie_poster());
         }
 
         public void postRating(){
             Float rating_value = ratingBar.getRating();
             //Log.d(TAG, rating_value+"");
             MovieDetailList item = listData.get(getAdapterPosition());
-            passRating.onSubmitRating(rating_value, item.getId());
+            passRating.onSubmitRating(rating_value, item.getMovie_title(), item.getMovie_poster());
         }
 
         public void watchVideos(){

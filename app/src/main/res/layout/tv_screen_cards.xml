@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_item_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:padding="8dp">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/tv_card_item"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:id="@+id/tv_cont_card_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
+
+            <ImageView
+                android:id="@+id/tv_im_item_icon"
+                android:layout_width="match_parent"
+                android:layout_height="156dp"
+                android:background="@color/colorPrimary"
+                android:padding="36dp"
+                android:tint="#FFFFFF"
+                android:src="@drawable/ic_perm_identity_white_24dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_lbl_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_im_item_icon"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:background="@color/wallet_hint_foreground_holo_dark" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

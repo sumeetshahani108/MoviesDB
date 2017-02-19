@@ -37,6 +37,9 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp">
 
+
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:id="@+id/movie_title"
@@ -68,34 +71,111 @@
 
                 <TextView
                     android:layout_height="wrap_content"
-                    android:id="@+id/vote_average"
+                    android:id="@+id/movie_vote_average"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:alpha="1"
-                    android:layout_width="333dp" />
+                    android:layout_width="333dp"
+                    android:paddingLeft="3dp" />
 
             </LinearLayout>
 
             <LinearLayout
+
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_height="210dp">
 
                 <ImageView
                     android:layout_height="200dp"
-                    android:id="@+id/imageView6"
+                    android:id="@+id/movie_poster_image"
                     android:layout_weight="1"
                     android:alpha="1"
                     android:layout_marginLeft="7dp"
-                    android:layout_width="300dp" />
+                    android:layout_width="320dp" />
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_weight="1"
-                    android:alpha="1"></LinearLayout>
+                    android:alpha="1"
+                    android:layout_marginLeft="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/movie_tagline"
+                        android:layout_weight="0.20"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/movie_release_date"
+                        android:layout_weight="0.20"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/movie_runtime"
+                        android:layout_weight="0.20"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        android:background="@color/foreground_color"
+                        android:text="Add to Favourites"
+                        android:layout_width="match_parent"
+                        android:id="@+id/movie_favourites"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0.50"
+                        android:layout_height="10dp" />
+
+                    <Button
+                        android:background="@color/foreground_color"
+                        android:text="Watch Videos"
+                        android:layout_width="match_parent"
+                        android:id="@+id/movie_videos_button"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0.50"
+                        android:layout_height="10dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/movie_description"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rating">
+
+                <RatingBar
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rating_bar"
+                    android:stepSize="1.0"
+                    android:numStars="5"
+                    android:layout_width="wrap_content" />
+
+                <Button
+                    android:text="Rate"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rating_button"
+                    android:layout_weight="0.08"
+                    android:background="@color/foreground_color" />
             </LinearLayout>
 
         </LinearLayout>

@@ -4,7 +4,7 @@
 
     <stroke
         android:width="2dp"
-        android:color="@color/bg_screen1">
+        android:color="#ffffff">
     </stroke>
 
 </shape>

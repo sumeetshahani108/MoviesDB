@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.example.user.moviesdb.R;
 import com.example.user.moviesdb.data.MovieDetailList;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -36,10 +39,21 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
 
     private static final String TAG = "MovieItemDetailAdapter";
     private LayoutInflater inflater ;
+    private passRating passRating;
     private List<MovieDetailList> listData  = new ArrayList<>();
 
     public MovieItemDetailAdapter(Context c){
         inflater = LayoutInflater.from(c);
+    }
+
+    public interface passRating{
+        void onSubmitRating(Float rating, int id);
+        void onPostFavourites(int id);
+        void onClickToWatchVideos(int id);
+    }
+
+    public void setPassRating(final passRating passRating){
+        this.passRating = passRating ;
     }
 
     public void swap(List<MovieDetailList> data){
@@ -66,7 +80,19 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
         holder.movie_title.setText(item.getMovie_title());
         holder.movie_description.setText(item.getMovie_description());
         holder.movie_release_date.setText(item.getRelease_date());
-        holder.movie_vote_average.setText(Integer.toString(item.getVote_average()));
+        int t = item.getMovie_runtime();
+        int hours = t/60;
+        int minutes = t%60;
+        if(hours==1){
+            holder.movie_runtime.setText(hours+" hour "+minutes+ "minutes");
+        }else if(minutes == 1){
+            holder.movie_runtime.setText(hours+" hours "+minutes+ "minute");
+        }else if(hours == 1 && minutes == 1){
+            holder.movie_runtime.setText(hours+" hour "+minutes+ "minute");
+        }else{
+            holder.movie_runtime.setText(hours+" hours "+minutes+ "minutes");
+        }
+        holder.movie_vote_average.setText(Integer.toString(item.getVote_average()) + "/10");
         holder.movie_image.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
         //Picasso.with(getApplicationContext()).load("").into(holder.movie_image);
     }
@@ -84,30 +110,64 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
         TextView movie_release_date ;
         TextView movie_vote_average ;
         ImageView movie_image;
+        TextView movie_runtime;
         private RatingBar ratingBar;
         private Button submitRating;
+        private ProgressDialog mProgress;
+        private Button favourites;
+        private Button videos;
 
         public MovieItemDataHolder(View itemView){
             super(itemView);
             movie_title = (TextView)itemView.findViewById(R.id.movie_title);
-           // movie_description = (TextView)itemView.findViewById(R.id.movie_description);
-            //movie_release_date = (TextView)itemView.findViewById(R.id.movie_release_date);
-            //movie_vote_average = (TextView)itemView.findViewById(R.id.movie_vote_average);
-            //movie_image = (ImageView)itemView.findViewById(R.id.movie_poster_image);
-           // ratingBar = (RatingBar)itemView.findViewById(R.id.rating_bar);
-            //submitRating = (Button)itemView.findViewById(R.id.rating_button);
-            /*submitRating.setOnClickListener(new View.OnClickListener() {
+            movie_description = (TextView)itemView.findViewById(R.id.movie_description);
+            movie_release_date = (TextView)itemView.findViewById(R.id.movie_release_date);
+            movie_vote_average = (TextView)itemView.findViewById(R.id.movie_vote_average);
+            movie_image = (ImageView)itemView.findViewById(R.id.movie_poster_image);
+            ratingBar = (RatingBar)itemView.findViewById(R.id.rating_bar);
+            movie_runtime = (TextView) itemView.findViewById(R.id.movie_runtime);
+            submitRating = (Button)itemView.findViewById(R.id.rating_button);
+            submitRating.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     postRating();
                 }
-            });*/
+
+            });
+            favourites = (Button)itemView.findViewById(R.id.movie_favourites);
+            favourites.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    postFavourites();
+                }
+            });
+            videos = (Button)itemView.findViewById(R.id.movie_videos_button);
+            videos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    watchVideos();
+                }
+            });
+        }
+
+        public void postFavourites(){
+            MovieDetailList item = listData.get(getAdapterPosition());
+            passRating.onPostFavourites(item.getId());
+
         }
 
         public void postRating(){
-            String rating_value = String.valueOf(ratingBar.getRating());
-            Log.d(TAG, rating_value);
+            Float rating_value = ratingBar.getRating();
+            //Log.d(TAG, rating_value+"");
+            MovieDetailList item = listData.get(getAdapterPosition());
+            passRating.onSubmitRating(rating_value, item.getId());
         }
+
+        public void watchVideos(){
+            MovieDetailList item = listData.get(getAdapterPosition());
+            passRating.onClickToWatchVideos(item.getId());
+        }
+
         @Override
         public void onClick(View v) {
 

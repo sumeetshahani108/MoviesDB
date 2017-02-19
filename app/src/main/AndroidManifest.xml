@@ -16,9 +16,9 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".SplashScreenActivity"
-            android:noHistory="true"
-            >
+        <activity
+            android:name=".SplashScreenActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,6 +45,8 @@
         <activity android:name=".TvGenreDetailActivity" />
         <activity android:name=".CelebrityScreenActivity" />
         <activity android:name=".CelebrityDetailScreenActivity" />
+        <activity android:name=".MovieDetailYoutubeActivity" />
+        <activity android:name=".PersonFavourites"></activity>
     </application>
 
 </manifest>

@@ -108,7 +108,7 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
         Log.d(TAG, "here");
         if(id == R.id.nav_home){
             mDrawerLayout.closeDrawers();
-        }else if(id == R.id.nav_movies){item.set
+        }else if(id == R.id.nav_movies){
             Intent moviesIntent = new Intent(HomeScreenActivity.this, MovieScreenActivity.class);
             startActivity(moviesIntent);
             finish();
@@ -123,9 +123,9 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
 
         }else if(id == R.id.nav_personal_account){
 
-        }else if(id == R.id.nav_personal_wishlist){
-
         }else if(id == R.id.nav_personal_favourites){
+            Intent movie_favourites = new Intent(HomeScreenActivity.this, PersonFavourites.class);
+            startActivity(movie_favourites);
 
         }else if(id == R.id.nav_personal_rated_movies){
 

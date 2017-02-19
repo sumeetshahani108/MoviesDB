@@ -9,7 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.user.moviesdb.MainActivity">
+    tools:context="com.example.user.moviesdb.MainActivity"
+    android:background="@color/background_color">
 
 
     <LinearLayout
@@ -25,7 +26,8 @@
             android:src="@drawable/reviewing_life_film"
             android:layout_alignBottom="@+id/linearLayout"
             android:layout_alignParentStart="true"
-            android:layout_height="160dp" />
+            android:layout_height="160dp"
+            android:background="@android:color/white" />
 
         <TextView
             android:text="MoviesDB"
@@ -36,8 +38,8 @@
             android:gravity="center_horizontal"
             android:layout_width="120dp"
             android:paddingTop="28dp"
-            android:background="#ffffff"
-            android:textColor="@color/colorPrimaryDark"
+            android:background="@color/foreground_color"
+            android:textColor="@android:color/white"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -112,7 +114,8 @@
                 android:id="@+id/not_for_now"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>
 
@@ -131,7 +134,7 @@
 
             <ImageView
                 android:layout_height="40dp"
-                facebook:srcCompat="@drawable/ic_search_black_24dp"
+                facebook:srcCompat="@drawable/ic_search_white_24dp"
                 android:id="@+id/imageView3"
                 android:layout_weight="0.27"
                 android:layout_width="5dp"
@@ -145,7 +148,8 @@
                 android:id="@+id/textView6"
                 android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -156,15 +160,16 @@
             <ImageView
                 android:layout_width="5dp"
                 android:layout_height="40dp"
-                facebook:srcCompat="@drawable/ic_schedule_black_24dp"
+                facebook:srcCompat="@drawable/ic_favorite_white_24dp"
                 android:id="@+id/imageView4"
                 android:layout_gravity="center"
                 android:layout_weight="0.27"
                 android:layout_marginLeft="15dp" />
 
             <TextView
-                android:text="Add movies or tv shows you want to view later into WatchLater"
+                android:text="Add movies and shows you like to the favourites tab"
                 android:layout_height="match_parent"
+                android:textColor="@android:color/white"
                 android:id="@+id/textView7"
                 android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"

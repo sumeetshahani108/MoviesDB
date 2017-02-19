@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,8 +14,6 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,62 +24,62 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.user.moviesdb.adapters.MovieItemAdapter;
-import com.example.user.moviesdb.data.MovieGenreDataList;
-import com.example.user.moviesdb.data.MovieItemData;
-import com.example.user.moviesdb.data.MovieItemList;
-import com.example.user.moviesdb.loaders.MovieItemLoader;
+import com.example.user.moviesdb.adapters.TvItemAdapter;
+import com.example.user.moviesdb.data.TvItemList;
+import com.example.user.moviesdb.loaders.TvItemLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener, android.app.LoaderManager.LoaderCallbacks<List<MovieItemList>>,MovieItemAdapter.itemMovieClickCallback {
+public class TvScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener, android.app.LoaderManager.LoaderCallbacks<List<TvItemList>>,TvItemAdapter.itemTvClickCallback {
 
     private DrawerLayout mDrawerLayout ;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
     private EditText editText;
-    private String movie_url;
-    private static final String TAG = "MovieScreenActivity";
-    private MovieItemAdapter adapter;
+    private String tv_url;
+    private static final String TAG = "TvScreenActivity";
+    private TvItemAdapter adapter;
     private RecyclerView recyclerView;
-    private static final int MOVIE_LIST_ID = 1;
+    private static final int TV_LIST_ID = 1;
+    private ArrayList listData ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_screen);
+        setContentView(R.layout.activity_tv_screen);
 
         mToolbar = (Toolbar)findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.movieDrawerLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.tvDrawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView)findViewById(R.id.tv_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        editText = (EditText) findViewById(R.id.textSearch);
+        editText = (EditText) findViewById(R.id.tv_textSearch);
         editText.setHintTextColor(getResources().getColor(R.color.bg_screen1));
         editText.setTextColor(getResources().getColor(R.color.bg_screen1));
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner = (Spinner) findViewById(R.id.tvSpinner);
         spinner.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);
         spinner.setBackgroundColor(getResources().getColor(R.color.background_color));
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(MovieScreenActivity.this,android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.options));
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(TvScreenActivity.this,android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.tv_options));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(myAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_list);
+        /*listData = (ArrayList) TvItemList.TvItemata.getTvItemData();
+        adapter = new TvItemAdapter(listData,this);
+        adapter.setItemClickCallback(this);*/
+
+        recyclerView = (RecyclerView)findViewById(R.id.tv_recycler_list);
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -91,34 +87,37 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         else{
             recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         }
+        recyclerView.setAdapter(adapter);
     }
 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-       // Toast.makeText(parent.getContext(), "Selected Item is "+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        // Toast.makeText(parent.getContext(), "Selected Item is "+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
         //String selected = parent.getItemAtPosition(position).toString();
-        if(parent.getItemAtPosition(position).toString().equals("Now Playing")){
+        if(parent.getItemAtPosition(position).toString().equals("Popular")){
             //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            movie_url = "https://api.themoviedb.org/3/movie/now_playing?api_key=b767446da35c14841562288874f02281&language=en-US";
-            getLoaderManager().restartLoader(MOVIE_LIST_ID, null, this);
+            tv_url = "https://api.themoviedb.org/3/tv/popular?api_key=b767446da35c14841562288874f02281&language=en-US";
+            getLoaderManager().restartLoader(TV_LIST_ID, null, this);
 
-        } else if (parent.getItemAtPosition(position).toString().equals("Popular") ){
+        } else if (parent.getItemAtPosition(position).toString().equals("Tv Airing Today") ){
             //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            movie_url = "https://api.themoviedb.org/3/movie/popular?api_key=b767446da35c14841562288874f02281&language=en-US";
-            getLoaderManager().restartLoader(MOVIE_LIST_ID, null, this);
+            tv_url = "https://api.themoviedb.org/3/tv/airing_today?api_key=b767446da35c14841562288874f02281&language=en-US";
+            getLoaderManager().restartLoader(TV_LIST_ID, null, this);
 
         }else if(parent.getItemAtPosition(position).toString().equals("Top Rated")){
             //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            movie_url = "https://api.themoviedb.org/3/movie/top_rated?api_key=b767446da35c14841562288874f02281&language=en-US";
-            getLoaderManager().restartLoader(MOVIE_LIST_ID, null, this);
+            tv_url = "https://api.themoviedb.org/3/tv/top_rated?api_key=b767446da35c14841562288874f02281&language=en-US";
+            getLoaderManager().restartLoader(TV_LIST_ID, null, this);
 
-        }else if(parent.getItemAtPosition(position).toString().equals("Upcoming")){
+        }else if(parent.getItemAtPosition(position).toString().equals("Tv On The Air")){
             //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            movie_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=b767446da35c14841562288874f02281&language=en-US";
+            tv_url = "https://api.themoviedb.org/3/tv/on_the_air?api_key=b767446da35c14841562288874f02281&language=en-US";
+            getLoaderManager().restartLoader(TV_LIST_ID, null, this);
         }
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
@@ -151,7 +150,7 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
 
     private void viewProfile() {
         Log.d(TAG, "inside view profile");
-        Intent intent = new Intent(MovieScreenActivity.this, ProfileDetailsActivity.class);
+        Intent intent = new Intent(this, ProfileDetailsActivity.class);
         startActivity(intent);
     }
 
@@ -164,15 +163,15 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
             Intent homeIntent = new Intent(this, HomeScreenActivity.class);
             startActivity(homeIntent);
             finish();
-        }else if(id == R.id.nav_movies){
-            mDrawerLayout.closeDrawers();
-        }else if(id == R.id.nav_tv){
-            Intent tvIntent = new Intent(this, TvScreenActivity.class);
-            startActivity(tvIntent);
+        }else if(id == R.id.nav_movies) {
+            Intent moviesIntent = new Intent(this, MovieScreenActivity.class);
+            startActivity(moviesIntent);
             finish();
+        }else if(id == R.id.nav_tv){
+            mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_celebrities){
-            Intent celebIntent = new Intent(this, CelebrityScreenActivity.class);
-            startActivity(celebIntent);
+            Intent celebrityIntent = new Intent(this, CelebrityScreenActivity.class);
+            startActivity(celebrityIntent);
             finish();
         }else if(id == R.id.nav_personal_account){
             Intent profileIntent = new Intent(this, ProfileDetailsActivity.class);
@@ -186,21 +185,21 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
             Intent movie_rated = new Intent(this, PersonRated.class);
             startActivity(movie_rated);
         }
-        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.movieDrawerLayout);
+        DrawerLayout drawer = (DrawerLayout)findViewById(R.id.tvDrawerLayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
     }
 
     @Override
-    public android.content.Loader<List<MovieItemList>> onCreateLoader(int id, Bundle args) {
-        return new MovieItemLoader(this, movie_url);
+    public android.content.Loader<List<TvItemList>> onCreateLoader(int id, Bundle args) {
+        return new TvItemLoader(this, tv_url);
     }
 
     @Override
-    public void onLoadFinished(android.content.Loader<List<MovieItemList>> loader, List<MovieItemList> data) {
+    public void onLoadFinished(android.content.Loader<List<TvItemList>> loader, List<TvItemList> data) {
         if(data != null && !data.isEmpty()){
-            adapter = new MovieItemAdapter(this);
+            adapter = new TvItemAdapter(this);
             adapter.setItemClickCallback(this);
             adapter.swap(data);
             recyclerView.setAdapter(adapter);
@@ -208,14 +207,14 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
     }
 
     @Override
-    public void onLoaderReset(android.content.Loader<List<MovieItemList>> loader) {
+    public void onLoaderReset(android.content.Loader<List<TvItemList>> loader) {
         adapter.clear();
     }
 
     @Override
     public void onItemClick(int p) {
-        Intent i = new Intent(this, MovieDetailScreenActivity.class);
-        i.putExtra("movie_id",p);
+        Intent i = new Intent(this, TvDetailScreenActivity.class);
+        i.putExtra("tv_id",p);
         startActivity(i);
     }
 }

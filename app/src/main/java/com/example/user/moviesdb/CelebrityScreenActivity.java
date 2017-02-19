@@ -147,29 +147,28 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
         int id = item.getItemId();
         Log.d(TAG, "here");
         if(id == R.id.nav_home){
-            Intent homeIntent = new Intent(CelebrityScreenActivity.this, HomeScreenActivity.class);
-            finish();
+            Intent homeIntent = new Intent(this, HomeScreenActivity.class);
             startActivity(homeIntent);
-        }else if(id == R.id.nav_movies){
-            Intent moviesIntent = new Intent(CelebrityScreenActivity.this, MovieScreenActivity.class);
-            startActivity(moviesIntent);
             finish();
+        }else if(id == R.id.nav_movies){
+            mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_tv){
-
+            Intent tvIntent = new Intent(this, TvScreenActivity.class);
+            startActivity(tvIntent);
+            finish();
         }else if(id == R.id.nav_celebrities){
             mDrawerLayout.closeDrawers();
-        }else if(id == R.id.nav_news){
-
         }else if(id == R.id.nav_personal_account){
-
+            Intent profileIntent = new Intent(this, ProfileDetailsActivity.class);
+            profileIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_3);
+            startActivity(profileIntent);
+            finish();
         }else if(id == R.id.nav_personal_favourites){
-
+            Intent movie_favourites = new Intent(this, PersonFavourites.class);
+            startActivity(movie_favourites);
         }else if(id == R.id.nav_personal_rated_movies){
-
-        }else if(id == R.id.nav_personal_notifications){
-
-        }else if(id == R.id.nav_logout){
-
+            Intent movie_rated = new Intent(this, PersonRated.class);
+            startActivity(movie_rated);
         }
         DrawerLayout drawer = (DrawerLayout)findViewById(R.id.celebrityDrawerLayout);
         drawer.closeDrawer(GravityCompat.START);

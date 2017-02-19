@@ -10,8 +10,10 @@ import com.example.user.moviesdb.data.MovieDetailList;
 import com.example.user.moviesdb.data.MovieGenreDataList;
 import com.example.user.moviesdb.data.MovieGenreItemsDataList;
 import com.example.user.moviesdb.data.MovieItemList;
+import com.example.user.moviesdb.data.TvDetailList;
 import com.example.user.moviesdb.data.TvGenreDataList;
 import com.example.user.moviesdb.data.TvGenreItemsDataList;
+import com.example.user.moviesdb.data.TvItemList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,6 +66,18 @@ public class QueryUtils {
         return movieDetailList;
     }
 
+    public static List<TvDetailList> fetchTvDetailData(String requestUrl) {
+        URL url = createUrl(requestUrl);
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpGetRequest(url);
+        } catch (IOException e) {
+            Log.e(Log_Tag, "Problem Making the HTTP Request.", e);
+        }
+        List<TvDetailList> tvDetailList = extractFeatureFromJSONTvDetailList(jsonResponse);
+        return tvDetailList;
+    }
+
     public static List<MovieGenreItemsDataList> fetchMovieGenreItemListData(String requestUrl) {
         URL url = createUrl(requestUrl);
         String jsonResponse = null;
@@ -88,6 +102,18 @@ public class QueryUtils {
 
         List<MovieItemList> movieItemData = extractFeatureFromJSONMovieList(jsonResponse);
         return movieItemData;
+    }
+    public static List<TvItemList> fetchTvListData(String requestUrl) {
+        URL url = createUrl(requestUrl);
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpGetRequest(url);
+        } catch (IOException e) {
+            Log.e(Log_Tag, "Problem Making the HTTP Request", e);
+        }
+
+        List<TvItemList> tvItemData = extractFeatureFromJSONTvList(jsonResponse);
+        return tvItemData;
     }
 
     public static List<TvGenreDataList> fetchTvGenreListData(String requestUrl){
@@ -275,6 +301,59 @@ public class QueryUtils {
             Log.e("QueryUtils", "Problem parsing the MovieGenreList JSON results", e);
         }
         return movieItemList;
+    }
+
+    private static List<TvItemList> extractFeatureFromJSONTvList(String tvItemJSON) {
+        if (TextUtils.isEmpty(tvItemJSON)) {
+            return null;
+        }
+        List<TvItemList> tvItemList = new ArrayList<>();
+        try {
+            JSONObject baseJSONResponse = new JSONObject(tvItemJSON);
+            JSONArray results = baseJSONResponse.getJSONArray("results");
+
+            for (int i = 0; i < results.length(); i++) {
+                JSONObject currentResult = results.getJSONObject(i);
+                String name = currentResult.getString("name");
+                int id = currentResult.getInt("id");
+                TvItemList tvItemListData = new TvItemList(name, id);
+                tvItemList.add(tvItemListData);
+            }
+        } catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the MovieGenreList JSON results", e);
+        }
+        return tvItemList;
+    }
+
+
+    private static List<TvDetailList> extractFeatureFromJSONTvDetailList(String tvDetailItemJSON) {
+        if (TextUtils.isEmpty(tvDetailItemJSON)) {
+            return null;
+        }
+        List<TvDetailList> tvDetail= new ArrayList<>();
+        try{
+            JSONObject baseJSONResponse = new JSONObject(tvDetailItemJSON);
+            Log.d(Log_Tag, baseJSONResponse+"");
+            int id = baseJSONResponse.getInt("id");
+            String tv_name = baseJSONResponse.getString("title");
+            String tv_first_air_date = baseJSONResponse.getString("first_air_date");
+            String tv_overview = baseJSONResponse.getString("overview");
+            String tv_last_air_date = baseJSONResponse.getString("last_air_date");
+            int tv_vote_average = baseJSONResponse.getInt("vote_average");
+            String tv_poster = baseJSONResponse.getString("poster_path");
+            int tv_no_of_episodes = baseJSONResponse.getInt("no_of_episodes");
+            int tv_no_of_seasons = baseJSONResponse.getInt("no_of_seasons");
+            String tv_in_production = baseJSONResponse.getString("in_production");
+            TvDetailList tvDetailList = new TvDetailList(id, tv_name, tv_overview, tv_first_air_date, tv_last_air_date, tv_vote_average, tv_in_production, tv_no_of_episodes, tv_no_of_seasons);
+
+            Log.d(Log_Tag,tvDetailList.getTv_overview()+"");
+            Log.d(Log_Tag,tvDetailList.getTv_original_name()+"");
+            tvDetail.add(tvDetailList);
+        }catch (JSONException e) {
+            Log.e("QueryUtils", "Problem parsing the tvGenreList JSON results", e);
+        }
+        Log.d(Log_Tag, tvDetail+"");
+        return tvDetail;
     }
 
     private static List<MovieDetailList> extractFeatureFromJSONMovieDetailList(String movieDetailItemJSON) {

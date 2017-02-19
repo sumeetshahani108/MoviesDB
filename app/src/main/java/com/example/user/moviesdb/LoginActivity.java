@@ -34,8 +34,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     ProgressDialog progressDialog;
     Button signin;
-    ImageButton loginBackButton;
-    TextView forgotPassword;
     TextView signUpNow;
 
     private FirebaseAuth mAuth;
@@ -51,16 +49,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = (EditText) findViewById(R.id.login_password);
         progressDialog = new ProgressDialog(this);
         signin = (Button) findViewById(R.id.signin_button);
-        loginBackButton = (ImageButton) findViewById(R.id.login_back_button);
-        forgotPassword = (TextView) findViewById(R.id.forgot_password);
         signUpNow = (TextView) findViewById(R.id.signUpNow);
-
-        forgotPassword.setOnClickListener(this);
-
         signUpNow.setOnClickListener(this);
-
-        loginBackButton.setOnClickListener(this);
-
         signin.setOnClickListener(this);
     }
 
@@ -69,11 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.signin_button:
                 checkLogin();
-                break;
-            case R.id.login_back_button:
-                super.finish();
-                break;
-            case R.id.forgot_password:
                 break;
             case R.id.signUpNow:
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);

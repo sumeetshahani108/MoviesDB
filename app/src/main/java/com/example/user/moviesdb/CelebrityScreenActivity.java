@@ -76,6 +76,10 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        editText = (EditText) findViewById(R.id.celeb_textSearch);
+        editText.setTextColor(getResources().getColor(R.color.black));
+
+
         Spinner spinner = (Spinner) findViewById(R.id.celeb_spinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(CelebrityScreenActivity.this,android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.celebrity_options));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

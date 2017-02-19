@@ -69,6 +69,9 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        editText = (EditText) findViewById(R.id.textSearch);
+        editText.setTextColor(getResources().getColor(R.color.black));
+
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(MovieScreenActivity.this,android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.options));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

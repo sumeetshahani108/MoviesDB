@@ -291,8 +291,11 @@ public class QueryUtils {
             String movie_description = baseJSONResponse.getString("overview");
             String movie_release_date = baseJSONResponse.getString("release_date");
             int movie_vote_average = baseJSONResponse.getInt("vote_average");
+            String poster_path = baseJSONResponse.getString("poster_path");
             int movie_runtime = baseJSONResponse.getInt("runtime");
+
             MovieDetailList movieDetailList = new MovieDetailList(id, movie_title, movie_description, movie_release_date, movie_vote_average, movie_runtime, movie_tagline);
+
             Log.d(Log_Tag,movieDetailList.getMovie_description()+"");
             Log.d(Log_Tag,movieDetailList.getMovie_title()+"");
             movieDetail.add(movieDetailList);

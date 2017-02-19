@@ -12,14 +12,19 @@ public class MovieDetailList {
     private int movie_runtime ;
     private String movie_tagline ;
     private int id;
+    private String movie_poster;
+
 
     public MovieDetailList(int id, String movie_title, String movie_description, String release_date, int vote_average, int movie_runtime, String movie_tagline) {
+
         this.id = id;
         this.movie_title = movie_title;
         this.movie_description = movie_description;
         this.release_date = release_date;
         this.vote_average = vote_average;
+        this.movie_poster = movie_poster;
         this.movie_runtime = movie_runtime ;
+
         this.movie_tagline = movie_tagline ;
     }
 
@@ -77,5 +82,13 @@ public class MovieDetailList {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getMovie_poster() {
+        return movie_poster;
+    }
+
+    public void setMovie_poster(String movie_poster) {
+        this.movie_poster = movie_poster;
     }
 }

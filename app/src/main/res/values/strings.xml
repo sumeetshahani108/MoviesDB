@@ -27,7 +27,7 @@
         <item>Tv Airing Today</item>
         <item>Popular</item>
         <item>Top Rated</item>
-        <item>Tv </item>
+        <item>Tv On The Air</item>
     </string-array>
 
     <string name="player_error">Error initializing YouTube player: %s</string>

@@ -51,7 +51,6 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
     private MovieItemAdapter adapter;
     private RecyclerView recyclerView;
     private static final int MOVIE_LIST_ID = 1;
-    private ArrayList listData ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +83,6 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         spinner.setAdapter(myAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        listData = (ArrayList) MovieItemData.getMovieItemData();
-        adapter = new MovieItemAdapter(listData,this);
-        adapter.setItemClickCallback(this);
-
         recyclerView = (RecyclerView)findViewById(R.id.recycler_list);
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
@@ -96,7 +91,6 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         else{
             recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         }
-        recyclerView.setAdapter(adapter);
     }
 
 
@@ -106,27 +100,25 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         //String selected = parent.getItemAtPosition(position).toString();
         if(parent.getItemAtPosition(position).toString().equals("Now Playing")){
             //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            movie_url = "https://api.themoviedb.org/3/movie/now_playing?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+            movie_url = "https://api.themoviedb.org/3/movie/now_playing?api_key=b767446da35c14841562288874f02281&language=en-US";
             getLoaderManager().restartLoader(MOVIE_LIST_ID, null, this);
 
         } else if (parent.getItemAtPosition(position).toString().equals("Popular") ){
             //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            movie_url = "https://api.themoviedb.org/3/movie/popular?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+            movie_url = "https://api.themoviedb.org/3/movie/popular?api_key=b767446da35c14841562288874f02281&language=en-US";
             getLoaderManager().restartLoader(MOVIE_LIST_ID, null, this);
 
         }else if(parent.getItemAtPosition(position).toString().equals("Top Rated")){
             //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            movie_url = "https://api.themoviedb.org/3/movie/top_rated?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
+            movie_url = "https://api.themoviedb.org/3/movie/top_rated?api_key=b767446da35c14841562288874f02281&language=en-US";
             getLoaderManager().restartLoader(MOVIE_LIST_ID, null, this);
 
         }else if(parent.getItemAtPosition(position).toString().equals("Upcoming")){
             //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            movie_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=b767446da35c14841562288874f02281&language=en-US&page=1";
-            getLoaderManager().restartLoader(MOVIE_LIST_ID, null, this);
+            movie_url = "https://api.themoviedb.org/3/movie/upcoming?api_key=b767446da35c14841562288874f02281&language=en-US";
         }
 
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
@@ -169,30 +161,30 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         int id = item.getItemId();
         Log.d(TAG, "here");
         if(id == R.id.nav_home){
-            Intent homeIntent = new Intent(MovieScreenActivity.this, HomeScreenActivity.class);
+            Intent homeIntent = new Intent(this, HomeScreenActivity.class);
             startActivity(homeIntent);
             finish();
         }else if(id == R.id.nav_movies){
             mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_tv){
-            //Toast.makeText(this, "Television", Toast.LENGTH_SHORT).show();
-
-        }else if(id == R.id.nav_celebrities){
-            Intent homeIntent = new Intent(MovieScreenActivity.this, CelebrityScreenActivity.class);
-            startActivity(homeIntent);
+            Intent tvIntent = new Intent(this, TvScreenActivity.class);
+            startActivity(tvIntent);
             finish();
-        }else if(id == R.id.nav_news){
-
+        }else if(id == R.id.nav_celebrities){
+            Intent celebIntent = new Intent(this, CelebrityScreenActivity.class);
+            startActivity(celebIntent);
+            finish();
         }else if(id == R.id.nav_personal_account){
-
+            Intent profileIntent = new Intent(this, ProfileDetailsActivity.class);
+            profileIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_3);
+            startActivity(profileIntent);
+            finish();
         }else if(id == R.id.nav_personal_favourites){
-
+            Intent movie_favourites = new Intent(this, PersonFavourites.class);
+            startActivity(movie_favourites);
         }else if(id == R.id.nav_personal_rated_movies){
-
-        }else if(id == R.id.nav_personal_notifications){
-
-        }else if(id == R.id.nav_logout){
-
+            Intent movie_rated = new Intent(this, PersonRated.class);
+            startActivity(movie_rated);
         }
         DrawerLayout drawer = (DrawerLayout)findViewById(R.id.movieDrawerLayout);
         drawer.closeDrawer(GravityCompat.START);
@@ -208,8 +200,10 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
     @Override
     public void onLoadFinished(android.content.Loader<List<MovieItemList>> loader, List<MovieItemList> data) {
         if(data != null && !data.isEmpty()){
-            Log.d(TAG, "here");
+            adapter = new MovieItemAdapter(this);
+            adapter.setItemClickCallback(this);
             adapter.swap(data);
+            recyclerView.setAdapter(adapter);
         }
     }
 

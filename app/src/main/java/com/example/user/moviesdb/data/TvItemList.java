@@ -1,5 +1,8 @@
 package com.example.user.moviesdb.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by user on 26-01-2017.
  */
@@ -29,7 +32,8 @@ public class TvItemList {
         return tv_id;
     }
 
-    public void setTv_id(int movie_id) {
+    public void setTv_id(int tv_id) {
         this.tv_id = tv_id;
     }
+
 }

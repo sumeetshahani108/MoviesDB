@@ -47,7 +47,10 @@
         <activity android:name=".CelebrityDetailScreenActivity" />
         <activity android:name=".MovieDetailYoutubeActivity" />
         <activity android:name=".PersonFavourites" />
-        <activity android:name=".TvScreenActivity"></activity>
+        <activity android:name=".TvScreenActivity" />
+        <activity android:name=".PersonRated" />
+        <activity android:name=".TvDetailScreenActivity" />
+        <activity android:name=".TvDetailYoutubeActivity"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.example.user.moviesdb.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +27,8 @@ public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolde
     private itemTvClickCallback itemClickCallback ;
     private static final String TAG = "TvItemAdapter";
 
-    public TvItemAdapter(List<TvItemList> listData,Context c) {
+    public TvItemAdapter(Context c) {
         inflater = LayoutInflater.from(c);
-        this.listData = listData;
     }
 
     public interface itemTvClickCallback{
@@ -53,7 +53,7 @@ public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolde
     }
 
     public void swap(List<TvItemList> data){
-        listData.clear();
+        Log.d(TAG, data.get(0).getName());
         listData.addAll(data);
         notifyDataSetChanged();
     }

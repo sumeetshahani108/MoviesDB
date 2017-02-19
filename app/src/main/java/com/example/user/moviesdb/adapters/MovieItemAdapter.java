@@ -2,6 +2,7 @@ package com.example.user.moviesdb.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.example.user.moviesdb.data.MovieItemList;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,13 +23,12 @@ import java.util.List;
 public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.DataHolder> {
 
     private LayoutInflater inflater ;
-    private List<MovieItemList> listData ;
+    private List<MovieItemList> listData = new ArrayList<>();
     private itemMovieClickCallback itemClickCallback ;
     private static final String TAG = "MovieItemAdapter";
 
-    public MovieItemAdapter(List<MovieItemList> listData,Context c) {
+    public MovieItemAdapter(Context c) {
         inflater = LayoutInflater.from(c);
-        this.listData = listData;
     }
 
     public interface itemMovieClickCallback{
@@ -52,7 +53,7 @@ public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.Dat
     }
 
     public void swap(List<MovieItemList> data){
-        listData.clear();
+        Log.d(TAG, data.get(0).getTitle());
         listData.addAll(data);
         notifyDataSetChanged();
     }

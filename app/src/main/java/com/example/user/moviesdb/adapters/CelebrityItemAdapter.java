@@ -12,6 +12,7 @@ import com.example.user.moviesdb.data.CelebrityItemList;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,13 +22,12 @@ import java.util.List;
 public class CelebrityItemAdapter  extends RecyclerView.Adapter<CelebrityItemAdapter.DataHolder> {
 
     private LayoutInflater inflater ;
-    private List<CelebrityItemList> listData ;
+    private List<CelebrityItemList> listData = new ArrayList<>();
     private itemCelebrityClickCallback itemClickCallback ;
     private static final String TAG = "CelebrityItemAdapter";
 
-    public CelebrityItemAdapter(List<CelebrityItemList> listData,Context c) {
+    public CelebrityItemAdapter(Context c) {
         inflater = LayoutInflater.from(c);
-        this.listData = listData;
     }
 
     public interface itemCelebrityClickCallback{
@@ -52,7 +52,6 @@ public class CelebrityItemAdapter  extends RecyclerView.Adapter<CelebrityItemAda
     }
 
     public void swap(List<CelebrityItemList> data){
-        listData.clear();
         listData.addAll(data);
         notifyDataSetChanged();
     }

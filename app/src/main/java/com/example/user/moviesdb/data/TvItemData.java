@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by user on 26-01-2017.
+ * Created by Dell on 19-02-2017.
  */
 
-public class TvItemdata {
+public class TvItemData {
     private static final String[] tv  = {
             "The Secret Life of Pets","Suicide Squad","The Secret Life of Pets","Suicide Squad","The Secret Life of Pets","Suicide Squad"
     };

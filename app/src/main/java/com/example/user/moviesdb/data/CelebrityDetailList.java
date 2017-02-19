@@ -11,7 +11,6 @@ public class CelebrityDetailList {
     private double celebrity_popularity ;
     private String celebrity_placeOfBirth ;
 
-
     public CelebrityDetailList(String celebrity_name, String celebrity_biography, String celebrity_birthday, double celebrity_popularity, String celebrity_placeOfBirth) {
         this.celebrity_name = celebrity_name;
         this.celebrity_biography = celebrity_biography;

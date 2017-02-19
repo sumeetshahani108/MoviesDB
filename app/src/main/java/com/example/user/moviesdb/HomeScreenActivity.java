@@ -109,30 +109,28 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
         if(id == R.id.nav_home){
             mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_movies){
-            Intent moviesIntent = new Intent(HomeScreenActivity.this, MovieScreenActivity.class);
+            Intent moviesIntent = new Intent(this, MovieScreenActivity.class);
             startActivity(moviesIntent);
             finish();
         }else if(id == R.id.nav_tv){
-            //Toast.makeText(this, "Television", Toast.LENGTH_SHORT).show();
-
+            Intent tvIntent = new Intent(this, TvScreenActivity.class);
+            startActivity(tvIntent);
+            finish();
         }else if(id == R.id.nav_celebrities){
-            Intent celebrityIntent = new Intent(HomeScreenActivity.this, CelebrityScreenActivity.class);
+            Intent celebrityIntent = new Intent(this, CelebrityScreenActivity.class);
             startActivity(celebrityIntent);
             finish();
-        }else if(id == R.id.nav_news){
-
         }else if(id == R.id.nav_personal_account){
-
+            Intent profileIntent = new Intent(this, ProfileDetailsActivity.class);
+            profileIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_3);
+            startActivity(profileIntent);
+            finish();
         }else if(id == R.id.nav_personal_favourites){
-            Intent movie_favourites = new Intent(HomeScreenActivity.this, PersonFavourites.class);
+            Intent movie_favourites = new Intent(this, PersonFavourites.class);
             startActivity(movie_favourites);
-
         }else if(id == R.id.nav_personal_rated_movies){
-
-        }else if(id == R.id.nav_personal_notifications){
-
-        }else if(id == R.id.nav_logout){
-
+            Intent movie_rated = new Intent(HomeScreenActivity.this, PersonRated.class);
+            startActivity(movie_rated);
         }
         DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawerLayout);
         drawer.closeDrawer(GravityCompat.START);

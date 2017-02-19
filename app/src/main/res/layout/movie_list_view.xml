@@ -146,10 +146,10 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
                 <TextView
-                    android:text="TextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/movie_description"
@@ -160,7 +160,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/rating">
+                android:id="@+id/rating"
+                android:layout_marginTop="5dp">
 
                 <RatingBar
                     android:layout_height="wrap_content"

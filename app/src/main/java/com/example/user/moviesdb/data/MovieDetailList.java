@@ -10,16 +10,17 @@ public class MovieDetailList {
     private String release_date ;
     private int vote_average ;
     private int movie_runtime ;
+    private String movie_tagline ;
     private int id;
 
-    public MovieDetailList(int id, String movie_title, String movie_description, String release_date, int vote_average, int movie_runtime) {
+    public MovieDetailList(int id, String movie_title, String movie_description, String release_date, int vote_average, int movie_runtime, String movie_tagline) {
         this.id = id;
         this.movie_title = movie_title;
         this.movie_description = movie_description;
         this.release_date = release_date;
         this.vote_average = vote_average;
         this.movie_runtime = movie_runtime ;
-
+        this.movie_tagline = movie_tagline ;
     }
 
     public String getMovie_title() {
@@ -28,6 +29,14 @@ public class MovieDetailList {
 
     public void setMovie_title(String movie_title) {
         this.movie_title = movie_title;
+    }
+
+    public String getMovie_tagline() {
+        return movie_tagline;
+    }
+
+    public void setMovie_tagline(String movie_tagline) {
+        this.movie_tagline = movie_tagline;
     }
 
     public String getMovie_description() {

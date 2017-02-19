@@ -84,15 +84,16 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
         int hours = t/60;
         int minutes = t%60;
         if(hours==1){
-            holder.movie_runtime.setText(hours+" hour "+minutes+ "minutes");
+            holder.movie_runtime.setText(hours+" hour "+minutes+ " minutes");
         }else if(minutes == 1){
-            holder.movie_runtime.setText(hours+" hours "+minutes+ "minute");
+            holder.movie_runtime.setText(hours+" hours "+minutes+ " minute");
         }else if(hours == 1 && minutes == 1){
-            holder.movie_runtime.setText(hours+" hour "+minutes+ "minute");
+            holder.movie_runtime.setText(hours+" hour "+minutes+ " minute");
         }else{
-            holder.movie_runtime.setText(hours+" hours "+minutes+ "minutes");
+            holder.movie_runtime.setText(hours+" hours "+minutes+ " minutes");
         }
         holder.movie_vote_average.setText(Integer.toString(item.getVote_average()) + "/10");
+        holder.movie_tagline.setText(item.getMovie_tagline());
         holder.movie_image.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
         //Picasso.with(getApplicationContext()).load("").into(holder.movie_image);
     }
@@ -106,6 +107,7 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
 
     class MovieItemDataHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView movie_title ;
+        TextView movie_tagline;
         TextView movie_description ;
         TextView movie_release_date ;
         TextView movie_vote_average ;
@@ -120,6 +122,7 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
         public MovieItemDataHolder(View itemView){
             super(itemView);
             movie_title = (TextView)itemView.findViewById(R.id.movie_title);
+            movie_tagline = (TextView)itemView.findViewById(R.id.movie_tagline);
             movie_description = (TextView)itemView.findViewById(R.id.movie_description);
             movie_release_date = (TextView)itemView.findViewById(R.id.movie_release_date);
             movie_vote_average = (TextView)itemView.findViewById(R.id.movie_vote_average);

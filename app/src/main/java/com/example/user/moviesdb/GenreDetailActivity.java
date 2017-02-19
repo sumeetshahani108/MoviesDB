@@ -144,11 +144,11 @@ public class GenreDetailActivity extends AppCompatActivity implements LoaderMana
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item){
+        item.setChecked(true);
         int id = item.getItemId();
         Log.d(TAG, "here");
         if(id == R.id.nav_home){
-            Intent homeIntent = new Intent(this, HomeScreenActivity.class);
-            startActivity(homeIntent);
+            finish();
         }else if(id == R.id.nav_movies){
             Intent moviesIntent = new Intent(this, MovieScreenActivity.class);
             startActivity(moviesIntent);

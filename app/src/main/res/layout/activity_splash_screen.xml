@@ -9,19 +9,19 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.user.moviesdb.SplashScreenActivity"
-    android:background="@color/com_facebook_blue">
+    android:background="@color/wallet_dim_foreground_inverse_holo_dark">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp">
+        android:layout_marginTop="180dp">
 
         <TextView
             android:layout_width="match_parent"
             android:id="@+id/textView1"
             android:textColor="@android:color/white"
-            android:textSize="50sp"
+            android:textSize="36sp"
             android:text="@string/title"
             android:gravity="center"
             android:textStyle="normal|bold"
@@ -35,7 +35,7 @@
             android:textColor="@android:color/white"
             android:gravity="center"
             android:rotation="340"
-            android:layout_marginTop="-83dp"
+            android:layout_marginTop="-96dp"
             android:layout_height="80dp"
             android:layout_marginLeft="22dp" />
     </LinearLayout>

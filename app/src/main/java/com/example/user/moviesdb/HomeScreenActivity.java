@@ -4,6 +4,8 @@ package com.example.user.moviesdb;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,11 +19,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import static android.R.color.black;
+import static android.R.color.white;
 
 public class HomeScreenActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,HomeViewPagerItemFragment.FragmentPagerItemCallback, NavigationView.OnNavigationItemSelectedListener{
 
@@ -96,21 +103,22 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item){
+       // item.setChecked(true);
         int id = item.getItemId();
         Log.d(TAG, "here");
         if(id == R.id.nav_home){
-            Intent homeIntent = new Intent(HomeScreenActivity.this, HomeScreenActivity.class);
-            startActivity(homeIntent);
+            mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_movies){
             Intent moviesIntent = new Intent(HomeScreenActivity.this, MovieScreenActivity.class);
             startActivity(moviesIntent);
+            finish();
         }else if(id == R.id.nav_tv){
             //Toast.makeText(this, "Television", Toast.LENGTH_SHORT).show();
 
         }else if(id == R.id.nav_celebrities){
             Intent celebrityIntent = new Intent(HomeScreenActivity.this, CelebrityScreenActivity.class);
             startActivity(celebrityIntent);
-
+            finish();
         }else if(id == R.id.nav_news){
 
         }else if(id == R.id.nav_personal_account){
@@ -132,9 +140,9 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
     }
 
     private void setUpPagerAndTabs(){
-        tabarnak.setTabTextColors(ContextCompat.getColor(this, android.R.color.black),
-                ContextCompat.getColor(this, R.color.like_facebook));
-        tabarnak.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        tabarnak.setTabTextColors(ContextCompat.getColor(this, white),
+                ContextCompat.getColor(this, R.color.bg_screen1));
+        tabarnak.setBackgroundColor(ContextCompat.getColor(this, R.color.background_color));
 
         CustomAdapter adapter = new CustomAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);

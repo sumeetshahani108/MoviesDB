@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.user.moviesdb.SplashScreenActivity"
-    android:background="@color/com_facebook_blue">
+    android:background="@color/wallet_dim_foreground_inverse_holo_dark">
 
     <LinearLayout
         android:orientation="vertical"

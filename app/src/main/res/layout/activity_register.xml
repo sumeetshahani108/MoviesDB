@@ -10,7 +10,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.user.moviesdb.RegisterActivity">
+    tools:context="com.example.user.moviesdb.RegisterActivity"
+    android:background="@color/background_color">
 
 
     <LinearLayout
@@ -28,11 +29,12 @@
 
             <ImageButton
                 android:layout_width="match_parent"
-                app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+                app:srcCompat="@drawable/ic_add_a_photo_white_24dp"
                 android:id="@+id/register_image"
                 android:layout_marginLeft="120dp"
                 android:layout_marginRight="120dp"
-                android:layout_height="85dp" />
+                android:layout_height="85dp"
+                android:background="@color/wallet_hint_foreground_holo_dark" />
 
         </LinearLayout>
 
@@ -41,7 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView10"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@android:color/white"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -60,7 +63,6 @@
                     android:ems="10"
                     android:id="@+id/register_email"
                     android:hint="Email Address"
-                    android:background="@color/colorPrimary"
                     android:elegantTextHeight="true"
                     android:alpha="0.6"
                     android:focusable="true"
@@ -86,7 +88,6 @@
                     android:ems="10"
                     android:id="@+id/register_password"
                     android:hint="Password"
-                    android:background="@color/colorPrimary"
                     android:elegantTextHeight="true"
                     android:alpha="0.6"
                     android:paddingLeft="8dp"
@@ -106,7 +107,7 @@
                     android:ems="10"
                     android:id="@+id/register_confirm_password"
                     android:hint="Confirm Password"
-                    android:background="@color/colorPrimary"
+
                     android:elegantTextHeight="true"
                     android:alpha="0.6"
                     android:paddingLeft="10dp"
@@ -126,7 +127,6 @@
                 android:ems="10"
                 android:id="@+id/register_name"
                 android:hint="Name"
-                android:background="@color/colorPrimary"
                 android:elegantTextHeight="true"
                 android:alpha="0.6"
                 android:paddingLeft="10dp"
@@ -144,7 +144,6 @@
                 android:ems="10"
                 android:id="@+id/register_phone_number"
                 android:hint="Phone Number"
-                android:background="@color/colorPrimary"
                 android:elegantTextHeight="true"
                 android:alpha="0.6"
                 android:paddingLeft="10dp"
@@ -163,7 +162,8 @@
                     android:text="Choose Sex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -183,14 +183,16 @@
                             android:text="Male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:textColor="@android:color/white"/>
 
                         <RadioButton
                             android:id="@+id/register_sex_female"
                             android:text="Female"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2.29" />
+                            android:layout_weight="2.29"
+                            android:textColor="@android:color/white"/>
 
                     </RadioGroup>
 
@@ -213,7 +215,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_height="60dp"
                 android:text="Register > "
-                android:textColor="#000000"
+                android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
@@ -226,7 +228,8 @@
                 android:id="@+id/already_registered"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
-                android:clickable="true" />
+                android:clickable="true"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
     </LinearLayout>

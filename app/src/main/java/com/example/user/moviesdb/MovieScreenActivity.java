@@ -48,7 +48,6 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
     private MovieItemAdapter adapter;
     private RecyclerView recyclerView;
     private static final int MOVIE_LIST_ID = 1;
-    private ArrayList listData ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +74,6 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         spinner.setAdapter(myAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        listData = (ArrayList) MovieItemData.getMovieItemData();
-        adapter = new MovieItemAdapter(listData,this);
-        adapter.setItemClickCallback(this);
-
         recyclerView = (RecyclerView)findViewById(R.id.recycler_list);
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
@@ -87,7 +82,6 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         else{
             recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         }
-        recyclerView.setAdapter(adapter);
     }
 
 
@@ -116,8 +110,7 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
             getLoaderManager().restartLoader(MOVIE_LIST_ID, null, this);
         }
 
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
@@ -199,8 +192,10 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
     @Override
     public void onLoadFinished(android.content.Loader<List<MovieItemList>> loader, List<MovieItemList> data) {
         if(data != null && !data.isEmpty()){
-            Log.d(TAG, "here");
+            adapter = new MovieItemAdapter(this);
+            adapter.setItemClickCallback(this);
             adapter.swap(data);
+            recyclerView.setAdapter(adapter);
         }
     }
 

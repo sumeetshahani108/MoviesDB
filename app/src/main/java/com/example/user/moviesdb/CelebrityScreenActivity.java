@@ -39,18 +39,17 @@ import com.example.user.moviesdb.loaders.CelebrityItemLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CelebrityScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener, android.app.LoaderManager.LoaderCallbacks<List<CelebrityItemList>>,CelebrityItemAdapter.itemCelebrityClickCallback {
+public class CelebrityScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, android.app.LoaderManager.LoaderCallbacks<List<CelebrityItemList>>,CelebrityItemAdapter.itemCelebrityClickCallback {
 
     private DrawerLayout mDrawerLayout ;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
     private EditText editText;
-    private String celebrity_url;
+    private String celebrity_url = "https://api.themoviedb.org/3/person/popular?api_key=b767446da35c14841562288874f02281&language=en-US";
     private static final String TAG = "CelebrityScreenActivity";
     private CelebrityItemAdapter adapter;
     private RecyclerView recyclerView;
     private static final int CELEBRITY_LIST_ID = 1;
-    private ArrayList listData ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +75,6 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Spinner spinner = (Spinner) findViewById(R.id.celeb_spinner);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(CelebrityScreenActivity.this,android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.celebrity_options));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(myAdapter);
-        spinner.setOnItemSelectedListener(this);
-
-        listData = (ArrayList) CelebrityItemData.getCelebrityItemData();
-        adapter = new CelebrityItemAdapter(listData,this);
-        adapter.setItemClickCallback(this);
-
         recyclerView = (RecyclerView)findViewById(R.id.celeb_recycler_list);
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
@@ -94,7 +83,8 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
         else{
             recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
         }
-        recyclerView.setAdapter(adapter);
+        getLoaderManager().initLoader(CELEBRITY_LIST_ID, null,this);
+
     }
 
 
@@ -114,28 +104,6 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
             }
         }
         return super.dispatchTouchEvent(event);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // Toast.makeText(parent.getContext(), "Selected Item is "+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-        //String selected = parent.getItemAtPosition(position).toString();
-        if(parent.getItemAtPosition(position).toString().equals("Latest")){
-            //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            celebrity_url = "https://api.themoviedb.org/3/search/person?api_key=b767446da35c14841562288874f02281&language=en-US&query=latest";
-            getLoaderManager().restartLoader(CELEBRITY_LIST_ID, null, this);
-
-        } else if (parent.getItemAtPosition(position).toString().equals("Popular") ){
-            //Toast.makeText(parent.getContext(), "Selected Item is"+  parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-            celebrity_url = "https://api.themoviedb.org/3/search/person?api_key=c&language=en-US&query=popular";
-            getLoaderManager().restartLoader(CELEBRITY_LIST_ID, null, this);
-
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     @Override
@@ -212,7 +180,10 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
     public void onLoadFinished(android.content.Loader<List<CelebrityItemList>> loader, List<CelebrityItemList> data) {
         if(data != null && !data.isEmpty()){
             Log.d(TAG, "here");
+            adapter = new CelebrityItemAdapter(this);
+            adapter.setItemClickCallback(this);
             adapter.swap(data);
+            recyclerView.setAdapter(adapter);
         }
     }
 

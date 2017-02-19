@@ -5,7 +5,8 @@
     android:id="@+id/movieDrawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.moviesdb.HomeScreenActivity">
+    tools:context="com.example.user.moviesdb.HomeScreenActivity"
+    android:background="@color/background_color">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,25 +19,29 @@
         <EditText
             android:id="@+id/textSearch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search"/>
+            android:layout_height="34dp"
+            android:hint="Search"
+            android:background="@drawable/rounded_rectangle"
+            android:paddingLeft="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp" />
 
         <Spinner
-            android:layout_width="298dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:id="@+id/spinner"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="65dp"
             android:layout_alignParentRight="true"
-            />
+            android:layout_height="50dp"
+            android:background="@color/background_color"
+            android:paddingLeft="8dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_list"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#e8eaf6"
+            android:background="@color/background_color"
             />
     </LinearLayout>
 
@@ -45,10 +50,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:menu="@menu/navigation_menu"
+        app:itemIconTint="@android:color/black"
+        app:itemTextColor="@android:color/black"
         android:layout_gravity="start"
-        app:itemIconTint="@color/drawer_item"
-        app:itemTextColor="@color/drawer_item"
-        app:headerLayout="@layout/navigation_header">
+        app:headerLayout="@layout/navigation_header"
+        android:background="@color/background_color">
 
     </android.support.design.widget.NavigationView>
 

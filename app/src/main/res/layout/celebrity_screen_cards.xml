@@ -16,7 +16,7 @@
         <RelativeLayout
             android:id="@+id/celebrity_cont_card_content"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:background="#FFFFFF">
 
             <ImageView
@@ -32,10 +32,11 @@
             <TextView
                 android:id="@+id/celebrity_lbl_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@id/celebrity_im_item_icon"
                 android:paddingTop="20dp"
-                android:paddingLeft="16dp" />
+                android:paddingLeft="16dp"
+                android:background="@color/foreground_color" />
 
         </RelativeLayout>
 

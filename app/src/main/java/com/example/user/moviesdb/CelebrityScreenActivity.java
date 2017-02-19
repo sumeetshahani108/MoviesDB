@@ -3,6 +3,8 @@ package com.example.user.moviesdb;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -74,6 +76,10 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        editText = (EditText) findViewById(R.id.celeb_textSearch);
+        editText.setHintTextColor(getResources().getColor(R.color.bg_screen1));
+        editText.setTextColor(getResources().getColor(R.color.bg_screen1));
 
         recyclerView = (RecyclerView)findViewById(R.id.celeb_recycler_list);
 

@@ -79,8 +79,8 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editText = (EditText) findViewById(R.id.celeb_textSearch);
-        editText.setHintTextColor(getResources().getColor(R.color.white));
-        editText.setTextColor(getResources().getColor(R.color.white));
+        editText.setHintTextColor(getResources().getColor(R.color.bg_screen1));
+        editText.setTextColor(getResources().getColor(R.color.bg_screen1));
 
 
         Spinner spinner = (Spinner) findViewById(R.id.celeb_spinner);

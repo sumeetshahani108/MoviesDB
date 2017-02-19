@@ -73,8 +73,8 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editText = (EditText) findViewById(R.id.textSearch);
-        editText.setHintTextColor(getResources().getColor(R.color.white));
-        editText.setTextColor(getResources().getColor(R.color.white));
+        editText.setHintTextColor(getResources().getColor(R.color.bg_screen1));
+        editText.setTextColor(getResources().getColor(R.color.bg_screen1));
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);

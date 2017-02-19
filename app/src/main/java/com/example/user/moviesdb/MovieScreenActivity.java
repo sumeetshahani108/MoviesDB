@@ -2,6 +2,8 @@ package com.example.user.moviesdb;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
@@ -26,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.moviesdb.adapters.MovieItemAdapter;
@@ -70,9 +73,12 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editText = (EditText) findViewById(R.id.textSearch);
-        editText.setTextColor(getResources().getColor(R.color.black));
+        editText.setHintTextColor(getResources().getColor(R.color.white));
+        editText.setTextColor(getResources().getColor(R.color.white));
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);
+        spinner.setBackgroundColor(getResources().getColor(R.color.background_color));
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(MovieScreenActivity.this,android.R.layout.simple_spinner_item,getResources().getStringArray(R.array.options));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(myAdapter);

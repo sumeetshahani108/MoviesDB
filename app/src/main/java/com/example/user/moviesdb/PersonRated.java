@@ -63,6 +63,7 @@ public class PersonRated extends AppCompatActivity {
         if(user == null){
             Intent loginIntent = new Intent(PersonRated.this, LoginActivity.class);
             startActivity(loginIntent);
+            finish();
         }else{
             final String user_id = mAuth.getCurrentUser().getUid();
             mDatabase = FirebaseDatabase.getInstance().getReference().child("ratings");

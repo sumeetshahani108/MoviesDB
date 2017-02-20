@@ -1,33 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login First"
-        android:id="@+id/text_for_login"/>
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <Button
-            android:background="@drawable/border"
-            android:text="Stay Here"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stay_here"
-            android:layout_weight="0.90" />
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@color/background_color">
 
-        <Button
-            android:background="@drawable/border"
-            android:text="Log In"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/go_to_login_screen"
-            android:layout_weight="0.90"
-            android:layout_marginLeft="10dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:id="@+id/alert"
+            android:layout_height="35dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Login First"
+                android:id="@+id/text_for_login"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="18dp"
+            android:layout_below="@+id/alert">
+            <Button
+                android:background="@color/foreground_color"
+                android:text="Stay Here"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/stay_here"
+                android:layout_weight="0.90"
+                android:layout_marginLeft="40dp" />
+
+            <Button
+                android:background="@color/foreground_color"
+                android:text="Log In"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/go_to_login_screen"
+                android:layout_weight="0.90"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="40dp" />
+        </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>

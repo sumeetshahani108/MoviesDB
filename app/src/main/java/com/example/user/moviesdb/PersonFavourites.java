@@ -62,6 +62,7 @@ public class PersonFavourites extends AppCompatActivity {
         if(user == null){
             Intent loginIntent = new Intent(PersonFavourites.this, LoginActivity.class);
             startActivity(loginIntent);
+            finish();
         }else{
             final String user_id = mAuth.getCurrentUser().getUid();
             mDatabase = FirebaseDatabase.getInstance().getReference().child("favourites");

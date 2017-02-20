@@ -252,6 +252,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     if (rPassword.equals(rConfirmPassword)) {
                         progressDialog.setMessage("Signing Up...");
                         progressDialog.show();
+                        progressDialog.setCanceledOnTouchOutside(false);
                         mAuth.createUserWithEmailAndPassword(rEmail, rPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {

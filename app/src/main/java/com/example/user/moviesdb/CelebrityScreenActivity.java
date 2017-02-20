@@ -152,8 +152,10 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
 
     private void viewProfile() {
         Log.d(TAG, "inside view profile");
-        Intent intent = new Intent(CelebrityScreenActivity.this, ProfileDetailsActivity.class);
+        Intent intent = new Intent(this, ProfileDetailsActivity.class);
+        intent.putExtra("calling_activity", ActivityConstants.ACTIVITY_3);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -164,20 +166,18 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
         if(id == R.id.nav_home){
             Intent homeIntent = new Intent(this, HomeScreenActivity.class);
             startActivity(homeIntent);
-            finish();
         }else if(id == R.id.nav_movies){
-            mDrawerLayout.closeDrawers();
+            Intent moviesIntent = new Intent(this, MovieScreenActivity.class);
+            startActivity(moviesIntent);
         }else if(id == R.id.nav_tv){
             Intent tvIntent = new Intent(this, TvScreenActivity.class);
             startActivity(tvIntent);
-            finish();
         }else if(id == R.id.nav_celebrities){
             mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_personal_account){
             Intent profileIntent = new Intent(this, ProfileDetailsActivity.class);
             profileIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_3);
             startActivity(profileIntent);
-            finish();
         }else if(id == R.id.nav_personal_favourites){
             Intent movie_favourites = new Intent(this, PersonFavourites.class);
             startActivity(movie_favourites);

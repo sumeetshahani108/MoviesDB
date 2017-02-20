@@ -335,14 +335,14 @@ public class QueryUtils {
             JSONObject baseJSONResponse = new JSONObject(tvDetailItemJSON);
             Log.d(Log_Tag, baseJSONResponse+"");
             int id = baseJSONResponse.getInt("id");
-            String tv_name = baseJSONResponse.getString("title");
+            String tv_name = baseJSONResponse.getString("name");
             String tv_first_air_date = baseJSONResponse.getString("first_air_date");
             String tv_overview = baseJSONResponse.getString("overview");
             String tv_last_air_date = baseJSONResponse.getString("last_air_date");
             int tv_vote_average = baseJSONResponse.getInt("vote_average");
             String tv_poster = baseJSONResponse.getString("poster_path");
-            int tv_no_of_episodes = baseJSONResponse.getInt("no_of_episodes");
-            int tv_no_of_seasons = baseJSONResponse.getInt("no_of_seasons");
+            int tv_no_of_episodes = baseJSONResponse.getInt("number_of_episodes");
+            int tv_no_of_seasons = baseJSONResponse.getInt("number_of_seasons");
             String tv_in_production = baseJSONResponse.getString("in_production");
             TvDetailList tvDetailList = new TvDetailList(id, tv_name, tv_overview, tv_first_air_date, tv_last_air_date, tv_vote_average, tv_in_production, tv_no_of_episodes, tv_no_of_seasons);
 

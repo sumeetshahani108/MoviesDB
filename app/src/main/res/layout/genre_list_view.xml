@@ -12,9 +12,9 @@
         app:cardCornerRadius="4dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:background="@color/wallet_hint_foreground_holo_dark"
-        android:layout_height="100dp">
+        android:layout_height="117dp">
 
         <LinearLayout
             android:orientation="horizontal"

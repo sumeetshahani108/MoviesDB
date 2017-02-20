@@ -50,8 +50,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:menu="@menu/navigation_menu"
-        app:itemIconTint="@android:color/black"
-        app:itemTextColor="@android:color/black"
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
         android:background="@color/background_color">

@@ -201,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.d(TAG, "not success");
                             Log.d(TAG, "signInWithCredential" + task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         } else {
                             Log.d(TAG, "success");
                             //finish();
@@ -279,7 +280,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 firebaseAuthWithGoogle(account);
             } else {
                 Log.d(TAG, "else");
-
+                progressDialog.dismiss();
+                Toast.makeText(MainActivity.this,"Authentication Failed", Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == FACEBOOK_REQUEST_CODE) {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);

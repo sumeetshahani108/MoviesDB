@@ -22,11 +22,6 @@
         android:icon="@drawable/ic_people_white_24dp"
         android:title="Celebs" />
 
-    <item
-        android:id="@+id/nav_news"
-        android:icon="@drawable/ic_public_white_24dp"
-        android:title="News" />
-
     <item android:title="Your MoviesDB">
         <menu>
             <item
@@ -41,13 +36,6 @@
                 android:id="@+id/nav_personal_rated_movies"
                 android:title="Rated Movies" />
 
-            <item
-                android:id="@+id/nav_personal_notifications"
-                android:title="Notifications" />
-
-            <item
-                android:id="@+id/nav_logout"
-                android:title="Logout"/>
         </menu>
     </item>
 

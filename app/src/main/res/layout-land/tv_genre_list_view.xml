@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/for_image"
                 android:alpha="1"
-                android:layout_width="130dp">
+                android:layout_width="200dp">
 
                 <ImageView
                     android:layout_width="match_parent"

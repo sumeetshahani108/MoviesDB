@@ -193,7 +193,9 @@ public class TvScreenActivity extends AppCompatActivity implements NavigationVie
     private void viewProfile() {
         Log.d(TAG, "inside view profile");
         Intent intent = new Intent(this, ProfileDetailsActivity.class);
+        intent.putExtra("calling_activity", ActivityConstants.ACTIVITY_3);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -204,22 +206,18 @@ public class TvScreenActivity extends AppCompatActivity implements NavigationVie
         if(id == R.id.nav_home){
             Intent homeIntent = new Intent(this, HomeScreenActivity.class);
             startActivity(homeIntent);
-            finish();
-        }else if(id == R.id.nav_movies) {
+        }else if(id == R.id.nav_movies){
             Intent moviesIntent = new Intent(this, MovieScreenActivity.class);
             startActivity(moviesIntent);
-            finish();
         }else if(id == R.id.nav_tv){
             mDrawerLayout.closeDrawers();
         }else if(id == R.id.nav_celebrities){
             Intent celebrityIntent = new Intent(this, CelebrityScreenActivity.class);
             startActivity(celebrityIntent);
-            finish();
         }else if(id == R.id.nav_personal_account){
             Intent profileIntent = new Intent(this, ProfileDetailsActivity.class);
             profileIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_3);
             startActivity(profileIntent);
-            finish();
         }else if(id == R.id.nav_personal_favourites){
             Intent movie_favourites = new Intent(this, PersonFavourites.class);
             startActivity(movie_favourites);

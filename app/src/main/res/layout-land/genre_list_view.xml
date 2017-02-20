@@ -5,7 +5,7 @@
     android:clickable="true"
     android:id="@+id/genre_list_view_item"
     android:background="@color/wallet_dim_foreground_inverse_holo_dark"
-    android:layout_height="150dp">
+    android:layout_height="140dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -28,12 +28,12 @@
                 android:layout_height="match_parent"
                 android:id="@+id/for_image"
                 android:alpha="1"
-                android:layout_width="130dp">
+                android:layout_width="200dp">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/tv_genre_list_image"
+                    android:id="@+id/genre_list_image"
                     app:srcCompat="@drawable/ic_movie_black_24dp" />
             </LinearLayout>
 
@@ -53,24 +53,21 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/genre_list_tv_title"
-
+                        android:id="@+id/genre_list_movie_title"
                         android:textColor="@android:color/white"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/genre_list_tv_release_date"
+                        android:id="@+id/genre_list_movie_release_date"
                         android:layout_marginTop="4dp"
-
                         android:textColor="@android:color/white"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/genre_list_tv_description"
+                        android:id="@+id/genre_list_movie_description"
                         android:layout_marginTop="4dp"
-
                         android:textColor="@android:color/white"/>
                 </LinearLayout>
             </LinearLayout>

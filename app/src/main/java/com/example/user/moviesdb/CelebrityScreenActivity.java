@@ -81,6 +81,22 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
         editText.setHintTextColor(getResources().getColor(R.color.bg_screen1));
         editText.setTextColor(getResources().getColor(R.color.bg_screen1));
 
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                CelebrityScreenActivity.this.adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         recyclerView = (RecyclerView)findViewById(R.id.celeb_recycler_list);
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){

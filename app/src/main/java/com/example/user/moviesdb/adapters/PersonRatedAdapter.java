@@ -41,7 +41,7 @@ public class PersonRatedAdapter extends RecyclerView.Adapter<PersonRatedAdapter.
     public void onBindViewHolder(PersonRatedAdapter.PersonRatedViewHolder holder, int position) {
         PersonRated item = listData.get(position);
         holder.movie_name.setText(item.getMovie_title());
-        holder.movie_rating.setText(String.valueOf(item.getMovie_ratings()));
+        holder.movie_rating.setText(Integer.toString(item.getMovie_ratings())+ "/5");
     }
 
     @Override

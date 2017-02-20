@@ -8,15 +8,17 @@ public class MovieGenreItemsDataList {
     private String titles ;
     private String release_date ;
     private String description ;
+    private String movie_poster ;
 
     public MovieGenreItemsDataList(){
 
     }
 
-    public MovieGenreItemsDataList(String titles, String release_date, String description){
+    public MovieGenreItemsDataList(String titles, String release_date, String description, String movie_poster){
         this.titles = titles;
         this.release_date = release_date;
         this.description = description;
+        this.movie_poster = movie_poster ;
     }
 
     public String getTitles() {
@@ -42,4 +44,13 @@ public class MovieGenreItemsDataList {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getMovie_image() {
+        return movie_poster;
+    }
+
+    public void setMovie_image(String movie_poster) {
+        this.movie_poster = movie_poster;
+    }
+
 }

@@ -271,6 +271,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             progressDialog.setIndeterminate(true);
             progressDialog.show();
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            Log.d(TAG, "result  " + result);
+            Log.d(TAG, "Result status" +result.getStatus().getStatusMessage());
+           // old BA:9C:6A:A6:D0:19:A7:21:8D:D2:61:E4:AA:55:A4:60:05:57:A9:23
+           // new  63:50:C9:55:E0:35:D1:4D:D4:BB:09:87:39:D7:F0:EB:0D:5D:D3:1E
+            // to get SHA keytool -list -v -keystore "%USERPROFILE%\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
             if (result.isSuccess()) {
                 Log.d(TAG, "if");
                 /*
@@ -336,6 +341,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Log.d(TAG, "checkuserexist-if-if");
                        finish();
                        Intent profileIntent = new Intent(MainActivity.this, ProfileDetailsActivity.class);
+                        profileIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_4);
                         profileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(profileIntent);
 

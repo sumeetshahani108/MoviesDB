@@ -113,7 +113,6 @@
                     android:id="@+id/celebrity_poster_image"
                     android:layout_weight="1"
                     android:alpha="1"
-                    android:layout_marginLeft="7dp"
                     android:layout_width="320dp" />
 
                 <LinearLayout

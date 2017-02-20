@@ -269,8 +269,9 @@ public class QueryUtils {
                 String title = currentResult.getString("title");
                 String release_date = currentResult.getString("release_date");
                 String description = currentResult.getString("overview");
-
-                MovieGenreItemsDataList movieGenreItemsDataLists = new MovieGenreItemsDataList(title, release_date, description);
+                String movie_poster = currentResult.getString("poster_path");
+                MovieGenreItemsDataList movieGenreItemsDataLists = new MovieGenreItemsDataList(title, release_date, description, movie_poster );
+                Log.d(Log_Tag, movieGenreItemsDataLists.getMovie_image() + "");
                 movieGenreItemsDataList.add(movieGenreItemsDataLists);
 
             }
@@ -376,8 +377,6 @@ public class QueryUtils {
             int movie_runtime = baseJSONResponse.getInt("runtime");
 
             MovieDetailList movieDetailList = new MovieDetailList(id, movie_title, movie_description, movie_release_date, movie_vote_average, movie_runtime, movie_tagline, poster_path);
-
-            Log.d(Log_Tag,movieDetailList.getMovie_description()+"");
             Log.d(Log_Tag,movieDetailList.getMovie_title()+"");
             movieDetail.add(movieDetailList);
         }catch (JSONException e) {
@@ -430,8 +429,8 @@ public class QueryUtils {
                 String title = currentResult.getString("name");
                 String release_date = currentResult.getString("first_air_date");
                 String description = currentResult.getString("overview");
-
-                TvGenreItemsDataList tvGenreItemsDataLists = new TvGenreItemsDataList(title, release_date,description);
+                String tv_poster = currentResult.getString("poster_path");
+                TvGenreItemsDataList tvGenreItemsDataLists = new TvGenreItemsDataList(title, release_date,description,tv_poster);
                 tvGenreItemsDataList.add(tvGenreItemsDataLists);
 
             }

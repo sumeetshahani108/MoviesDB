@@ -34,8 +34,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.vision.text.Text;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
@@ -243,7 +245,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (bundle.getString("calling_activity")) {
             case ActivityConstants.ACTIVITY_1:
                 Log.d(TAG, "inside switch activity1");
-                if (!TextUtils.isEmpty(rName) &&
+                if(TextUtils.isEmpty(rEmail)){
+                    Toast.makeText(this, "Email cannot be empty", Toast.LENGTH_LONG).show();
+                }
+                else if(TextUtils.isEmpty(rPassword)){
+                    Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_LONG).show();
+                }
+                else if(TextUtils.isEmpty(rConfirmPassword)){
+                    Toast.makeText(this, "Confirm Password cannot be empty", Toast.LENGTH_LONG).show();
+                }
+                else if(TextUtils.isEmpty(rName)){
+                    Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_LONG).show();
+                }
+                else if(TextUtils.isEmpty(rPhoneNumber)){
+                    Toast.makeText(this, "Phone number cannot be empty", Toast.LENGTH_LONG).show();
+                }else if (TextUtils.isEmpty(rSex)){
+                    Toast.makeText(this, "Choose one sex", Toast.LENGTH_LONG).show();
+                }else if(imageUri == null){
+                    Toast.makeText(this, "Choose an image to upload", Toast.LENGTH_LONG).show();
+                }
+                else if (!TextUtils.isEmpty(rName) &&
                         !TextUtils.isEmpty(rPhoneNumber) &&
                         !TextUtils.isEmpty(rSex) &&
                         !TextUtils.isEmpty(rPassword) &&
@@ -262,6 +283,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                                 } else {
                                     Log.d(TAG, " NOT insidecreateUserWithEmailAndPassword ");
+                                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                        Toast.makeText(RegisterActivity.this, "User with this email already exist.", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(RegisterActivity.this, "Account Creation Failed", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
                             }
@@ -278,7 +304,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case ActivityConstants.ACTIVITY_2:
                 Log.d(TAG, "inside switch activity1");
-                if (!TextUtils.isEmpty(rName) &&
+                if(TextUtils.isEmpty(rName)){
+                    Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_LONG).show();
+                }
+                else if(TextUtils.isEmpty(rPhoneNumber)){
+                    Toast.makeText(this, "Phone number cannot be empty", Toast.LENGTH_LONG).show();
+                }else if (TextUtils.isEmpty(rSex)){
+                    Toast.makeText(this, "Choose one sex", Toast.LENGTH_LONG).show();
+                }
+                else if (!TextUtils.isEmpty(rName) &&
                         !TextUtils.isEmpty(rPhoneNumber) &&
                         !TextUtils.isEmpty(rSex)) {
                     progressDialog.setMessage("Signing Up...");

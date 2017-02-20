@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.user.moviesdb.adapters.PersonFavouritesAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,11 +30,20 @@ public class PersonFavourites extends AppCompatActivity {
     private ValueEventListener mDatabaseListener;
     private RecyclerView recyclerView;
     private PersonFavouritesAdapter adapter;
+    TextView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_favourites);
+
+        back = (TextView) findViewById(R.id.back_from_favourites);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         recyclerView = (RecyclerView)findViewById(R.id.movie_favourites_list);
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){

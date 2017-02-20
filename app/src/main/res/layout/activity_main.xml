@@ -128,7 +128,7 @@
                     android:layout_height="50dp">
 
                     <Button
-                        android:background="@drawable/border"
+                        android:background="@color/foreground_color"
                         android:text="Sign up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                         android:layout_weight="0.90" />
 
                     <Button
-                        android:background="@drawable/border"
+                        android:background="@color/foreground_color"
                         android:text="Log in"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

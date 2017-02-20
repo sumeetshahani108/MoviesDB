@@ -10,13 +10,15 @@ public class CelebrityDetailList {
     private String celebrity_birthday ;
     private double celebrity_popularity ;
     private String celebrity_placeOfBirth ;
+    private String profile_path;
 
-    public CelebrityDetailList(String celebrity_name, String celebrity_biography, String celebrity_birthday, double celebrity_popularity, String celebrity_placeOfBirth) {
+    public CelebrityDetailList(String celebrity_name, String celebrity_biography, String celebrity_birthday, double celebrity_popularity, String celebrity_placeOfBirth, String profile_path) {
         this.celebrity_name = celebrity_name;
         this.celebrity_biography = celebrity_biography;
         this.celebrity_birthday = celebrity_birthday;
         this.celebrity_popularity = celebrity_popularity;
         this.celebrity_placeOfBirth = celebrity_placeOfBirth ;
+        this.profile_path = profile_path;
     }
 
     public String getCelebrity_name() {
@@ -57,5 +59,13 @@ public class CelebrityDetailList {
 
     public void setCelebrity_placeOfBirth(String celebrity_placeOfBirth) {
         this.celebrity_placeOfBirth = celebrity_placeOfBirth;
+    }
+
+    public String getProfile_path() {
+        return profile_path;
+    }
+
+    public void setProfile_path(String profile_path) {
+        this.profile_path = profile_path;
     }
 }

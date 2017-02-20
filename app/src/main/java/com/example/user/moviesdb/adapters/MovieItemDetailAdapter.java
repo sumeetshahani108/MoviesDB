@@ -41,9 +41,11 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
     private LayoutInflater inflater ;
     private passRating passRating;
     private List<MovieDetailList> listData  = new ArrayList<>();
+    private Context c;
 
     public MovieItemDetailAdapter(Context c){
         inflater = LayoutInflater.from(c);
+        this.c = c;
     }
 
     public interface passRating{
@@ -94,8 +96,9 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
         }
         holder.movie_vote_average.setText(Integer.toString(item.getVote_average()) + "/10");
         holder.movie_tagline.setText(item.getMovie_tagline());
-        holder.movie_image.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
+        //holder.movie_image.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
         //Picasso.with(getApplicationContext()).load("").into(holder.movie_image);
+        Picasso.with(this.c).load("http://image.tmdb.org/t/p/w185/"+ item.getMovie_poster()).into(holder.movie_image_view);
     }
 
     @Override
@@ -113,6 +116,7 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
         TextView movie_vote_average ;
         ImageView movie_image;
         TextView movie_runtime;
+        ImageView movie_image_view;
         private RatingBar ratingBar;
         private Button submitRating;
         private ProgressDialog mProgress;
@@ -128,6 +132,7 @@ public class MovieItemDetailAdapter extends RecyclerView.Adapter<MovieItemDetail
             movie_vote_average = (TextView)itemView.findViewById(R.id.movie_vote_average);
             movie_image = (ImageView)itemView.findViewById(R.id.movie_poster_image);
             ratingBar = (RatingBar)itemView.findViewById(R.id.rating_bar);
+            movie_image_view = (ImageView)itemView.findViewById(R.id.movie_poster_image);
             movie_runtime = (TextView) itemView.findViewById(R.id.movie_runtime);
             submitRating = (Button)itemView.findViewById(R.id.rating_button);
             submitRating.setOnClickListener(new View.OnClickListener() {

@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.moviesdb.R;
 import com.example.user.moviesdb.data.MovieItemList;
 import com.example.user.moviesdb.data.PersonFavourites;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -31,9 +33,11 @@ public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.Dat
     private itemMovieClickCallback itemClickCallback ;
     private static final String TAG = "MovieItemAdapter";
     private MovieFilter movieFilter;
+    private Context c;
 
     public MovieItemAdapter(Context c) {
         inflater = LayoutInflater.from(c);
+        this.c = c;
     }
 
     public interface itemMovieClickCallback{
@@ -101,10 +105,13 @@ public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.Dat
         return dataHolder;
     }
 
+
+
     @Override
     public void onBindViewHolder(MovieItemAdapter.DataHolder holder, int position) {
         MovieItemList item = listData.get(position);
         holder.item.setText(item.getTitle());
+        Picasso.with(this.c).load("http://image.tmdb.org/t/p/w185"+item.getImage_path()).into(holder.imageView);
     }
 
     public void swap(List<MovieItemList> data){
@@ -130,10 +137,12 @@ public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.Dat
 
         TextView item;
         View container ;
+        ImageView imageView;
 
         public DataHolder(View viewItem){
             super(viewItem);
             item = (TextView) viewItem.findViewById(R.id.movie_lbl_item);
+            imageView = (ImageView)viewItem.findViewById(R.id.movie_im_item_icon);
             container = viewItem.findViewById(R.id.movie_item_container);
             container.setOnClickListener(this);
         }

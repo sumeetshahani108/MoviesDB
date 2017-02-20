@@ -154,7 +154,8 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp">
 
 
                 <TextView
@@ -163,7 +164,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_height="24dp"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:text="First air date " />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -179,10 +181,10 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_height="24dp"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:text="Last air date" />
 
                 <TextView
-                    android:text="TextView"
                     android:layout_width="match_parent"
                     android:layout_height="24dp"
                     android:id="@+id/tv_last_air_date"
@@ -196,7 +198,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_height="24dp"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:text="No of episodes" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -212,10 +215,10 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_height="24dp"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:text="No of seasons" />
 
                 <TextView
-                    android:text="TextView"
                     android:layout_width="match_parent"
                     android:layout_height="24dp"
                     android:id="@+id/tv_no_of_seasons"
@@ -229,7 +232,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_height="24dp"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:text="In production" />
 
                 <TextView
                     android:layout_width="match_parent"

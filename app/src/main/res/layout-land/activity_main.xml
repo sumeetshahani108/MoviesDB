@@ -65,20 +65,21 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp">
+                    android:layout_height="70dp"
+                    android:weightSum="1">
 
                     <ImageView
                         android:layout_height="40dp"
                         facebook:srcCompat="@drawable/ic_search_white_24dp"
                         android:id="@+id/imageView3"
-                        android:layout_weight="0.27"
-                        android:layout_width="5dp"
+                        android:layout_weight="0.57"
+                        android:layout_width="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp" />
 
                     <TextView
                         android:text="View trailers of movies, tv shows and know about your favourite celebrity"
-                        android:layout_width="256dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/textView6"
                         android:layout_marginLeft="20dp"
@@ -90,15 +91,16 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp">
+                    android:layout_height="70dp"
+                    android:weightSum="1">
 
                     <ImageView
-                        android:layout_width="5dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         facebook:srcCompat="@drawable/ic_favorite_white_24dp"
                         android:id="@+id/imageView4"
                         android:layout_gravity="center"
-                        android:layout_weight="0.27"
+                        android:layout_weight="0.13"
                         android:layout_marginLeft="15dp" />
 
                     <TextView
@@ -109,7 +111,7 @@
                         android:layout_marginLeft="20dp"
                         android:gravity="center_vertical"
                         android:layout_marginRight="10dp"
-                        android:layout_width="256dp" />
+                        android:layout_width="wrap_content" />
 
                 </LinearLayout>
             </LinearLayout>

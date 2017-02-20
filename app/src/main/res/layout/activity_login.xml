@@ -15,101 +15,101 @@
 
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1">
-
+        android:layout_height="50dp"
+        android:id="@+id/register">
 
         <TextView
-            android:text="Login"
-            android:layout_width="match_parent"
-            android:textColor="@android:color/white"
+            android:text="Register"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:layout_height="40dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView11"
-            android:background="@drawable/line" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_marginTop="2dp"
-            android:layout_height="140dp">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                style="@style/EditText.Register"
-                android:layout_height="60dp">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:inputType="textEmailAddress"
-                    android:ems="10"
-                    android:id="@+id/login_email"
-                    android:hint="Email Address"
-                    android:elegantTextHeight="true"
-                    android:alpha="0.6"
-                    android:focusable="true"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="8dp"
-                    android:layout_height="60dp" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                app:passwordToggleEnabled="true"
-                android:paddingBottom="2dp"
-                style="@style/EditText.Register">
-                <EditText
-                    android:layout_width="143dp"
-                    android:inputType="textPassword"
-                    android:ems="10"
-                    android:id="@+id/login_password"
-                    android:hint="Password"
-                    android:elegantTextHeight="true"
-                    android:alpha="0.6"
-                    android:paddingLeft="8dp"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="8dp" />
-            </android.support.design.widget.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_weight="0.10"
-            android:layout_height="75dp"
-            android:layout_marginTop="5dp">
-
-            <Button
-                android:id="@+id/signin_button"
-                android:background="@color/foreground_color"
-                android:layout_marginTop="10dp"
-                android:layout_height="60dp"
-                android:text="Login >"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_width="match_parent" />
-
-            <TextView
-                android:text="Don't have an account ? Register now."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/signUpNow"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:clickable="true"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
+            android:id="@+id/Login" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/line"
+        android:layout_below="@+id/register"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView17"
+            android:layout_weight="1"
+            android:background="@drawable/line" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                style="@style/EditText.Register">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email"
+                    android:id="@+id/login_email" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                style="@style/EditText.Register">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:id="@+id/login_password" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/foreground_color"
+                android:id="@+id/signin_button"
+                android:text="Login "
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/already_registered"
+                android:text="Have an account ? Login now."
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_marginTop="5dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

@@ -27,7 +27,8 @@
         </activity>
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".HomeScreenActivity" />
-        <activity android:name=".MovieScreenActivity" />
+        <activity android:name=".MovieScreenActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".GenreDetailActivity" />
         <activity android:name=".ProfileDetailsActivity" />
         <activity android:name=".MainActivity" />
@@ -43,11 +44,13 @@
         <activity android:name=".MovieDetailScreenActivity" />
         <activity android:name=".MovieYoutubeActivity" />
         <activity android:name=".TvGenreDetailActivity" />
-        <activity android:name=".CelebrityScreenActivity" />
+        <activity android:name=".CelebrityScreenActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".CelebrityDetailScreenActivity" />
         <activity android:name=".MovieDetailYoutubeActivity" />
         <activity android:name=".PersonFavourites" />
-        <activity android:name=".TvScreenActivity" />
+        <activity android:name=".TvScreenActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".PersonRated" />
         <activity android:name=".TvDetailScreenActivity" />
         <activity android:name=".TvDetailYoutubeActivity"></activity>

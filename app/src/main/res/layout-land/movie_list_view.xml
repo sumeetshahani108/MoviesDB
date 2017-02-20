@@ -107,12 +107,12 @@
                 android:layout_height="210dp">
 
                 <ImageView
-                    android:layout_height="200dp"
                     android:id="@+id/movie_poster_image"
                     android:layout_weight="1"
                     android:alpha="1"
                     android:layout_marginLeft="7dp"
-                    android:layout_width="320dp" />
+                    android:layout_height="200dp"
+                    android:layout_width="480dp" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -191,11 +191,10 @@
 
                 <Button
                     android:text="Rate"
-                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/rating_button"
-                    android:layout_weight="0.08"
                     android:background="@color/foreground_color"
+                    android:layout_width="170dp"
                     android:layout_marginLeft="8dp" />
             </LinearLayout>
 

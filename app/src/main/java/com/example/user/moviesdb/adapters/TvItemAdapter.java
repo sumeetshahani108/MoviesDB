@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.moviesdb.R;
 import com.example.user.moviesdb.data.TvItemList;
 import com.example.user.moviesdb.data.TvItemList;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -31,8 +33,10 @@ public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolde
     private itemTvClickCallback itemClickCallback ;
     private static final String TAG = "TvItemAdapter";
     private TvFilter tvFilter;
+    private Context c;
 
     public TvItemAdapter(Context c) {
+        this.c = c;
         inflater = LayoutInflater.from(c);
     }
 
@@ -105,6 +109,7 @@ public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolde
     public void onBindViewHolder(TvItemAdapter.DataHolder holder, int position) {
         TvItemList item = listData.get(position);
         holder.item.setText(item.getName());
+        Picasso.with(this.c).load("http://image.tmdb.org/t/p/w185"+item.getImage_path()).into(holder.imageView);
     }
 
     public void swap(List<TvItemList> data){
@@ -129,11 +134,13 @@ public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolde
     class DataHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView item;
+        ImageView imageView;
         View container ;
 
         public DataHolder(View viewItem){
             super(viewItem);
             item = (TextView) viewItem.findViewById(R.id.tv_lbl_item);
+            imageView = (ImageView)viewItem.findViewById(R.id.tv_im_item_icon);
             container = viewItem.findViewById(R.id.tv_item_container);
             container.setOnClickListener(this);
         }

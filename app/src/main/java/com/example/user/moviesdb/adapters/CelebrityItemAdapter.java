@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.moviesdb.R;
 import com.example.user.moviesdb.data.CelebrityItemList;
 import com.example.user.moviesdb.data.CelebrityItemList;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -32,8 +34,10 @@ public class CelebrityItemAdapter  extends RecyclerView.Adapter<CelebrityItemAda
     private itemCelebrityClickCallback itemClickCallback ;
     private static final String TAG = "CelebrityItemAdapter";
     private CelebrityFilter celebrityFilter;
+    private Context c;
 
     public CelebrityItemAdapter(Context c) {
+        this.c = c;
         inflater = LayoutInflater.from(c);
     }
 
@@ -107,6 +111,8 @@ public class CelebrityItemAdapter  extends RecyclerView.Adapter<CelebrityItemAda
     public void onBindViewHolder(CelebrityItemAdapter.DataHolder holder, int position) {
         CelebrityItemList item = listData.get(position);
         holder.item.setText(item.getName());
+        Picasso.with(this.c).load("http://image.tmdb.org/t/p/w185"+item.getProfile_path()).into(holder.profileImage);
+
     }
 
     public void swap(List<CelebrityItemList> data){
@@ -131,10 +137,12 @@ public class CelebrityItemAdapter  extends RecyclerView.Adapter<CelebrityItemAda
 
         TextView item;
         View container ;
+        ImageView profileImage;
 
         public DataHolder(View viewItem){
             super(viewItem);
             item = (TextView) viewItem.findViewById(R.id.celebrity_lbl_item);
+            profileImage = (ImageView)viewItem.findViewById(R.id.celebrity_im_item_icon);
             container = viewItem.findViewById(R.id.celebrity_item_container);
             container.setOnClickListener(this);
         }

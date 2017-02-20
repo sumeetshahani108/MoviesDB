@@ -10,23 +10,17 @@
         android:id="@+id/movie_card_item"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_gravity="center"
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
             android:id="@+id/movie_cont_card_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/movie_im_item_icon"
                 android:layout_width="match_parent"
                 android:layout_height="156dp"
-                android:background="@color/colorPrimary"
-                android:padding="36dp"
-                android:tint="#FFFFFF"
-                android:src="@drawable/ic_perm_identity_white_24dp"
                 />
 
             <TextView

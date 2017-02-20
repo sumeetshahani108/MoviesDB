@@ -42,8 +42,10 @@ public class TvItemDetailAdapter extends RecyclerView.Adapter<TvItemDetailAdapte
     private LayoutInflater inflater ;
     private passRating passRating;
     private List<TvDetailList> listData  = new ArrayList<>();
+    private Context c;
 
     public TvItemDetailAdapter(Context c){
+        this.c = c;
         inflater = LayoutInflater.from(c);
     }
 
@@ -90,7 +92,8 @@ public class TvItemDetailAdapter extends RecyclerView.Adapter<TvItemDetailAdapte
         }else {
             holder.tv_in_production.setText("No");
         }
-        holder.tv_poster.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
+
+        Picasso.with(this.c).load("http://image.tmdb.org/t/p/w185/"+ item.getTv_poster()).into(holder.tv_poster);
         //Picasso.with(getApplicationContext()).load("").into(holder.movie_image);
     }
 

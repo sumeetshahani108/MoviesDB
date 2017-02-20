@@ -34,9 +34,11 @@ public class CelebrityItemDetailAdapter extends RecyclerView.Adapter<CelebrityIt
     private static final String TAG = "CelebrityItemDetailAdapter";
     private LayoutInflater inflater ;
     private List<CelebrityDetailList> listData  = new ArrayList<>();
+    private Context c;
 
     public CelebrityItemDetailAdapter(Context c){
         inflater = LayoutInflater.from(c);
+        this.c = c;
     }
 
     public void swap(List<CelebrityDetailList> data){
@@ -44,7 +46,6 @@ public class CelebrityItemDetailAdapter extends RecyclerView.Adapter<CelebrityIt
             notifyDataSetChanged();
             listData.addAll(data);
         }else {
-            Log.d(TAG, "Null Pointer Exception");
         }
     }
 
@@ -64,8 +65,9 @@ public class CelebrityItemDetailAdapter extends RecyclerView.Adapter<CelebrityIt
         holder.celebrity_birthday.setText(item.getCelebrity_birthday());
         holder.celebrity_popularity.setText(Double.toString(item.getCelebrity_popularity()));
         holder.celebrity_placeOfBirth.setText(item.getCelebrity_placeOfBirth());
-        holder.celebrity_image.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
-        //Picasso.with(getApplicationContext()).load("").into(holder.celebrity_image);
+        //holder.celebrity_image.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
+        Picasso.with(this.c).load("http://image.tmdb.org/t/p/w185"+item.getProfile_path()).into(holder.celebrity_image);
+
     }
 
     @Override

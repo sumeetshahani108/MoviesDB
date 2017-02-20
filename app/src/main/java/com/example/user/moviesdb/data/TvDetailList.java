@@ -17,7 +17,7 @@ public class TvDetailList {
     private String tv_poster;
 
 
-    public TvDetailList(int id, String tv_original_name, String tv_overview, String tv_first_air_date, String tv_last_air_date, int vote_average, String tv_in_production, int tv_no_of_episodes, int tv_no_of_seasons) {
+    public TvDetailList(int id, String tv_original_name, String tv_overview, String tv_first_air_date, String tv_last_air_date, int vote_average, String tv_in_production, int tv_no_of_episodes, int tv_no_of_seasons, String tv_poster) {
 
         this.id = id;
         this.tv_original_name = tv_original_name;
@@ -28,6 +28,7 @@ public class TvDetailList {
         this.tv_no_of_seasons = tv_no_of_seasons ;
         this.vote_average = vote_average ;
         this.tv_in_production = tv_in_production ;
+        this.tv_poster = tv_poster;
     }
 
     public int getTv_no_of_seasons() {

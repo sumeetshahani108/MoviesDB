@@ -15,7 +15,7 @@ public class MovieDetailList {
     private String movie_poster;
 
 
-    public MovieDetailList(int id, String movie_title, String movie_description, String release_date, int vote_average, int movie_runtime, String movie_tagline) {
+    public MovieDetailList(int id, String movie_title, String movie_description, String release_date, int vote_average, int movie_runtime, String movie_tagline,String movie_poster) {
 
         this.id = id;
         this.movie_title = movie_title;

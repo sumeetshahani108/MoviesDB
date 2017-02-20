@@ -10,14 +10,24 @@ import java.util.List;
 public class TvItemList {
     private String name ;
     private int tv_id ;
+    private String image_path;
 
     public TvItemList(){
 
     }
 
-    public TvItemList(String name, int tv_id) {
+    public TvItemList(String name, int tv_id, String image_path) {
         this.name = name;
         this.tv_id = tv_id;
+        this.image_path = image_path;
+    }
+
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
     }
 
     public String getName() {

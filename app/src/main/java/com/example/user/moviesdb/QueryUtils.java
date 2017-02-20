@@ -294,7 +294,8 @@ public class QueryUtils {
                 JSONObject currentResult = results.getJSONObject(i);
                 String title = currentResult.getString("title");
                 int id = currentResult.getInt("id");
-                MovieItemList movieItemListData = new MovieItemList(title, id);
+                String poster_path = currentResult.getString("poster_path");
+                MovieItemList movieItemListData = new MovieItemList(title, id, poster_path);
                 movieItemList.add(movieItemListData);
             }
         } catch (JSONException e) {
@@ -316,7 +317,8 @@ public class QueryUtils {
                 JSONObject currentResult = results.getJSONObject(i);
                 String name = currentResult.getString("name");
                 int id = currentResult.getInt("id");
-                TvItemList tvItemListData = new TvItemList(name, id);
+                String poster_path = currentResult.getString("poster_path");
+                TvItemList tvItemListData = new TvItemList(name, id, poster_path);
                 tvItemList.add(tvItemListData);
             }
         } catch (JSONException e) {
@@ -344,7 +346,7 @@ public class QueryUtils {
             int tv_no_of_episodes = baseJSONResponse.getInt("number_of_episodes");
             int tv_no_of_seasons = baseJSONResponse.getInt("number_of_seasons");
             String tv_in_production = baseJSONResponse.getString("in_production");
-            TvDetailList tvDetailList = new TvDetailList(id, tv_name, tv_overview, tv_first_air_date, tv_last_air_date, tv_vote_average, tv_in_production, tv_no_of_episodes, tv_no_of_seasons);
+            TvDetailList tvDetailList = new TvDetailList(id, tv_name, tv_overview, tv_first_air_date, tv_last_air_date, tv_vote_average, tv_in_production, tv_no_of_episodes, tv_no_of_seasons,tv_poster);
 
             Log.d(Log_Tag,tvDetailList.getTv_overview()+"");
             Log.d(Log_Tag,tvDetailList.getTv_original_name()+"");
@@ -373,7 +375,7 @@ public class QueryUtils {
             String poster_path = baseJSONResponse.getString("poster_path");
             int movie_runtime = baseJSONResponse.getInt("runtime");
 
-            MovieDetailList movieDetailList = new MovieDetailList(id, movie_title, movie_description, movie_release_date, movie_vote_average, movie_runtime, movie_tagline);
+            MovieDetailList movieDetailList = new MovieDetailList(id, movie_title, movie_description, movie_release_date, movie_vote_average, movie_runtime, movie_tagline, poster_path);
 
             Log.d(Log_Tag,movieDetailList.getMovie_description()+"");
             Log.d(Log_Tag,movieDetailList.getMovie_title()+"");
@@ -453,7 +455,8 @@ public class QueryUtils {
                 JSONObject currentResult = results.getJSONObject(i);
                 String name = currentResult.getString("name");
                 int id = currentResult.getInt("id");
-                CelebrityItemList celebrityItemListData = new CelebrityItemList(name, id);
+                String profile_path = currentResult.getString("profile_path");
+                CelebrityItemList celebrityItemListData = new CelebrityItemList(name, id,profile_path);
                 celebrityItemList.add(celebrityItemListData);
             }
         } catch (JSONException e) {
@@ -475,7 +478,8 @@ public class QueryUtils {
             String celebrity_birthday = baseJSONResponse.getString("birthday");
             Double celebrity_popularity = baseJSONResponse.getDouble("popularity");
             String celebrity_placeOfBirth = baseJSONResponse.getString("place_of_birth");
-            CelebrityDetailList celebrityDetailList = new CelebrityDetailList(celebrity_name, celebrity_biography, celebrity_birthday, celebrity_popularity, celebrity_placeOfBirth);
+            String profile_path = baseJSONResponse.getString("profile_path");
+            CelebrityDetailList celebrityDetailList = new CelebrityDetailList(celebrity_name, celebrity_biography, celebrity_birthday, celebrity_popularity, celebrity_placeOfBirth,profile_path);
             Log.d(Log_Tag,celebrityDetailList.getCelebrity_biography()+"");
             celebrityDetail.add(celebrityDetailList);
         }catch (JSONException e) {

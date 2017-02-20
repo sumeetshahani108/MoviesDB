@@ -79,6 +79,22 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         editText.setHintTextColor(getResources().getColor(R.color.bg_screen1));
         editText.setTextColor(getResources().getColor(R.color.bg_screen1));
 
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                MovieScreenActivity.this.adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.getBackground().setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);
         spinner.setBackgroundColor(getResources().getColor(R.color.background_color));
@@ -88,6 +104,7 @@ public class MovieScreenActivity extends AppCompatActivity implements Navigation
         spinner.setOnItemSelectedListener(this);
 
         recyclerView = (RecyclerView)findViewById(R.id.recycler_list);
+        recyclerView.setHasFixedSize(true);
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2));

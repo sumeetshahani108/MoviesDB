@@ -6,10 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.user.moviesdb.R;
 import com.example.user.moviesdb.data.MovieItemList;
+import com.example.user.moviesdb.data.PersonFavourites;
 
 import org.w3c.dom.Text;
 
@@ -20,12 +23,14 @@ import java.util.List;
  * Created by user on 26-01-2017.
  */
 
-public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.DataHolder> {
+public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.DataHolder> implements Filterable {
 
     private LayoutInflater inflater ;
     private List<MovieItemList> listData = new ArrayList<>();
+    private List<MovieItemList> filteredListData = new ArrayList<>();
     private itemMovieClickCallback itemClickCallback ;
     private static final String TAG = "MovieItemAdapter";
+    private MovieFilter movieFilter;
 
     public MovieItemAdapter(Context c) {
         inflater = LayoutInflater.from(c);
@@ -37,6 +42,56 @@ public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.Dat
 
     public void setItemClickCallback(final itemMovieClickCallback itemClickCallback) {
         this.itemClickCallback = itemClickCallback ;
+    }
+
+    @Override
+    public Filter getFilter() {
+        movieFilter = new MovieFilter(this, listData);
+        return  movieFilter;
+    }
+
+    private class MovieFilter extends Filter{
+
+        private  MovieItemAdapter my_adapter;
+        private List<MovieItemList> original_list;
+        private List<MovieItemList> filtered_list;
+
+        public MovieFilter(MovieItemAdapter my_adapter, List<MovieItemList> original_list) {
+            this.my_adapter = my_adapter;
+            this.original_list = original_list;
+            this.filtered_list = new ArrayList<>();
+        }
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            filtered_list.clear();
+            FilterResults results = new FilterResults();
+
+            if (constraint.length() == 0){
+                Log.d(TAG, "here - A");
+                filtered_list.clear();
+                filtered_list.addAll(original_list);
+                Log.d(TAG, original_list.size()+"");
+            }else {
+                Log.d(TAG, "here - B");
+                String finalPattern = constraint.toString().toLowerCase().trim();
+                for (MovieItemList movieItemList : original_list){
+                    if (movieItemList.getTitle().contains(finalPattern)){
+                        filtered_list.add(movieItemList);
+                    }
+                }
+            }
+            results.values = filtered_list;
+            results.count = filtered_list.size();
+            Log.d(TAG, results.count+"");
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredListData.clear();
+            filteredListData.addAll((List<MovieItemList>)results.values);
+        }
     }
 
     @Override
@@ -64,7 +119,11 @@ public class MovieItemAdapter  extends RecyclerView.Adapter<MovieItemAdapter.Dat
 
     @Override
     public int getItemCount() {
-        return listData.size();
+        if(filteredListData.isEmpty()){
+            return listData.size();
+        }else{
+            return filteredListData.size();
+        }
     }
 
     class DataHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

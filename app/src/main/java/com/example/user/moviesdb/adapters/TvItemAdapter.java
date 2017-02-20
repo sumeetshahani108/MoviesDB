@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.user.moviesdb.R;
-import com.example.user.moviesdb.data.MovieItemList;
+import com.example.user.moviesdb.data.TvItemList;
 import com.example.user.moviesdb.data.TvItemList;
 
 import org.w3c.dom.Text;
@@ -21,12 +23,14 @@ import java.util.List;
  * Created by user on 26-01-2017.
  */
 
-public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolder> {
+public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolder> implements Filterable{
 
     private LayoutInflater inflater ;
     private List<TvItemList> listData = new ArrayList<>();
+    private List<TvItemList> filteredListData = new ArrayList<>();
     private itemTvClickCallback itemClickCallback ;
     private static final String TAG = "TvItemAdapter";
+    private TvFilter tvFilter;
 
     public TvItemAdapter(Context c) {
         inflater = LayoutInflater.from(c);
@@ -39,6 +43,56 @@ public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolde
     public void setItemClickCallback(final itemTvClickCallback itemClickCallback) {
         this.itemClickCallback = itemClickCallback ;
     }
+
+    @Override
+    public Filter getFilter() {
+        tvFilter = new TvFilter(this, listData);
+        return  tvFilter;
+    }
+
+    private class TvFilter extends Filter{
+
+        private  TvItemAdapter my_adapter;
+        private List<TvItemList> original_list;
+        private List<TvItemList> filtered_list;
+
+        public TvFilter(TvItemAdapter my_adapter, List<TvItemList> original_list) {
+            this.my_adapter = my_adapter;
+            this.original_list = original_list;
+            this.filtered_list = new ArrayList<>();
+        }
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            filtered_list.clear();
+            FilterResults results = new FilterResults();
+
+            if (constraint.length() == 0){
+                Log.d(TAG, "here - 1 ");
+                filtered_list.clear();
+                filtered_list.addAll(original_list);
+            }else {
+                Log.d(TAG, "here - 2 ");
+                String finalPattern = constraint.toString().toLowerCase().trim();
+                for (TvItemList TvItemList : original_list){
+                    if (TvItemList.getName().contains(finalPattern)){
+                        filtered_list.add(TvItemList);
+                    }
+                }
+            }
+            results.values = filtered_list;
+            results.count = filtered_list.size();
+            Log.d(TAG, results.count+"");
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredListData.clear();
+            filteredListData.addAll((List<TvItemList>)results.values);
+        }
+    }
+
 
     @Override
     public TvItemAdapter.DataHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -65,7 +119,11 @@ public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolde
 
     @Override
     public int getItemCount() {
-        return listData.size();
+        if(filteredListData.isEmpty()){
+            return listData.size();
+        }else{
+            return filteredListData.size();
+        }
     }
 
     class DataHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

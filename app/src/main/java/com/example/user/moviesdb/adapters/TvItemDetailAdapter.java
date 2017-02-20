@@ -85,7 +85,11 @@ public class TvItemDetailAdapter extends RecyclerView.Adapter<TvItemDetailAdapte
         holder.tv_vote_average.setText(Integer.toString(item.getVote_average()) + "/10");
         holder.tv_no_of_episodes.setText(Integer.toString(item.getTv_no_of_episodes()));
         holder.tv_no_of_seasons.setText(Integer.toString(item.getTv_no_of_seasons()));
-        holder.tv_in_production.setText(item.getTv_in_production());
+        if(item.getTv_in_production().equals("true")){
+            holder.tv_in_production.setText("Yes");
+        }else {
+            holder.tv_in_production.setText("No");
+        }
         holder.tv_poster.setImageURI(Uri.parse("http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg"));
         //Picasso.with(getApplicationContext()).load("").into(holder.movie_image);
     }

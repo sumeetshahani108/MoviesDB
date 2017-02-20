@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/movieDrawerLayout"
     android:layout_width="match_parent"
+    android:focusableInTouchMode="true"
     android:layout_height="match_parent"
     tools:context="com.example.user.moviesdb.HomeScreenActivity"
     android:background="@color/background_color">
@@ -16,6 +17,8 @@
             layout="@layout/navigation_action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+
         <EditText
             android:id="@+id/textSearch"
             android:layout_width="match_parent"

@@ -15,222 +15,180 @@
 
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1">
-
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:id="@+id/image_button_layout"
-            android:layout_height="80dp">
-
-            <ImageButton
-                android:layout_width="match_parent"
-                app:srcCompat="@drawable/ic_add_a_photo_white_24dp"
-                android:id="@+id/register_image"
-                android:layout_marginLeft="120dp"
-                android:layout_marginRight="120dp"
-                android:layout_height="85dp"
-                android:background="@color/wallet_hint_foreground_holo_dark" />
-
-        </LinearLayout>
+        android:layout_height="50dp"
+        android:id="@+id/register">
 
         <TextView
-            android:text="Upload a picture"
+            android:text="Register"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/line"
+        android:layout_below="@+id/register"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView17"
+            android:layout_weight="1"
+            android:background="@drawable/line" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView10"
-            android:gravity="center"
-            android:textColor="@android:color/white"/>
+            android:orientation="vertical" >
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_weight="0.91"
-            android:layout_height="159dp"
-            android:layout_marginTop="13dp">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                style="@style/EditText.Register"
-                android:layout_height="60dp">
-                <EditText
-                    android:layout_width="match_parent"
-                    android:inputType="textEmailAddress"
-                    android:ems="10"
-                    android:id="@+id/register_email"
-                    android:hint="Email Address"
-                    android:elegantTextHeight="true"
-                    android:alpha="0.6"
-                    android:focusable="true"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="8dp"
-                    android:layout_height="60dp" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="60dp">
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:passwordToggleEnabled="true"
-                    android:paddingBottom="2dp"
-                    style="@style/EditText.Register">
-                <EditText
-                    android:layout_width="143dp"
-                    android:inputType="textPassword"
-                    android:ems="10"
-                    android:id="@+id/register_password"
-                    android:hint="Password"
-                    android:elegantTextHeight="true"
-                    android:alpha="0.6"
-                    android:paddingLeft="8dp"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="8dp" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="5dp"
-                    style="@style/EditText.Register">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:inputType="textPassword"
-                    android:ems="10"
-                    android:id="@+id/register_confirm_password"
-                    android:hint="Confirm Password"
-
-                    android:elegantTextHeight="true"
-                    android:alpha="0.6"
-                    android:paddingLeft="10dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    android:paddingBottom="8dp" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                style="@style/EditText.Register"
-                android:layout_height="60dp">
-            <EditText
-                android:layout_width="match_parent"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/register_name"
-                android:hint="Name"
-                android:elegantTextHeight="true"
-                android:alpha="0.6"
-                android:paddingLeft="10dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="13dp"
-                android:paddingBottom="8dp" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                style="@style/EditText.Register"
-                android:layout_height="60dp">
-            <EditText
-                android:layout_width="match_parent"
-                android:inputType="phone"
-                android:ems="10"
-                android:id="@+id/register_phone_number"
-                android:hint="Phone Number"
-                android:elegantTextHeight="true"
-                android:alpha="0.6"
-                android:paddingLeft="10dp"
-                android:layout_marginTop="13dp"
-                android:paddingBottom="8dp"
-                android:layout_height="60dp" />
-</android.support.design.widget.TextInputLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:layout_marginLeft="10dp"
-                android:paddingTop="10dp">
-                <TextView
-                    android:text="Choose Sex"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/white"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RadioGroup
-                        android:id="@+id/register_choose_sex"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="6dp"
-                        android:paddingTop="5dp"
-                        android:layout_weight="0.13">
-
-                        <RadioButton
-                            android:id="@+id/register_sex_male"
-                            android:text="Male"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="@android:color/white"/>
-
-                        <RadioButton
-                            android:id="@+id/register_sex_female"
-                            android:text="Female"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2.29"
-                            android:textColor="@android:color/white"/>
-
-                    </RadioGroup>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_weight="0.10"
-            android:layout_height="75dp"
-            android:layout_marginTop="5dp">
-
-            <Button
-                android:id="@+id/register_next_button"
-                android:background="@drawable/login_button_background"
-                android:layout_marginTop="10dp"
-                android:layout_height="60dp"
-                android:text="Register > "
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_width="match_parent" />
+            <ImageButton
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/ic_add_a_photo_white_24dp"
+                android:id="@+id/register_image"
+                android:layout_width="100dp"
+                android:layout_gravity="center" />
 
             <TextView
-                android:text="Already have an account? Login now."
+                android:text="Upload a picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView18"
+                android:textColor="@color/white"
+                android:gravity="center" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                style="@style/EditText.Register">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email"
+                    android:id="@+id/register_email" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                style="@style/EditText.Register">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:id="@+id/register_password" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                style="@style/EditText.Register">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:inputType="textPassword"
+                    android:hint="Confirm Password"
+                    android:id="@+id/register_confirm_password" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                style="@style/EditText.Register">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:inputType="textPersonName"
+                    android:hint="Name"
+                    android:id="@+id/register_name" />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                style="@style/EditText.Register">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:inputType="phone"
+                    android:hint="Phone "
+                    android:id="@+id/register_phone_number" />
+
+        </android.support.design.widget.TextInputLayout>
+            <TextView
+                android:text="Choose Sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp" />
+            <RadioGroup
+                android:id="@+id/register_choose_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/register_sex_male"
+                    android:text="Male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:id="@+id/register_sex_female"
+                    android:textColor="@color/white" />
+            </RadioGroup>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/foreground_color"
+                android:id="@+id/register_next_button"
+                android:text="Register >"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/already_registered"
+                android:text="Have an account ? Login now."
+                android:textColor="@color/white"
                 android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:clickable="true"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
+                android:layout_marginTop="5dp" />
 
-    </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

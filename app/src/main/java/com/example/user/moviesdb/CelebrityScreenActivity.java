@@ -93,7 +93,6 @@ public class CelebrityScreenActivity extends AppCompatActivity implements Naviga
 
     }
 
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {

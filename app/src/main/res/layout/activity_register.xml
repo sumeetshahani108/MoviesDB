@@ -185,7 +185,8 @@
                 android:text="Have an account ? Login now."
                 android:textColor="@color/white"
                 android:gravity="center"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:clickable="true" />
 
 
         </LinearLayout>

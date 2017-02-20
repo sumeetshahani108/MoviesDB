@@ -111,20 +111,16 @@ public class HomeScreenActivity extends AppCompatActivity implements TabLayout.O
         }else if(id == R.id.nav_movies){
             Intent moviesIntent = new Intent(this, MovieScreenActivity.class);
             startActivity(moviesIntent);
-            finish();
         }else if(id == R.id.nav_tv){
             Intent tvIntent = new Intent(this, TvScreenActivity.class);
             startActivity(tvIntent);
-            finish();
         }else if(id == R.id.nav_celebrities){
             Intent celebrityIntent = new Intent(this, CelebrityScreenActivity.class);
             startActivity(celebrityIntent);
-            finish();
         }else if(id == R.id.nav_personal_account){
             Intent profileIntent = new Intent(this, ProfileDetailsActivity.class);
             profileIntent.putExtra("calling_activity", ActivityConstants.ACTIVITY_3);
             startActivity(profileIntent);
-            finish();
         }else if(id == R.id.nav_personal_favourites){
             Intent movie_favourites = new Intent(this, PersonFavourites.class);
             startActivity(movie_favourites);

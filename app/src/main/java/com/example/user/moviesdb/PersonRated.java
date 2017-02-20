@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.user.moviesdb.adapters.PersonFavouritesAdapter;
 import com.example.user.moviesdb.adapters.PersonRatedAdapter;
@@ -20,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 public class PersonRated extends AppCompatActivity {
 
     private static final String TAG = "PersonRated";
@@ -29,13 +33,22 @@ public class PersonRated extends AppCompatActivity {
     private ValueEventListener mDatabaseListener;
     private RecyclerView recyclerView;
     private PersonRatedAdapter adapter;
+    TextView back ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_rated);
 
-        recyclerView = (RecyclerView)findViewById(R.id.movie_rated_list);
+        back = (TextView) findViewById(R.id.back_from_rated);
+        back.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        finish();
+                                    }
+                                });
+
+                recyclerView = (RecyclerView)findViewById(R.id.movie_rated_list);
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
             recyclerView.setLayoutManager(new LinearLayoutManager(this) {
             });

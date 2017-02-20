@@ -1,18 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_person_favourites"
+    android:id="@+id/activity_person_rated"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.user.moviesdb.PersonFavourites">
+    tools:context="com.example.user.moviesdb.PersonRated"
+    android:background="@color/background_color">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="0.02"
+        android:layout_height="50dp"
+        android:id="@+id/top">
+
+        <TextView
+            android:text="BACK"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/back_from_favourites"
+            android:layout_weight="0.30"
+            android:textColor="@color/bg_screen1"
+            android:gravity="center" />
+
+        <TextView
+            android:text="Favourites"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textView5"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:paddingLeft="70dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView15"
+            android:layout_weight="1"
+            android:background="@drawable/line" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/movie_favourites_list"
-        />
+        android:layout_marginTop="5dp" />
 
 </LinearLayout>
-

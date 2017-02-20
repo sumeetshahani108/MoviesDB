@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.user.moviesdb.adapters.PersonFavouritesAdapter;
 import com.example.user.moviesdb.adapters.PersonRatedAdapter;
+import com.google.android.gms.plus.model.people.Person;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -49,11 +51,11 @@ public class PersonRated extends AppCompatActivity {
                                 });
 
                 recyclerView = (RecyclerView)findViewById(R.id.movie_rated_list);
-        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            recyclerView.setLayoutManager(new LinearLayoutManager(this) {
-            });
-        }else{
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        if(PersonRated.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            recyclerView.setLayoutManager(new GridLayoutManager(PersonRated.this, 2));
+        }
+        else{
+            recyclerView.setLayoutManager(new GridLayoutManager(PersonRated.this, 4));
         }
 
         adapter = new PersonRatedAdapter(this);

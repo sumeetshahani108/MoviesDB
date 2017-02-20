@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -48,11 +49,11 @@ public class PersonFavourites extends AppCompatActivity {
         });
 
         recyclerView = (RecyclerView)findViewById(R.id.movie_favourites_list);
-        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            recyclerView.setLayoutManager(new LinearLayoutManager(this) {
-            });
-        }else{
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        if(PersonFavourites.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            recyclerView.setLayoutManager(new GridLayoutManager(PersonFavourites.this, 2));
+        }
+        else{
+            recyclerView.setLayoutManager(new GridLayoutManager(PersonFavourites.this, 4));
         }
 
         adapter = new PersonFavouritesAdapter(this);

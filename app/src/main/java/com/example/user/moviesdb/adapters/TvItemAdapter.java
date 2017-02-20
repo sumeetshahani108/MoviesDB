@@ -14,6 +14,7 @@ import com.example.user.moviesdb.data.TvItemList;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ import java.util.List;
 public class TvItemAdapter  extends RecyclerView.Adapter<TvItemAdapter.DataHolder> {
 
     private LayoutInflater inflater ;
-    private List<TvItemList> listData ;
+    private List<TvItemList> listData = new ArrayList<>();
     private itemTvClickCallback itemClickCallback ;
     private static final String TAG = "TvItemAdapter";
 

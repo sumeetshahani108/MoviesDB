@@ -1,5 +1,6 @@
 package com.example.user.moviesdb;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.user.moviesdb.adapters.PersonFavouritesAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,39 +57,48 @@ public class PersonFavourites extends AppCompatActivity {
 
         adapter = new PersonFavouritesAdapter(this);
         mAuth = FirebaseAuth.getInstance();
-        final String user_id = mAuth.getCurrentUser().getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("favourites");
-        Query query = mDatabase.orderByChild("person_id").equalTo(user_id);
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                com.example.user.moviesdb.data.PersonFavourites personFavourites  = dataSnapshot.getValue(com.example.user.moviesdb.data.PersonFavourites.class);
-                Log.d(TAG, personFavourites+"");
-                if(personFavourites != null){
-                    adapter.getData(personFavourites);
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user == null){
+            Intent loginIntent = new Intent(PersonFavourites.this, LoginActivity.class);
+            startActivity(loginIntent);
+        }else{
+            final String user_id = mAuth.getCurrentUser().getUid();
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("favourites");
+            Query query = mDatabase.orderByChild("person_id").equalTo(user_id);
+            query.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    com.example.user.moviesdb.data.PersonFavourites personFavourites  = dataSnapshot.getValue(com.example.user.moviesdb.data.PersonFavourites.class);
+                    Log.d(TAG, personFavourites+"");
+                    if(personFavourites != null){
+                        adapter.getData(personFavourites);
+                    }
+                    recyclerView.setAdapter(adapter);
                 }
-                recyclerView.setAdapter(adapter);
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            }
+                }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-            }
+                }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-    }
+                }
+            });
+        }
+
+        }
 }
+

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
@@ -31,6 +33,7 @@ ProfileDetailsActivity extends AppCompatActivity implements View.OnClickListener
     TextView getEmail;
     TextView getPhone;
     TextView getSex;
+    ImageView getImage;
 
     Button signoutButton;
     Button shareButton;
@@ -51,6 +54,7 @@ ProfileDetailsActivity extends AppCompatActivity implements View.OnClickListener
         getEmail = (TextView) findViewById(R.id.get_email);
         getPhone = (TextView) findViewById(R.id.get_phone);
         getSex = (TextView) findViewById(R.id.get_sex);
+        getImage = (ImageView)findViewById(R.id.get_image);
         signoutButton = (Button) findViewById(R.id.signout_button) ;
         shareButton = (Button) findViewById(R.id.share_button);
         signoutButton.setOnClickListener(this);
@@ -110,6 +114,11 @@ ProfileDetailsActivity extends AppCompatActivity implements View.OnClickListener
                                 getEmail.setText(mAuth.getCurrentUser().getEmail());
                                 Log.d(TAG, "sex" + dataSnapshot.child(user_id).child("sex").getValue());
                                 getSex.setText(dataSnapshot.child(user_id).child("sex").getValue().toString());
+                                if(dataSnapshot.child(user_id).child("profileImage").getValue() == null){
+
+                                }else{
+                                    Picasso.with(getApplicationContext()).load(dataSnapshot.child(user_id).child("profileImage").getValue().toString()).into(getImage);
+                                }
                             }
 
                         }

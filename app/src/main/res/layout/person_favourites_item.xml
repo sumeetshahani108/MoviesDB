@@ -20,7 +20,6 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                app:srcCompat="@mipmap/add_btn"
                 android:id="@+id/favourites_image" />
 
             <TextView

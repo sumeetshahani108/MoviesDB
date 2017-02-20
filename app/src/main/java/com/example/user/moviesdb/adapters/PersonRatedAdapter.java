@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.moviesdb.R;
 import com.example.user.moviesdb.data.PersonRated;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -25,8 +27,10 @@ public class PersonRatedAdapter extends RecyclerView.Adapter<PersonRatedAdapter.
     private LayoutInflater inflater;
     private List<PersonRated> listData = new ArrayList<>();
     private static final String TAG = "PersonRatedAdapter";
+    private Context c;
 
     public PersonRatedAdapter(Context c){
+        this.c = c;
         inflater = LayoutInflater.from(c);
     }
 
@@ -41,7 +45,8 @@ public class PersonRatedAdapter extends RecyclerView.Adapter<PersonRatedAdapter.
     public void onBindViewHolder(PersonRatedAdapter.PersonRatedViewHolder holder, int position) {
         PersonRated item = listData.get(position);
         holder.movie_name.setText(item.getMovie_title());
-        holder.movie_rating.setText(Integer.toString(item.getMovie_ratings())+ "/5");
+        holder.movie_rating.setText(Integer.toString(item.getRating())+ "/5");
+        Picasso.with(this.c).load("http://image.tmdb.org/t/p/w185/"+item.getMovie_poster()).into(holder.imageView);
     }
 
     @Override
@@ -61,10 +66,12 @@ public class PersonRatedAdapter extends RecyclerView.Adapter<PersonRatedAdapter.
 
         TextView movie_name;
         TextView movie_rating;
+        ImageView imageView;
 
         public PersonRatedViewHolder(View itemView){
             super(itemView);
             movie_name = (TextView)itemView.findViewById(R.id.rate_movie_title);
+            imageView = (ImageView) itemView.findViewById(R.id.rate_movie_image);
             movie_rating = (TextView)itemView.findViewById(R.id.movie_rating);
         }
 

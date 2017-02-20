@@ -6,17 +6,17 @@ package com.example.user.moviesdb.data;
 
 public class PersonRated {
     private String movie_title;
-    private String movie_poster_path;
+    private String movie_poster;
     private int rating;
 
     public PersonRated(){
 
     }
 
-    public PersonRated(String movie_title, String movie_poster_path,int movie_ratings ) {
+    public PersonRated(String movie_title, String movie_poster,int rating ) {
         this.movie_title = movie_title;
-        this.movie_poster_path = movie_poster_path;
-        this.rating = movie_ratings;
+        this.movie_poster = movie_poster;
+        this.rating = rating;
     }
 
     public String getMovie_title() {
@@ -27,19 +27,19 @@ public class PersonRated {
         this.movie_title = movie_title;
     }
 
-    public int getMovie_ratings() {
+    public int getRating() {
         return rating;
     }
 
-    public void setMovie_ratings(int movie_ratings) {
-        this.rating = movie_ratings;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
-    public String getMovie_poster_path() {
-        return movie_poster_path;
+    public String getMovie_poster() {
+        return movie_poster;
     }
 
-    public void setMovie_poster_path(String movie_poster_path) {
-        this.movie_poster_path = movie_poster_path;
+    public void setMovie_poster(String movie_poster) {
+        this.movie_poster = movie_poster;
     }
 }

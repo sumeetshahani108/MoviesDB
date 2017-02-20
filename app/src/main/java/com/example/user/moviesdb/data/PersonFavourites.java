@@ -6,15 +6,15 @@ package com.example.user.moviesdb.data;
 
 public class PersonFavourites {
     private String movie_title;
-    private String movie_poster_path;
+    private String movie_poster;
 
     public PersonFavourites(){
 
     }
 
-    public PersonFavourites(String movie_title, String movie_poster_path) {
+    public PersonFavourites(String movie_title, String movie_poster) {
         this.movie_title = movie_title;
-        this.movie_poster_path = movie_poster_path;
+        this.movie_poster = movie_poster;
     }
 
     public String getMovie_title() {
@@ -25,11 +25,11 @@ public class PersonFavourites {
         this.movie_title = movie_title;
     }
 
-    public String getMovie_poster_path() {
-        return movie_poster_path;
+    public String getMovie_poster() {
+        return movie_poster;
     }
 
-    public void setMovie_poster_path(String movie_poster_path) {
-        this.movie_poster_path = movie_poster_path;
+    public void setMovie_poster(String movie_poster) {
+        this.movie_poster = movie_poster;
     }
 }
